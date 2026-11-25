@@ -1,0 +1,869 @@
+<ng-template #surveyYearFilter>
+  @if (hasSearchYearsError()) {
+    <div class="alert alert-danger" role="alert">
+      {{ 'page.institution.journalList.searchYearsError' | transloco }}
+      <button type="button" class="btn btn-primary ms-2" (click)="loadSearchYears()">
+        {{ 'page.institution.journalList.retrySearch' | transloco }}
+      </button>
+    </div>
+  } @else if (isSearchYearsReady()) {
+    <div class="d-flex align-items-center gap-2" data-testid="journal-search-year">
+      <label for="surveyYear" class="form-label mb-0 text-nowrap">{{
+        'page.institution.journalList.surveyYear' | transloco
+      }}</label>
+      @if (availableSearchYears().length > 1) {
+        <select
+          #yearSelect
+          id="surveyYear"
+          class="form-select fs-5 flex-grow-1"
+          [style.height]="'var(--journal-search-control-height)'"
+          style="min-width: 6rem"
+          (change)="selectSurveyYear(yearSelect.value)"
+        >
+          @for (year of availableSearchYears(); track year) {
+            <option [value]="year" [selected]="year === selectedSurveyYear()">{{ year }}</option>
+          }
+        </select>
+      } @else {
+        <span
+          class="form-control fs-5 flex-grow-1"
+          [style.height]="'var(--journal-search-control-height)'"
+          >{{ selectedSurveyYear() }}</span
+        >
+      }
+    </div>
+  }
+</ng-template>
+<ng-template #icvFilters>
+  <div class="col-md-6 col-lg-3">
+    <div class="form-check form-switch icv-toggle d-flex align-items-center">
+      <input
+        id="indexedJournals"
+        type="checkbox"
+        role="switch"
+        class="form-check-input"
+        [checked]="filterForm.controls.ratingStatus.value === 'INDEXED'"
+        (change)="toggleIcvStatus('INDEXED')"
+      />
+      <label class="form-check-label ms-2 fs-5" for="indexedJournals">{{
+        'page.institution.journalList.indexedJournals' | transloco
+      }}</label>
+    </div>
+  </div>
+  <fieldset
+    class="col-md-6 col-lg-3 icv-range"
+    tabindex="-1"
+    [class.icv-range-disabled]="!isIcvFilterEnabled()"
+    [attr.aria-invalid]="hasIcvRangeError()"
+    [attr.aria-describedby]="hasIcvRangeError() ? 'icvRangeError' : null"
+  >
+    <legend class="visually-hidden">
+      {{ 'page.institution.journalList.icvRange' | transloco }}
+    </legend>
+    <div class="journal-icv-slider">
+      <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+        <span class="text-muted">{{ 'page.institution.journalList.icvRange' | transloco }}</span>
+        <strong>{{ icvRange().from }} - {{ icvRange().to }}</strong>
+      </div>
+      @if (hasIcvSliderRange()) {
+        <div
+          #icvRangeSlider
+          class="icv-range-slider"
+          [attr.aria-disabled]="!isIcvFilterEnabled()"
+          [attr.aria-label]="'page.institution.journalList.icvPointsRange' | transloco"
+        ></div>
+      }
+      <div class="d-flex justify-content-between text-muted small mt-2">
+        <span
+          >{{ 'page.institution.journalList.minimumLabel' | transloco }}
+          {{ icvSliderMin() ?? '—' }}</span
+        >
+        <span
+          >{{ 'page.institution.journalList.maximumLabel' | transloco }}
+          {{ icvSliderMax() ?? '—' }}</span
+        >
+      </div>
+    </div>
+    @if (hasIcvRangeError()) {
+      <p id="icvRangeError" class="text-danger small mt-2" role="alert">
+        {{ 'page.institution.journalList.' + icvRangeErrorKey() | transloco }}
+      </p>
+    }
+  </fieldset>
+  <div class="col-md-6 col-lg-3 d-flex flex-column gap-2">
+    <div class="form-check form-switch icv-toggle d-flex align-items-center">
+      <input
+        id="notIndexedJournals"
+        type="checkbox"
+        role="switch"
+        class="form-check-input"
+        [checked]="filterForm.controls.ratingStatus.value === 'NOT_INDEXED'"
+        (change)="toggleIcvStatus('NOT_INDEXED')"
+      />
+      <button
+        type="button"
+        class="btn btn-link journal-status-info ms-2 p-0 fs-5 lh-1 flex-shrink-0 text-decoration-none"
+        [ngbTooltip]="'page.institution.journalList.notIndexedJournalsTooltip' | transloco"
+        [popperOptions]="tooltipPopperOptions"
+        [attr.aria-label]="'page.institution.journalList.notIndexedJournalsTooltip' | transloco"
+        [animation]="false"
+        placement="top"
+        container="body"
+      >
+        <i class="ri-information-line pe-none" aria-hidden="true"></i>
+      </button>
+      <label class="form-check-label ms-1 fs-5" for="notIndexedJournals">{{
+        'page.institution.journalList.notIndexedJournals' | transloco
+      }}</label>
+    </div>
+    <div class="form-check form-switch icv-toggle d-flex align-items-center">
+      <input
+        id="notEvaluatedJournals"
+        type="checkbox"
+        role="switch"
+        class="form-check-input"
+        [checked]="filterForm.controls.ratingStatus.value === 'NOT_EVALUATED'"
+        (change)="toggleIcvStatus('NOT_EVALUATED')"
+      />
+      <button
+        type="button"
+        class="btn btn-link journal-status-info ms-2 p-0 fs-5 lh-1 flex-shrink-0 text-decoration-none"
+        [ngbTooltip]="'page.institution.journalList.notEvaluatedJournalsTooltip' | transloco"
+        [popperOptions]="tooltipPopperOptions"
+        [attr.aria-label]="'page.institution.journalList.notEvaluatedJournalsTooltip' | transloco"
+        [animation]="false"
+        placement="top"
+        container="body"
+      >
+        <i class="ri-information-line pe-none" aria-hidden="true"></i>
+      </button>
+      <label class="form-check-label ms-1 fs-5" for="notEvaluatedJournals">{{
+        'page.institution.journalList.notEvaluatedJournals' | transloco
+      }}</label>
+    </div>
+  </div>
+</ng-template>
+<ng-template #mainSearchForm>
+  <form
+    id="journal-search-form"
+    [attr.data-testid]="isBasic ? 'journal-basic-form' : null"
+    [formGroup]="filterForm"
+    (ngSubmit)="applyFilters()"
+    class="journal-main-filters"
+    [attr.aria-label]="'page.institution.journalList.mainFilters' | transloco"
+  >
+    <div
+      app-journal-search-fields
+      class="row g-3 align-items-start"
+      [form]="filterForm"
+      [countries]="countrySelectOptions()"
+      [languages]="languageSelectOptions()"
+      [countryLoading]="isCountryOptionsLoading()"
+      [languageLoading]="isLanguageOptionsLoading()"
+      [countryError]="hasCountryOptionsError()"
+      [languageError]="hasLanguageOptionsError()"
+      (codesChange)="setDictionaryCodes($event.field, $event.codes)"
+    >
+      <div surveyYearFilter class="col-xxl-2 col-md-6">
+        <ng-container [ngTemplateOutlet]="surveyYearFilter" />
+      </div>
+    </div>
+    <div class="row g-3 mt-0" data-testid="journal-rating-filters">
+      <div class="col-12" data-testid="journal-header-icv">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-6 col-lg-3">
+            <span class="visually-hidden">{{
+              'page.institution.journalList.disciplines' | transloco
+            }}</span>
+            <div class="journal-main-control">
+              <app-multi-value-select
+                data-testid="jml-disciplines"
+                [searchable]="true"
+                [showSelection]="false"
+                [searchLabel]="'page.institution.journalList.searchDisciplines' | transloco"
+                [clearLabel]="'common.clear' | transloco"
+                [emptyLabel]="'page.institution.journalList.noDisciplinesFound' | transloco"
+                [options]="disciplineSelectOptions()"
+                [value]="filterForm.controls.disciplineCodes.value"
+                [label]="'page.institution.journalList.disciplines' | transloco"
+                [removeLabel]="'page.institution.journalList.removeSelection' | transloco"
+                [controlHeight]="'var(--journal-search-control-height)'"
+                (valueChange)="setDisciplineCodes($event)"
+              />
+              @if (isDisciplineOptionsLoading()) {
+                <small class="text-muted d-block">{{
+                  'page.institution.journalList.loadingDisciplines' | transloco
+                }}</small>
+              }
+              @if (hasDisciplineOptionsError()) {
+                <small class="text-danger d-block" role="alert">{{
+                  'page.institution.journalList.disciplinesLoadError' | transloco
+                }}</small>
+              }
+            </div>
+          </div>
+          <ng-container [ngTemplateOutlet]="icvFilters" />
+        </div>
+      </div>
+      <fieldset class="col-12 border-0" data-main-group="mnisw">
+        <legend class="visually-hidden">
+          {{ 'page.institution.journalList.mniswFilters' | transloco }}
+        </legend>
+        <div class="row g-3 align-items-center">
+          <div class="col-md-6 col-lg-3">
+            <label class="d-flex align-items-center gap-2 mb-0">
+              <input
+                id="mniswOnly"
+                type="checkbox"
+                formControlName="mniswOnly"
+                class="form-check-input flex-shrink-0"
+                (change)="onMniswToggle()"
+              />
+              <span>{{ 'page.institution.journalList.mniswOnly' | transloco }}</span>
+            </label>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <fieldset
+              class="border-0 p-0 mb-0"
+              [disabled]="
+                !filterForm.controls.mniswOnly.value ||
+                isMniswDisciplineOptionsLoading() ||
+                hasMniswDisciplineOptionsError()
+              "
+            >
+              <app-multi-value-select
+                data-testid="mnisw-disciplines"
+                [searchable]="true"
+                [showSelection]="false"
+                [searchLabel]="'page.institution.journalList.searchDisciplines' | transloco"
+                [clearLabel]="'common.clear' | transloco"
+                [emptyLabel]="'page.institution.journalList.noDisciplinesFound' | transloco"
+                [options]="mniswDisciplineSelectOptions()"
+                [value]="filterForm.controls.mniswDisciplineCodes.value"
+                [label]="'page.institution.journalList.mniswDisciplines' | transloco"
+                [removeLabel]="'page.institution.journalList.removeSelection' | transloco"
+                [controlHeight]="'var(--journal-search-control-height)'"
+                (valueChange)="setMniswDisciplineCodes($event)"
+              />
+            </fieldset>
+            @if (isMniswDisciplineOptionsLoading()) {
+              <p class="text-muted small" role="status">
+                {{ 'page.institution.journalList.loadingMniswDisciplines' | transloco }}
+              </p>
+            }
+            @if (hasMniswDisciplineOptionsError()) {
+              <p class="text-danger small" role="alert">
+                {{ 'page.institution.journalList.mniswDisciplinesLoadError' | transloco }}
+              </p>
+              <button
+                type="button"
+                class="btn btn-link btn-sm px-0"
+                (click)="loadMniswDisciplineOptions()"
+              >
+                {{ 'page.institution.journalList.reloadMniswDisciplines' | transloco }}
+              </button>
+            }
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <app-journal-range-filter
+              [minimum]="filterForm.controls.mniswPointsFrom"
+              [maximum]="filterForm.controls.mniswPointsTo"
+              minimumId="mniswPointsFrom"
+              maximumId="mniswPointsTo"
+              [discrete]="true"
+              [showBounds]="false"
+              labelClass="visually-hidden"
+              [choices]="mniswPointClasses()"
+              [disabled]="
+                !filterForm.controls.mniswOnly.value ||
+                isSearchMetadataLoading() ||
+                hasSearchMetadataError() ||
+                mniswPointClasses().length === 0
+              "
+              [label]="'page.institution.journalList.mniswPointsRange' | transloco"
+              [minimumLabel]="'page.institution.journalList.minimumLabel' | transloco"
+              [maximumLabel]="'page.institution.journalList.maximumLabel' | transloco"
+              [unrestrictedLabel]="'page.institution.journalList.mniswUnrestricted' | transloco"
+              [unavailableLabel]="'page.institution.journalList.mniswUnavailablePoint' | transloco"
+              [invalid]="hasMniswRangeError()"
+              [describedBy]="hasMniswRangeError() ? 'mniswRangeError' : null"
+            />
+            @if (hasMniswRangeError()) {
+              <p id="mniswRangeError" class="text-danger small mt-2" role="alert">
+                {{ 'page.institution.journalList.mniswRangeError' | transloco }}
+              </p>
+            }
+          </div>
+          <div class="col-md-6 col-lg-3 journal-main-actions d-flex flex-row gap-2">
+            <button
+              type="submit"
+              class="btn btn-primary fs-5"
+              data-testid="journal-search-submit"
+            >
+              <i class="ri-search-line" aria-hidden="true"></i>
+              {{ 'page.institution.journalList.search' | transloco }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-soft-dark fs-5"
+              data-testid="journal-search-clear"
+              (click)="resetFilters()"
+            >
+              <i class="ri-filter-off-line" aria-hidden="true"></i>
+              {{ 'page.institution.journalList.clearFilters' | transloco }}
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </form></ng-template
+>
+<ng-template #sortControl
+  ><div class="journal-results-sort">
+    <label for="journalSort" class="form-label mb-0">{{
+      'page.institution.journalList.sort' | transloco
+    }}</label>
+    <select
+      id="journalSort"
+      [formControl]="filterForm.controls.sortBy"
+      class="form-select w-auto fs-5"
+      (change)="changeSort()"
+    >
+      @for (sortOption of visibleSortOptions; track sortOption.value) {
+        <option [value]="sortOption.value">{{ sortOption.labelKey | transloco }}</option>
+      }
+    </select>
+  </div></ng-template
+>
+@if (isBasic) {
+  <section class="row" aria-labelledby="journal-basic-heading" data-testid="journal-basic-layout">
+    <div class="col-xl-12">
+      <div class="card">
+        <header
+          class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2"
+        >
+          <h1 id="journal-basic-heading" class="card-title h4 mb-0 flex-grow-1">
+            {{ 'page.institution.journalList.title' | transloco }}
+          </h1>
+          @if (isQuestionnaireReportAvailable()) {
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-testid="questionnaire-report-download"
+              [disabled]="isQuestionnaireReportDownloading()"
+              [attr.aria-busy]="isQuestionnaireReportDownloading()"
+              (click)="downloadQuestionnaireReport2024()"
+            >
+              @if (isQuestionnaireReportDownloading()) {
+                <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+              } @else {
+                <i class="ri-file-excel-2-line align-bottom me-1" aria-hidden="true"></i>
+              }
+              {{ 'page.institution.journalList.downloadQuestionnaireReport' | transloco }}
+            </button>
+          }
+        </header>
+        <div class="card-body">
+          <p class="text-muted m-0">{{ 'page.institution.journalList.description' | transloco }}</p>
+          @if (hasQuestionnaireReportDownloadError()) {
+            <p class="text-danger mb-0 mt-2" role="alert">
+              {{ 'page.institution.journalList.downloadQuestionnaireReportError' | transloco }}
+            </p>
+          }
+        </div>
+        <div class="card-body border border-dashed border-end-0 border-start-0 bg-light mb-3">
+          <ng-container [ngTemplateOutlet]="mainSearchForm" />
+          @if (hasSearchMetadataError()) {
+            <p id="journal-search-metadata-error" class="text-danger small mt-2" role="alert">
+              {{ 'page.institution.journalList.searchMetadataError' | transloco }}
+            </p>
+            <button
+              type="button"
+              class="btn btn-link"
+              data-testid="journal-search-metadata-retry"
+              aria-describedby="journal-search-metadata-error"
+              (click)="loadSearchMetadata()"
+            >
+              {{ 'page.institution.journalList.retrySearchMetadata' | transloco }}
+            </button>
+          }
+        </div>
+        <div
+          class="card-body pt-0 journal-search-content"
+          role="region"
+          tabindex="-1"
+          [attr.aria-label]="'page.institution.journalList.resultsLabel' | transloco"
+        >
+          <div class="d-flex justify-content-end mb-3"><ng-container [ngTemplateOutlet]="sortControl" /></div>
+          @if (hasError()) {
+            <app-aler-data [message]="'page.institution.journalList.loadError' | transloco" />
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-testid="journal-search-retry"
+              (click)="retrySearch()"
+            >
+              {{ 'page.institution.journalList.retrySearch' | transloco }}
+            </button>
+          } @else if (isLoading()) {
+            <app-local-spinner
+              [height]="200"
+              [overlay]="false"
+              [text]="'page.institution.journalList.loading' | transloco"
+            />
+          } @else {
+            @for (journal of items(); track trackByJournal($index, journal)) {
+              <app-journal-basic-result
+                [surveyYear]="selectedSurveyYear()"
+                [journal]="journal"
+                [icvYear]="currentIcvYear()"
+                [previousIcvYear]="previousIcvYear()"
+                [priority]="$first"
+                [navigationState]="detailsNavigationState"
+                [decisionCardAvailable]="decisionCardAvailable"
+                (detailsClick)="rememberForDetails($event, journal.id)"
+                (issuesClick)="recordIssuesClick($event, journal.id)"
+              />
+            } @empty {
+              <div class="text-muted py-4" role="status" data-testid="journal-search-empty">
+                {{ 'page.institution.journalList.empty' | transloco }}
+              </div>
+            }
+          }
+        </div>
+        @if (!isLoading() && !hasError()) {
+          <div class="card-body pt-0">
+            <app-list-paging
+              [page]="page()"
+              [totalPages]="totalPages()"
+              [totalElements]="totalElements()"
+              [size]="size()"
+              [canGoPrevious]="canGoPrevious()"
+              [canGoNext]="canGoNext()"
+              [pageSizeOptions]="[10]"
+              (previousPage)="goToPage(page() - 1)"
+              (nextPage)="goToPage(page() + 1)"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+<section class="journal-search-page" aria-labelledby="journal-search-heading">
+  <div class="card journal-search-header">
+    <header class="card-header journal-search-intro">
+      <h1
+        id="journal-search-heading"
+        class="card-title mb-0 flex-grow-1 fs-4 fw-semibold journal-search-title"
+      >
+        {{ 'page.institution.journalList.title' | transloco }}
+      </h1>
+      @if (isQuestionnaireReportAvailable()) {
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-testid="questionnaire-report-download"
+          [disabled]="isQuestionnaireReportDownloading()"
+          [attr.aria-busy]="isQuestionnaireReportDownloading()"
+          (click)="downloadQuestionnaireReport2024()"
+        >
+          @if (isQuestionnaireReportDownloading()) {
+            <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+          } @else {
+            <i class="ri-file-excel-2-line align-bottom me-1" aria-hidden="true"></i>
+          }
+          {{ 'page.institution.journalList.downloadQuestionnaireReport' | transloco }}
+        </button>
+      }
+    </header>
+    <div class="card-body bg-light">
+      @if (hasQuestionnaireReportDownloadError()) {
+        <p class="text-danger mb-3" role="alert">
+          {{ 'page.institution.journalList.downloadQuestionnaireReportError' | transloco }}
+        </p>
+      }
+      <ng-container [ngTemplateOutlet]="mainSearchForm" />
+    </div>
+  </div>
+
+  <div class="journal-search-layout">
+    @if (compactFilters()) {
+      <button
+        type="button"
+        class="btn btn-soft-dark journal-open-filters d-inline-flex align-items-center gap-2 flex-wrap"
+        data-testid="journal-open-filters"
+        aria-haspopup="dialog"
+        (click)="openFilterPanel()"
+      >
+        <i class="ri-filter-3-line" aria-hidden="true"></i>
+        {{ 'page.institution.journalList.filtersLabel' | transloco }}
+        @if (hasUnappliedChanges()) {
+          <span class="small">{{
+            'page.institution.journalList.unappliedChanges' | transloco
+          }}</span>
+        }
+      </button>
+    }
+    <app-journal-filter-panel [compact]="compactFilters()">
+      <aside
+        [formGroup]="filterForm"
+        class="card journal-advanced-filters"
+        [attr.aria-label]="'page.institution.journalList.advancedFilters' | transloco"
+      >
+        <div
+          class="journal-filters-heading d-flex align-items-center justify-content-between flex-shrink-0 gap-2"
+        >
+          <h2 id="journal-filters-heading" class="h5 mb-0">
+            {{ 'page.institution.journalList.filtersLabel' | transloco }}
+          </h2>
+          @if (compactFilters()) {
+            <button
+              type="button"
+              class="btn-close"
+              data-testid="journal-close-filters"
+              [attr.aria-label]="'page.institution.journalList.cancelFilters' | transloco"
+              (click)="cancelFilterPanel()"
+            ></button>
+          }
+        </div>
+        <div
+          #filterOptions
+          class="journal-filter-options"
+          role="region"
+          aria-labelledby="journal-filters-heading"
+        >
+          <details data-advanced-group="repositories">
+            <summary>{{ 'page.institution.journalList.repositories' | transloco }}</summary>
+            <div class="journal-advanced-body">
+              <app-journal-non-fee-filters
+                section="indexation"
+                [form]="filterForm.controls.nonFeeFilters"
+                [metadata]="searchMetadata()"
+                [counts]="visibleSearchCounts()"
+                [hasValidationError]="hasNonFeeFilterError()"
+              />
+            </div>
+          </details>
+          <details data-advanced-group="processing">
+            <summary>{{ 'page.institution.journalList.processingTimesGroup' | transloco }}</summary>
+            <div class="journal-advanced-body">
+              @for (group of processingFilterGroups; track group.maximum) {
+                <fieldset class="mb-3">
+                  <legend class="form-label" style="font-size: var(--vz-body-font-size)">{{
+                    'page.institution.journalList.' + group.labelKey | transloco
+                  }}</legend>
+                  <div class="row g-2">
+                    @for (bound of [
+                      { field: group.minimum, labelKey: 'minimumLabel' },
+                      { field: group.maximum, labelKey: 'maximumLabel' }
+                    ]; track bound.field) {
+                      <div class="col-6">
+                        <label [for]="bound.field" class="form-label small">{{
+                          'page.institution.journalList.' + bound.labelKey | transloco
+                        }}</label>
+                        <div class="input-group">
+                          <input
+                            [id]="bound.field"
+                            [formControlName]="bound.field"
+                            type="text"
+                            inputmode="numeric"
+                            class="form-control"
+                            [attr.aria-invalid]="hasProcessingRangeError()"
+                            [attr.aria-describedby]="
+                              hasProcessingRangeError() ? 'processingRangeError' : null
+                            "
+                          />
+                          <span class="input-group-text">{{
+                            'page.institution.journalList.daysUnit' | transloco
+                          }}</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </fieldset>
+              }
+              @if (hasProcessingRangeError()) {
+                <p id="processingRangeError" class="text-danger small" role="alert">
+                  {{ 'page.institution.journalList.invalidSurveyRanges' | transloco }}
+                </p>
+              }
+            </div>
+          </details>
+          <details data-advanced-group="fees">
+            <summary>{{ 'page.institution.journalList.feeGroup' | transloco }}</summary>
+            <div class="journal-advanced-body">
+              <app-journal-fee-filters
+                [form]="filterForm.controls.feeFilters"
+                [counts]="visibleSearchCounts()"
+                [hasValidationError]="hasFeeFilterError()"
+              />
+            </div>
+          </details>
+          <details data-advanced-group="process">
+            <summary>
+              {{ 'page.institution.journalList.publicationProcessGroup' | transloco }}
+            </summary>
+            <div class="journal-advanced-body">
+              <app-journal-non-fee-filters
+                section="process"
+                [form]="filterForm.controls.nonFeeFilters"
+                [metadata]="searchMetadata()"
+                [counts]="visibleSearchCounts()"
+                [hasValidationError]="hasNonFeeFilterError()"
+              >
+                <fieldset class="mt-3" [formGroup]="filterForm">
+                  <legend style="font-size: var(--vz-body-font-size)">
+                    {{ 'page.institution.journalList.rejectionRate' | transloco }}
+                  </legend>
+                  <div class="row g-2">
+                    @for (field of ['rejectionRateFrom', 'rejectionRateTo']; track field) {
+                      <div class="col-6">
+                        <label [for]="field" class="form-label small">{{
+                          (field === 'rejectionRateFrom'
+                            ? 'page.institution.journalList.minimumLabel'
+                            : 'page.institution.journalList.maximumLabel'
+                          ) | transloco
+                        }}</label>
+                        <div class="input-group">
+                          <input
+                            [id]="field"
+                            [formControlName]="field"
+                            type="text"
+                            inputmode="decimal"
+                            class="form-control"
+                            [attr.aria-invalid]="hasProcessRangeError()"
+                            [attr.aria-describedby]="
+                              hasProcessRangeError() ? 'processRangeError' : null
+                            "
+                          />
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                  @if (hasProcessRangeError()) {
+                    <p id="processRangeError" class="text-danger small mt-2" role="alert">
+                      {{ 'page.institution.journalList.invalidSurveyRanges' | transloco }}
+                    </p>
+                  }
+                </fieldset>
+              </app-journal-non-fee-filters>
+            </div>
+          </details>
+          <details data-advanced-group="standards">
+            <summary>
+              {{ 'page.institution.journalList.editorialStandardsGroup' | transloco }}
+            </summary>
+            <div class="journal-advanced-body">
+              <app-journal-non-fee-filters
+                section="standards"
+                [form]="filterForm.controls.nonFeeFilters"
+                [metadata]="searchMetadata()"
+                [counts]="visibleSearchCounts()"
+                [hasValidationError]="hasNonFeeFilterError()"
+              />
+            </div>
+          </details>
+          <details data-advanced-group="cooperation">
+            <summary>{{ 'page.institution.journalList.cooperationGroup' | transloco }}</summary>
+            <div class="journal-advanced-body">
+              @for (group of cooperationFilterGroups; track group.maximum) {
+                <app-journal-range-filter
+                  class="mb-3"
+                  labelClass="small"
+                  [minimum]="filterForm.controls[group.minimum]"
+                  [maximum]="filterForm.controls[group.maximum]"
+                  [minimumId]="group.minimum"
+                  [maximumId]="group.maximum"
+                  [label]="'page.institution.journalList.' + group.labelKey | transloco"
+                  [minimumLabel]="'page.institution.journalList.minimumLabel' | transloco"
+                  [maximumLabel]="'page.institution.journalList.maximumLabel' | transloco"
+                  [unrestrictedLabel]="'page.institution.journalList.unrestricted' | transloco"
+                  [invalid]="hasCooperationRangeError()"
+                  [describedBy]="hasCooperationRangeError() ? 'cooperationRangeError' : null"
+                  unit="%"
+                />
+              }
+              @if (hasCooperationRangeError()) {
+                <p id="cooperationRangeError" class="text-danger small" role="alert">
+                  {{ 'page.institution.journalList.invalidSurveyRanges' | transloco }}
+                </p>
+              }
+            </div>
+          </details>
+        </div>
+        <div
+          class="journal-filter-actions d-flex flex-column flex-shrink-0 gap-2 border-top"
+          data-testid="journal-filter-actions"
+        >
+          @if (isSearchCountsLoading() && !hasUnappliedChanges()) {
+            <p class="text-muted small mb-0" role="status" data-testid="journal-counts-loading">
+              {{ 'page.institution.journalList.loadingSearchCounts' | transloco }}
+            </p>
+          } @else if (hasSearchCountsError()) {
+            <p class="text-danger small mb-0" role="alert">
+              {{ 'page.institution.journalList.searchCountsError' | transloco }}
+              <button type="button" class="btn btn-link btn-sm" (click)="loadSearchCounts(true)"
+                data-testid="journal-counts-retry">
+                {{ 'page.institution.journalList.retrySearchMetadata' | transloco }}
+              </button>
+            </p>
+          } @else if (visibleSearchCounts()) {
+            <p class="text-muted small mb-0" data-testid="journal-counts-explanation">
+              {{ 'page.institution.journalList.searchCountsExplanation' | transloco }}
+            </p>
+          }
+          @if (isSearchMetadataLoading()) {
+            <p class="text-muted small mb-0" role="status">
+              {{ 'page.institution.journalList.loadingSearchMetadata' | transloco }}
+            </p>
+          }
+          @if (hasSearchMetadataError()) {
+            <p id="journal-search-metadata-error" class="text-danger small mb-0" role="alert">
+              {{ 'page.institution.journalList.searchMetadataError' | transloco }}
+            </p>
+          }
+          <p id="journal-filter-state" class="text-muted small mb-0">
+            {{
+              (hasUnappliedChanges()
+                ? 'page.institution.journalList.unappliedChanges'
+                : 'page.institution.journalList.filtersApplied'
+              ) | transloco
+            }}
+          </p>
+          <button
+            type="button"
+            class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center gap-2"
+            data-testid="journal-apply-filters"
+            [disabled]="!hasUnappliedChanges() || isLoading()"
+            [attr.aria-busy]="isLoading()"
+            aria-describedby="journal-filter-state"
+            (click)="applyPanelFilters()"
+          >
+            @if (isLoading()) {
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            } @else {
+              <i class="ri-check-line" aria-hidden="true"></i>
+            }
+            {{ 'page.institution.journalList.applyFilters' | transloco }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-soft-dark w-100 d-inline-flex align-items-center justify-content-center gap-2"
+            data-testid="journal-panel-clear"
+            (click)="clearPanelFilters()"
+          >
+            <i class="ri-filter-off-line" aria-hidden="true"></i>
+            {{ 'page.institution.journalList.clearFilters' | transloco }}
+          </button>
+          @if (hasSearchMetadataError()) {
+            <button
+              type="button"
+              class="btn btn-link btn-sm w-100"
+              data-testid="journal-search-metadata-retry"
+              aria-describedby="journal-search-metadata-error"
+              [disabled]="isSearchMetadataLoading()"
+              (click)="loadSearchMetadata()"
+            >
+              {{ 'page.institution.journalList.retrySearchMetadata' | transloco }}
+            </button>
+          }
+        </div>
+      </aside>
+    </app-journal-filter-panel>
+    <div
+      class="card card-body mb-0 journal-search-content"
+      role="region"
+      tabindex="-1"
+      [attr.aria-label]="'page.institution.journalList.resultsLabel' | transloco"
+    >
+      <app-journal-applied-filters
+        [chips]="appliedFilterChips()"
+        [labels]="filterChipLabels()"
+        [pendingChanges]="hasUnappliedChanges()"
+        (remove)="removeAppliedFilter($event)"
+        (clear)="resetFilters()"
+      />
+      @if (showDefaultNotice()) {
+        <p class="alert alert-info" role="status" data-testid="journal-default-notice">
+          {{ 'page.institution.journalList.defaultNotice' | transloco }}
+        </p>
+      }
+      @if (totalElements() > 0) {
+        <div class="journal-results-toolbar" [attr.aria-busy]="isLoading()">
+          <h2 class="h5 mb-0" aria-live="polite" aria-atomic="true">
+            {{
+              'page.institution.journalList.resultsCount' | transloco: { count: totalElements() }
+            }}
+          </h2>
+          <ng-container [ngTemplateOutlet]="sortControl" />
+        </div>
+      }
+      @if (hasError()) {
+        <div class="journal-result-status">
+          <app-aler-data
+            [message]="'page.institution.journalList.loadError' | transloco"
+          ></app-aler-data>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-testid="journal-search-retry"
+            (click)="retrySearch()"
+          >
+            {{ 'page.institution.journalList.retrySearch' | transloco }}
+          </button>
+        </div>
+      }
+
+      @if (isLoading()) {
+        <div class="journal-result-status">
+          <app-local-spinner
+            [height]="200"
+            [overlay]="false"
+            [text]="'page.institution.journalList.loading' | transloco"
+          ></app-local-spinner>
+        </div>
+      }
+      @if (!isLoading() && !hasError()) {
+        <div class="journal-results-list">
+          @if (items().length === 0) {
+            <div class="card" data-testid="journal-search-empty">
+              <div class="card-body text-muted" role="status">
+                {{ 'page.institution.journalList.empty' | transloco }}
+              </div>
+            </div>
+          }
+
+          @for (journal of items(); track trackByJournal($index, journal)) {
+            <app-journal-result-card
+              [surveyYear]="selectedSurveyYear()"
+              [journal]="journal"
+              [icvYear]="currentIcvYear()"
+              [previousIcvYear]="previousIcvYear()"
+              [priority]="$first"
+              [navigationState]="detailsNavigationState"
+                [decisionCardAvailable]="decisionCardAvailable"
+              (detailsClick)="rememberForDetails($event, journal.id)"
+              (issuesClick)="recordIssuesClick($event, journal.id)"
+            />
+          }
+        </div>
+
+        @if (totalElements() > 0) {
+          <app-journal-pagination
+            class="journal-results-pagination"
+            [page]="page()"
+            [pageSize]="query().size ?? 10"
+            [totalPages]="totalPages()"
+            [totalElements]="totalElements()"
+            [disabled]="isLoading()"
+            (pageChange)="goToPage($event)"
+            (pageSizeChange)="changePageSizeValue($event)"
+          />
+        }
+      }
+    </div>
+  </div>
+</section>
+}

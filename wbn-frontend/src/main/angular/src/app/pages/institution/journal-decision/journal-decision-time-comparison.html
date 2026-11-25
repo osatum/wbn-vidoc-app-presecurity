@@ -1,0 +1,71 @@
+<p class="time-label text-muted mb-0">{{ label() }}</p>
+<p class="time-own fw-semibold text-body-emphasis mb-0" data-testid="decision-own-days">
+  @if (days() != null) {
+    {{ dayKey() | transloco: { value: formattedDays() } }}
+  } @else {
+    {{ 'decisionCard.noData' | transloco }}
+  }
+</p>
+@if (chart(); as chart) {
+  <div class="time-chart">
+    <svg
+      viewBox="0 0 320 48"
+      role="img"
+      [attr.data-time-state]="chart.state"
+      [attr.aria-label]="
+        'decisionCard.time.chart.' + chart.state
+          | transloco: { value: formattedDays(), range: chart.range }
+      "
+    >
+      <line x1="20" y1="28" x2="300" y2="28" class="time-axis" />
+      @if (chart.left === chart.right) {
+        <line
+          [attr.x1]="chart.left"
+          y1="18"
+          [attr.x2]="chart.right"
+          y2="38"
+          class="time-equal-range"
+        />
+      } @else {
+        <rect
+          [attr.x]="chart.left"
+          y="18"
+          [attr.width]="chart.right - chart.left"
+          height="20"
+          rx="4"
+          class="time-range"
+        />
+      }
+      <path d="M20 24V32 M300 24V32" class="time-ticks" />
+      @switch (chart.state) {
+        @case ('below') {
+          <path
+            d="M46 28H22 M30 20L22 28L30 36"
+            class="time-marker"
+            data-testid="time-arrow-left"
+          />
+        }
+        @case ('above') {
+          <path
+            d="M274 28H298 M290 20L298 28L290 36"
+            class="time-marker"
+            data-testid="time-arrow-right"
+          />
+        }
+        @default {
+          <circle [attr.cx]="chart.point" cy="28" r="6" class="time-dot" data-testid="time-dot" />
+        }
+      }
+    </svg>
+    <div class="time-axis-labels text-muted">
+      <span>{{ formatNumber(chart.minimum) }}</span>
+      <span>{{ formatNumber(chart.maximum) }}</span>
+    </div>
+  </div>
+  <p class="time-typical mb-0" data-testid="decision-typical-time">
+    <span class="text-muted small d-block">{{ 'decisionCard.time.typical' | transloco }}</span>
+    <span class="fw-semibold text-body-emphasis">{{
+      chart.dayKey | transloco: { value: chart.range }
+    }}</span>
+  </p>
+}

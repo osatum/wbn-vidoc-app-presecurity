@@ -1,0 +1,38 @@
+<section class="row justify-content-center">
+
+
+  @if (institutions() != null) {
+    @for (inst of institutions(); track inst.id) {
+      <div class="col-lg-4 ">
+        <div class="card h-100" style="height: stretch">
+          <div class="card-header bg-success-subtle h-50" [ngClass]="{'bg-danger-subtle': isOperator(inst)}">
+            <h4 class="card-title mb-0">{{ inst.name }}</h4>
+            <p class="card-text text-muted"> {{ inst.description }}</p>
+          </div>
+          <div class="card-body">
+            <p class="card-text text-muted">
+              {{ 'page.auth.select.type' | transloco }}:
+              {{ institutionTypeLabelKey(inst.institutionType) | transloco }}
+            </p>
+          </div>
+          @for (mem of inst.memberships; track mem.id) {
+
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <div class="card-text mb-0">
+                <!-- Base Buttons -->
+                {{ 'page.auth.select.role' | transloco }}:
+                {{ roleLabelKey(mem.role) | transloco }}
+              </div>
+              <button type="button" (click)="select(inst.id, mem.id)" class="btn btn-primary waves-effect waves-light">
+                {{ 'page.auth.select.login' | transloco }}
+              </button>
+            </div>
+          }
+        </div>
+      </div><!-- end col -->
+    }
+  }
+
+
+</section>
+

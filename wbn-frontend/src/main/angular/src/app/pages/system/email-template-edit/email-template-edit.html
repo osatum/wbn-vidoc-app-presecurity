@@ -1,0 +1,189 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.email-template-edit.title' | transloco }}</h4>
+        <a type="button" class="btn btn-info btn-label" [routerLink]="returnUrl()">
+          <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+          {{ 'page.system.common.back' | transloco }}
+        </a>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.email-template-edit.description' | transloco }}</p>
+      </div>
+
+      @if (isLoading()) {
+
+        <div >
+          <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.email-template-edit.loading' | transloco"></app-local-spinner>
+        </div>
+
+      } @else if (hasError()) {
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.email-template-edit.load-error' | transloco"></app-aler-data>
+        </div>
+      } @else if (template(); as template) {
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <div class="card-body border-top">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                  <div>
+                    <h5 class="mb-1">{{ emailTypeLabelKey(template.emailType) | transloco }}</h5>
+                    <p class="text-muted mb-0">{{ template.emailType || '-' }}</p>
+                  </div>
+                  <span [class]="stateBadgeClass(template.state)">
+                    {{ stateLabelKey(template.state) | transloco }}
+                  </span>
+                </div>
+              </div>
+
+              @if (errorMessage()) {
+                <div class="col-12">
+                  <div class="alert border-0 alert-danger" role="alert">
+                    <p role="alert" class="mb-0">{{ errorMessage() }}</p>
+                  </div>
+                </div>
+              }
+
+              @if (fieldErrorEntries().length) {
+                <div class="col-12">
+                  <ul class="text-danger mb-0">
+                    @for (error of fieldErrorEntries(); track error[0]) {
+                      <li>{{ error[0] }}: {{ error[1] }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+
+              <div class="col-12 col-lg-7">
+                <label class="form-label" for="emailTemplateName">
+                  {{ 'page.system.email-template-list.name' | transloco }}
+                </label>
+                <input
+                  id="emailTemplateName"
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  [class.is-invalid]="form.controls.name.touched && form.controls.name.invalid"
+                />
+                @if (validationError('name'); as message) {
+                  <div class="text-danger small mt-1">{{ message }}</div>
+                }
+              </div>
+
+              <div class="col-12 col-sm-6 col-lg-2">
+                <label class="form-label" for="emailTemplateLanguage">
+                  {{ 'page.system.email-template-list.language' | transloco }}
+                </label>
+                <input
+                  id="emailTemplateLanguage"
+                  type="text"
+                  formControlName="language"
+                  class="form-control"
+                  [class.is-invalid]="form.controls.language.touched && form.controls.language.invalid"
+                />
+                @if (validationError('language'); as message) {
+                  <div class="text-danger small mt-1">{{ message }}</div>
+                }
+              </div>
+
+              <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label" for="emailTemplateState">
+                  {{ 'page.system.common.state' | transloco }}
+                </label>
+                <select
+                  id="emailTemplateState"
+                  formControlName="state"
+                  class="form-control"
+                  [class.is-invalid]="form.controls.state.touched && form.controls.state.invalid"
+                >
+                  @for (state of stateOptions; track state) {
+                    <option [value]="state">{{ stateLabelKey(state) | transloco }}</option>
+                  }
+                </select>
+                @if (validationError('state'); as message) {
+                  <div class="text-danger small mt-1">{{ message }}</div>
+                }
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="emailTemplateSubject">
+                  {{ 'page.system.email-template-list.subject' | transloco }}
+                </label>
+                <input
+                  id="emailTemplateSubject"
+                  type="text"
+                  formControlName="subject"
+                  class="form-control"
+                  [class.is-invalid]="form.controls.subject.touched && form.controls.subject.invalid"
+                />
+                @if (validationError('subject'); as message) {
+                  <div class="text-danger small mt-1">{{ message }}</div>
+                }
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="emailTemplateHtmlBody">
+                  {{ 'page.system.email-template-list.html-body' | transloco }}
+                </label>
+                <textarea
+                  id="emailTemplateHtmlBody"
+                  formControlName="htmlBody"
+                  class="form-control template-editor"
+                  [class.is-invalid]="form.controls.htmlBody.touched && form.controls.htmlBody.invalid"
+                ></textarea>
+                @if (validationError('htmlBody'); as message) {
+                  <div class="text-danger small mt-1">{{ message }}</div>
+                }
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="emailTemplateTextBody">
+                  {{ 'page.system.email-template-list.text-body' | transloco }}
+                </label>
+                <textarea
+                  id="emailTemplateTextBody"
+                  formControlName="textBody"
+                  class="form-control template-editor template-editor-sm"
+                ></textarea>
+              </div>
+
+              <div class="col-12">
+                <div class="placeholder-row">
+                  @for (placeholder of placeholders; track placeholder) {
+                    <code>{{ placeholder }}</code>
+                  }
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="template-preview">
+                  <h6 class="mb-2">{{ form.controls.subject.value || '-' }}</h6>
+                  <div class="template-preview-body" [innerHTML]="form.controls.htmlBody.value"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="d-flex flex-wrap gap-2">
+              <button type="submit" class="btn btn-success btn-label" [disabled]="isSaving()">
+                <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                {{ (isSaving() ? 'page.system.common.saving' : 'page.system.common.save') | transloco }}
+              </button>
+              <button type="button" class="btn btn-warning btn-label" (click)="resetForm()" [disabled]="isSaving()">
+                <i class="ri-restart-line label-icon align-middle fs-16 me-2"></i>
+                {{ 'page.system.email-template-edit.reset' | transloco }}
+              </button>
+              <a type="button" class="btn btn-soft-secondary btn-label" [routerLink]="returnUrl()">
+                <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                {{ 'page.system.common.cancel' | transloco }}
+              </a>
+            </div>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>

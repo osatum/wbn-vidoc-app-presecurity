@@ -1,0 +1,15 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.account-activation-log.title' | transloco }}</h4>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.account-activation-log.description' | transloco }}</p>
+      </div>
+      <app-account-activation-log-list
+        [emptyMessage]="'page.system.account-activation-log.empty' | transloco"
+      />
+    </div>
+  </div>
+</section>

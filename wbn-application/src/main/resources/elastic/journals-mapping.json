@@ -1,0 +1,258 @@
+{
+  "properties": {
+    "documentId": {
+      "type": "keyword"
+    },
+    "surveyYear": {
+      "type": "integer"
+    },
+    "fees": {
+      "type": "nested",
+      "properties": {
+        "category": { "type": "keyword" },
+        "type": { "type": "keyword" },
+        "selectionStatus": { "type": "keyword" },
+        "resolutionStatus": { "type": "keyword" },
+        "selection": { "type": "object", "enabled": false },
+        "details": { "type": "object", "enabled": false },
+        "noFee": { "type": "boolean" },
+        "comparable": { "type": "boolean" },
+        "amounts": {
+          "type": "nested",
+          "properties": {
+            "detailIndex": { "type": "integer" },
+            "value": { "type": "integer" },
+            "currency": { "type": "keyword" },
+            "description": { "type": "keyword", "index": false, "doc_values": false }
+          }
+        }
+      }
+    },
+    "titleSortContentIcu": {
+      "type": "icu_collation_keyword",
+      "index": false,
+      "language": "pl",
+      "country": "PL",
+      "strength": "primary",
+      "alternate": "shifted",
+      "numeric": true
+    },
+    "titleSortScriptRank": { "type": "integer" },
+    "doiType": { "type": "keyword" },
+    "editorialTools": { "type": "keyword" },
+    "socialMediaUsed": { "type": "boolean" },
+    "repositoryIds": { "type": "keyword" },
+    "articlePublishedLicense": { "type": "keyword" },
+    "paidArticle": { "type": "keyword" },
+    "aop": { "type": "boolean" },
+    "frequencyCode": { "type": "keyword" },
+    "reviewModels": { "type": "keyword" },
+    "firstIssueYear": { "type": "integer" },
+    "reviewDays": {
+      "type": "integer"
+    },
+    "initialAssessmentDays": {
+      "type": "integer"
+    },
+    "publicationDays": {
+      "type": "integer"
+    },
+    "rejectionRate": {
+      "type": "double"
+    },
+    "authorForeignAffiliationPercentage": {
+      "type": "double"
+    },
+    "reviewerForeignAffiliationPercentage": {
+      "type": "double"
+    },
+    "id": {
+      "type": "long"
+    },
+    "cover": {
+      "type": "keyword"
+    },
+    "countryCode": {
+      "type": "keyword",
+      "normalizer": "code_normalizer"
+    },
+    "doi": {
+      "type": "keyword",
+      "normalizer": "code_normalizer",
+      "fields": {
+        "normalized": {
+          "type": "text"
+        }
+      }
+    },
+    "warningCode": {
+      "type": "keyword"
+    },
+    "state": {
+      "type": "keyword"
+    },
+    "titles": {
+      "type": "nested",
+      "properties": {
+        "code": {
+          "type": "keyword",
+          "normalizer": "code_normalizer"
+        },
+        "content": {
+          "type": "text",
+          "analyzer": "edge_ngram_analyzer",
+          "search_analyzer": "standard",
+          "fields": {
+            "search": {
+              "type": "keyword",
+              "normalizer": "p1_text_normalizer"
+            },
+            "keyword": {
+              "type": "keyword"
+            },
+            "sort": {
+              "type": "keyword",
+              "normalizer": "sort_normalizer"
+            },
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edge_ngram_analyzer",
+              "search_analyzer": "standard"
+            }
+          }
+        },
+        "sortContent": {
+          "type": "keyword",
+          "normalizer": "sort_normalizer"
+        },
+        "sortContentIcu": {
+          "type": "icu_collation_keyword",
+          "index": false,
+          "language": "pl",
+          "country": "PL",
+          "strength": "primary",
+          "alternate": "shifted",
+          "numeric": true
+        },
+        "sortScriptRank": {
+          "type": "integer"
+        }
+      }
+    },
+    "issns": {
+      "type": "nested",
+      "properties": {
+        "type": {
+          "type": "keyword",
+          "normalizer": "code_normalizer"
+        },
+        "content": {
+          "type": "keyword",
+          "normalizer": "code_normalizer",
+          "fields": {
+            "search": {
+              "type": "keyword",
+              "normalizer": "p1_issn_normalizer"
+            },
+            "normalized": {
+              "type": "text",
+              "analyzer": "issn_pattern"
+            }
+          }
+        }
+      }
+    },
+    "institutions": {
+      "type": "nested",
+      "properties": {
+        "roleCode": {
+          "type": "keyword",
+          "normalizer": "code_normalizer"
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "edge_ngram_analyzer",
+          "search_analyzer": "standard",
+          "fields": {
+            "search": {
+              "type": "keyword",
+              "normalizer": "p1_text_normalizer"
+            },
+            "keyword": {
+              "type": "keyword"
+            },
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edge_ngram_analyzer",
+              "search_analyzer": "standard"
+            }
+          }
+        }
+      }
+    },
+    "languages": {
+      "type": "nested",
+      "properties": {
+        "code": {
+          "type": "keyword",
+          "normalizer": "code_normalizer"
+        }
+      }
+    },
+    "ratings": {
+      "type": "nested",
+      "properties": {
+        "valueStr": {
+          "type": "keyword"
+        },
+        "valueNum": {
+          "type": "double"
+        },
+        "ratingCode": {
+          "type": "keyword",
+          "normalizer": "code_normalizer"
+        },
+        "ratingStatus": {
+          "type": "keyword",
+          "normalizer": "code_normalizer"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "disciplines": {
+          "type": "nested",
+          "properties": {
+            "code": {
+              "type": "keyword",
+              "normalizer": "code_normalizer"
+            }
+          }
+        }
+      }
+    },
+    "scientificCategories": {
+      "type": "nested",
+      "properties": {
+        "code": {
+          "type": "keyword",
+          "normalizer": "code_normalizer"
+        }
+      }
+    },
+    "numberOfPublications": {
+      "type": "integer"
+    },
+    "percentFullText": {
+      "type": "integer"
+    },
+    "percentAbstracts": {
+      "type": "integer"
+    },
+    "percentKeywords": {
+      "type": "integer"
+    },
+    "percentReferences": {
+      "type": "integer"
+    }
+  }
+}

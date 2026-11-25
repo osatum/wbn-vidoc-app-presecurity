@@ -1,0 +1,71 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header d-flex align-items-center justify-content-between">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.email-template-list.title' | transloco }}</h4>
+        <button type="button" class="btn btn-soft-primary btn-label" (click)="loadTemplates()" [disabled]="isLoading()">
+          <i class="ri-refresh-line label-icon align-middle fs-16 me-2"></i>
+          {{ 'page.system.email-template-list.refresh' | transloco }}
+        </button>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.email-template-list.description' | transloco }}</p>
+      </div>
+
+      @if (isLoading()) {
+
+        <div >
+          <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.email-template-list.loading' | transloco"></app-local-spinner>
+        </div>
+
+
+      } @else if (hasError()) {
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.email-template-list.load-error' | transloco"></app-aler-data>
+        </div>
+      } @else {
+        <div class="card-body pt-0">
+          @for (template of templates(); track trackByTemplate($index, template); let index = $index) {
+            <div class="row border border-dashed border-start-0 border-end-0 pt-3" [class.bg-light-subtle]="index % 2 === 1">
+              <div class="col-12 col-xl-2 mb-3">
+                <span [class]="stateBadgeClass(template.state)">
+                  {{ stateLabelKey(template.state) | transloco }}
+                </span>
+                <p class="text-muted mb-0 mt-2">{{ template.language || '-' }}</p>
+              </div>
+
+              <div class="col-12 col-xl-4 mb-3">
+                <h6 class="mb-1">{{ template.name || '-' }}</h6>
+                <p class="text-muted mb-0">{{ emailTypeLabelKey(template.emailType) | transloco }}</p>
+                <p class="text-muted mb-0">{{ template.emailType || '-' }}</p>
+              </div>
+
+              <div class="col-12 col-xl-4 mb-3">
+                <span class="fw-medium">{{ 'page.system.email-template-list.subject' | transloco }}</span>
+                <p class="text-muted mb-0 text-break">{{ template.subject || '-' }}</p>
+                <p class="text-muted mb-0">
+                  {{ 'page.system.common.edited-at' | transloco }}:
+                  {{ template.editedAt ? (template.editedAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}
+                </p>
+              </div>
+
+              <div class="col-12 col-xl-2 mb-3">
+                <a
+                  class="btn btn-soft-success btn-label w-100"
+                  [routerLink]="['/system/admin/email-templates', template.id]"
+                >
+                  <i class="ri-eye-line label-icon align-middle fs-16 me-2"></i>
+                  {{ 'page.system.common.details' | transloco }}
+                </a>
+              </div>
+            </div>
+          } @empty {
+            <div class="bg-light-subtle border border-dashed p-3">
+              {{ 'page.system.email-template-list.empty' | transloco }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

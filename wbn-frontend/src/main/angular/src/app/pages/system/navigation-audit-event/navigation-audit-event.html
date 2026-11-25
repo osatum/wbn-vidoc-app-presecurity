@@ -1,0 +1,46 @@
+<section class="row">
+  <div class="col-xl-12">
+    <app-navigation-audit-reports />
+    <div class="card">
+      <header class="card-header">
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ 'page.system.navigation-audit-event.title' | transloco }}
+        </h4>
+      </header>
+      <div class="card-body">
+        <ul
+          ngbNav
+          #navigationTabs="ngbNav"
+          [activeId]="activeTab()"
+          (activeIdChange)="activeTab.set($event)"
+          [destroyOnHide]="false"
+          class="nav nav-pills arrow-navtabs nav-success bg-light mb-3"
+        >
+          <li [ngbNavItem]="1">
+            <button ngbNavLink type="button">
+              {{ 'page.system.navigation-audit-event.title' | transloco }}
+            </button>
+            <ng-template ngbNavContent>
+              <p class="text-muted mb-3">
+                {{ 'page.system.navigation-audit-event.description' | transloco }}
+              </p>
+              <app-navigation-audit-event-list
+                [enabled]="activeTab() === 1"
+                [emptyMessage]="'page.system.navigation-audit-event.empty' | transloco"
+              />
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <button ngbNavLink type="button">
+              {{ 'page.system.navigation-audit-visit-list.title' | transloco }}
+            </button>
+            <ng-template ngbNavContent>
+              <app-navigation-audit-visit-list [enabled]="activeTab() === 2" />
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="navigationTabs"></div>
+      </div>
+    </div>
+  </div>
+</section>

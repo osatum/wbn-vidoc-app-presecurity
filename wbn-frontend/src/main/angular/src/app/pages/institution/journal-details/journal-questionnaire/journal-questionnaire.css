@@ -1,0 +1,55 @@
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.questionnaire-card,
+.questionnaire-year-picker {
+  min-width: 0;
+}
+
+.questionnaire-year-picker {
+  max-width: 100%;
+}
+
+.questionnaire-years {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0.25rem;
+}
+
+.questionnaire-years .btn-group {
+  white-space: nowrap;
+}
+
+.questionnaire-card .nav {
+  flex-wrap: wrap;
+}
+
+.questionnaire-card .btn-outline-primary {
+  --vz-btn-color: var(--vz-link-color);
+  --vz-btn-border-color: var(--vz-link-color);
+}
+
+.questionnaire-card .btn:focus-visible {
+  box-shadow: 0 0 0 0.2rem var(--vz-link-color);
+}
+
+.questionnaire-year-bar .badge {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  white-space: normal;
+  text-align: start;
+}
+
+@media (max-width: 575.98px) {
+  .questionnaire-year-picker {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .questionnaire-years {
+    max-width: 100%;
+  }
+}

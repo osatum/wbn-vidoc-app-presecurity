@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.osatum.wbn</groupId>
+        <artifactId>wbn-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>wbn-frontend</artifactId>
+
+    <properties>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <frontend.target.folder>src/main/angular/src/app</frontend.target.folder>
+        <tomcat.http.port>8081</tomcat.http.port>
+        <openapi.input-spec>http://localhost:${tomcat.http.port}/v3/api-docs</openapi.input-spec>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+
+    </properties>
+    <build>
+
+    </build>
+    <profiles>
+        <profile>
+            <id>generate-local</id>
+            <build>
+                <plugins>
+                    <!-- Delete code from frontend folder -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>2.5</version>
+                        <executions>
+                            <execution>
+                                <id>auto-clean</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                                <configuration>
+                                    <filesets>
+                                        <fileset>
+                                            <directory>${frontend.target.folder}/core/backend</directory>
+                                            <followSymlinks>false</followSymlinks>
+                                        </fileset>
+                                    </filesets>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Generate code -->
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>7.12.0</version>
+
+                        <executions>
+                            <execution>
+                                <id>angular-client-code-generation</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+
+                                <configuration>
+                                    <inputSpec>${openapi.input-spec}</inputSpec>
+                                    <generatorName>typescript-angular</generatorName>
+                                    <additionalProperties>
+                                        path=http://localhost:8081,
+                                        enumPropertyNaming=original,
+                                        modelFolder=models,
+                                        useJsonMime=true,
+                                        withInterfaces=true,
+                                        useJsonMime=true
+                                    </additionalProperties>
+
+                                    <output>${project.build.directory}/generated-sources/angular/core/backend</output>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>com.google.code.maven-replacer-plugin</groupId>
+                        <artifactId>replacer</artifactId>
+                        <version>1.5.3</version>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+
+                        <configuration>
+                            <file>${project.build.directory}/generated-sources/angular/core/backend/api.base.service.ts</file>
+                            <outputFile>${project.build.directory}/generated-sources/angular/core/backend/api.base.service.ts</outputFile>
+
+                            <regex>true</regex>
+                            <replacements>
+                                <replacement>
+                                    <token>protected basePath = '';</token>
+                                    <value>protected basePath = 'http://localhost:8081';</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </plugin>
+
+                    <!-- Copy generated client code to frontend folder -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${basedir}/${frontend.target.folder}</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.build.directory}/generated-sources/angular</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>bamboo</id>
+            <activation>
+                <property>
+                    <name>spring.profiles.active</name>
+                    <value>test</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.code.maven-replacer-plugin</groupId>
+                        <artifactId>replacer</artifactId>
+                        <version>1.5.3</version>
+                        <executions>
+                            <execution>
+                                <id>reset-openapi-base-path</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+
+                        <configuration>
+                            <file>${basedir}/${frontend.target.folder}/core/backend/api.base.service.ts</file>
+                            <outputFile>${basedir}/${frontend.target.folder}/core/backend/api.base.service.ts</outputFile>
+
+                            <regex>true</regex>
+                            <replacements>
+                                <replacement>
+                                    <token>protected basePath = '[^']*';</token>
+                                    <value>protected basePath = '';</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+</project>

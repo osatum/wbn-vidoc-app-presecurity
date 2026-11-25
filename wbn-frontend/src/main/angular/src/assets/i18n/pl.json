@@ -1,0 +1,2239 @@
+{
+  "operatingProfile": {
+    "label": "Profil funkcjonalny systemu",
+    "inherit": "Domyślny systemowy",
+    "default": "Domyślny profil systemu",
+    "effective": "Efektywny profil jednostki",
+    "unitSource": "ustawienie jednostki",
+    "systemSource": "dziedziczony z systemu",
+    "loading": "Pobieranie konfiguracji profilu…",
+    "defaultError": "Nie udało się pobrać domyślnego profilu systemu.",
+    "contextError": "Nie udało się ustalić dostępnych funkcji wyszukiwania. Spróbuj ponownie.",
+    "dictionaryError": "Nie udało się pobrać części słowników. Odśwież stronę, aby ponowić próbę.",
+    "searchViews": "Wybór wyszukiwarki",
+    "all": "Wszystkie",
+    "profile": { "BASIC": "Podstawowy", "ADVANCED": "Zaawansowany", "BOTH": "Oba wyszukiwania" },
+    "search": { "BASIC": "Wyszukiwanie podstawowe", "ADVANCED": "Wyszukiwanie zaawansowane" }
+  },
+  "title": "Witamy",
+  "menuitems": {
+    "menu": {
+      "text": "Menu"
+    },
+    "dashboard": {
+      "text": "Dashboards"
+    },
+    "institutions": {
+      "text": "Lista instytucji"
+    },
+    "users": {
+      "text": "Lista użytkowników"
+    },
+    "sessions": {
+      "text": "Sesje użytkowników",
+      "active": "Aktywne sesje",
+      "login-sessions": "Sesje logowania",
+      "account-activations": "Zgłoszenia rejestracji",
+      "password-reset-requests": "Reset hasła",
+      "user-data-deletion-requests": "Usunięcie danych",
+      "email-messages": "Wysyłki e-mail",
+      "navigation-audit-events": "Statystyki nawigacji"
+    },
+    "email-templates": {
+      "text": "Szablony e-mail"
+    },
+    "email-type-configuration": {
+      "text": "Typy wiadomości"
+    }
+  },
+  "language": {
+    "en": "English (En)",
+    "pl": "Polski (Pl)"
+  },
+  "page-meta": {
+    "home": {
+      "title": "Witamy w ICI Journal Master List",
+      "description": "Portal dostępu do danych"
+    }
+  },
+  "layout": {
+    "session": {
+      "expires-in": "Sesja wygasa za",
+      "token-validity": "Czas ważności tokena",
+      "remaining-validity": "Ważność sesji",
+      "inactivity": "Brak aktywności",
+      "refresh-in": "Odświeżenie tokena za",
+      "more": "Więcej",
+      "less": "Mniej"
+    }
+  },
+  "page": {
+    "home": {
+      "access": {
+        "processing": "Przetwarzanie danych...",
+        "activeTitle": "Dostęp do systemu jest aktywny",
+        "activeDescription": "Wykryliśmy Twoje poświadczenia. Możesz przejść dalej i rozpocząć pracę w systemie.",
+        "goToSystem": "Przejdź do systemu",
+        "institutionImageAlt": "Instytucja",
+        "login": "Zaloguj się",
+        "register": "Zarejestruj się",
+        "checkInstitutionTitle": "Sprawdź, czy Twoja instytucja ma dostęp",
+        "checkInstitutionDescription": "Wyszukaj swoją uczelnię lub instytucję naukową, aby sprawdzić, czy możesz za jej pośrednictwem korzystać z zasobów Wirtualnej Biblioteki Nauki (WBN).",
+        "checkInstitution": "Sprawdź dostęp",
+        "registerInstitutionTitle": "Zgłoś swoją instytucję do bezpłatnej licencji WBN",
+        "registerInstitutionDescription": "Jeśli Twoja instytucja nie ma jeszcze dostępu, zgłoś ją do bezpłatnej licencji, która umożliwia korzystanie z zasobów Wirtualnej Biblioteki Nauki.",
+        "registerInstitution": "Zgłoś Instytucję",
+        "authorizationRequiredTitle": "Dostęp wymaga autoryzacji",
+        "authorizationRequiredDescription": "Twój adres IP nie został rozpoznany jako uprawniony do automatycznego dostępu. Jeśli posiadasz konto imienne, możesz zalogować się do systemu."
+      },
+      "registration": {
+        "title": "Rejestracja użytkownika",
+        "description": "Utwórz konto w wybranej instytucji naukowej",
+        "processing": "Przetwarzanie danych...",
+        "go-to-login": "Przejdź do logowania",
+        "success": "Formularz rejestracji został przyjęty. Sprawdź pocztę e-mail i potwierdź konto linkiem aktywacyjnym.",
+        "institution": "Instytucja naukowa",
+        "choose-institution": "Wybierz instytucję naukową",
+        "selected-institution-prefix": "Rejestrujesz konto w instytucji:",
+        "selected-institution-fallback": "wybrana jednostka",
+        "first-name": "Imię",
+        "last-name": "Nazwisko",
+        "email": "Email",
+        "orcid": "ORCID",
+        "password": "Hasło",
+        "submit": "Zarejestruj konto",
+        "back-home": "Wróć do strony głównej",
+        "invalid-institution-id": "Nieprawidłowy identyfikator jednostki.",
+        "select-institution-before-submit": "Wybierz jednostkę przed wysłaniem formularza.",
+        "no-institutions": "Instytucje dostępne do rejestracji nie są obecnie dostępne.",
+        "load-institutions-error": "Nie można pobrać listy jednostek.",
+        "check-availability-error": "Nie można sprawdzić dostępności rejestracji.",
+        "email-already-used": "Adres email jest już powiązany z kontem użytkownika.",
+        "submit-error-with-status": "Nie udało się wysłać formularza rejestracji. Kod błędu: {{status}}.",
+        "submit-error": "Nie udało się wysłać formularza rejestracji.",
+        "terms": {
+          "prefix": "Zapoznałem/-am się z",
+          "terms-link": "Regulaminem",
+          "middle": "oraz",
+          "privacy-policy-link": "Polityką Prywatności",
+          "suffix": "ICI Journals Master List i akceptuję ich postanowienia."
+        },
+        "personal-data": {
+          "prefix": "Przyjmuję do wiadomości, że moje dane osobowe będą przetwarzane przez Index Copernicus Sp. z o.o. w celu utworzenia i obsługi konta użytkownika, korzystania z funkcjonalności systemu ICI Journals Master List oraz realizacji usług świadczonych drogą elektroniczną zgodnie z",
+          "middle": "i"
+        },
+        "availability": {
+          "institution-not-found": "Nie znaleziono jednostki.",
+          "institution-inactive": "Jednostka jest nieaktywna.",
+          "registration-disabled": "Rejestracja w tej jednostce jest wyłączona.",
+          "ip-not-allowed": "Rejestracja w tej jednostce nie jest dostępna z Twojego adresu IP.",
+          "available": "Rejestracja jest dostępna.",
+          "unavailable": "Rejestracja w tej jednostce jest niedostępna."
+        },
+        "validation": {
+          "first-name": {
+            "required": "Imię jest wymagane.",
+            "maxlength": "Imię jest za długie."
+          },
+          "last-name": {
+            "required": "Nazwisko jest wymagane.",
+            "maxlength": "Nazwisko jest za długie."
+          },
+          "email": {
+            "required": "Email jest wymagany.",
+            "email": "Podaj poprawny adres e-mail.",
+            "maxlength": "Email jest za długi."
+          },
+          "orcid": {
+            "pattern": "Podaj ORCID w formacie 0000-0000-0000-0000.",
+            "maxlength": "ORCID jest za długi."
+          },
+          "password": {
+            "required": "Hasło jest wymagane.",
+            "minlength": "Hasło musi mieć co najmniej 8 znaków.",
+            "maxlength": "Hasło jest za długie."
+          },
+          "terms": {
+            "required": "Akceptacja Regulaminu i Polityki Prywatności jest wymagana."
+          },
+          "personal-data": {
+            "required": "Potwierdzenie informacji o przetwarzaniu danych osobowych jest wymagane."
+          }
+        }
+      },
+      "registration-activation": {
+        "title": "Aktywacja konta",
+        "loading": "Aktywacja konta...",
+        "back-home": "Wróć do strony głównej",
+        "go-to-login": "Przejdź do logowania",
+        "missing-token": "Brak tokenu aktywacyjnego.",
+        "activation-error": "Aktywacja konta nie powiodła się. Link aktywacyjny jest nieprawidłowy.",
+        "activation-token-already-used": "Ten link aktywacyjny został już wykorzystany. Konto nie zostało aktywowane.",
+        "status": {
+          "account-activated": {
+            "title": "Konto zostało aktywowane",
+            "message": "Możesz zalogować się do systemu."
+          },
+          "waiting-for-confirmation": {
+            "title": "Konto oczekuje na potwierdzenie",
+            "message": "Adres e-mail został potwierdzony. Logowanie będzie możliwe po akceptacji konta przez administratora."
+          },
+          "activation-link-expired-new-link-sent": {
+            "title": "Link aktywacyjny wygasł",
+            "message": "Link aktywacyjny wygasł. Konto nie zostało aktywowane. Wysłaliśmy nowy link aktywacyjny na adres e-mail konta."
+          },
+          "default": {
+            "message": "Przetworzono link aktywacyjny."
+          }
+        }
+      }
+    },
+    "account": {
+      "change-password": {
+        "title": "Zmień hasło",
+        "description": "Wprowadź obecne hasło oraz nowe hasło. Po zapisaniu pozostałe aktywne sesje zostaną zakończone, a bieżąca sesja pozostanie aktywna.",
+        "system": {
+          "title": "Zmiana hasła operatora systemu",
+          "description": "Widok administracyjny służy do zmiany hasła konta operatora. Po zapisaniu pozostałe aktywne sesje operatora zostaną zakończone.",
+          "context": "Operator systemu",
+          "submit": "Zmień hasło operatora"
+        },
+        "institution": {
+          "title": "Zmiana hasła użytkownika jednostki",
+          "description": "Formularz umożliwia ustawienie nowego hasła użytkownika. Po zapisaniu pozostałe aktywne sesje zostaną zakończone.",
+          "context": "Instytucja naukowa",
+          "submit": "Zmień hasło"
+        },
+        "current-password": "Aktualne hasło",
+        "current-password-placeholder": "Wpisz aktualne hasło.",
+        "password": "Nowe hasło",
+        "password-placeholder": "Wpisz nowe hasło.",
+        "password-help": "Hasło musi mieć co najmniej 8 znaków.",
+        "password-repeat": "Powtórz nowe hasło",
+        "password-repeat-placeholder": "Powtórz nowe hasło.",
+        "current-password-error": "Podane hasło użytkownika nie zgadza się z aktualnym hasłem.",
+        "save-error": "Nie udało się zmienić hasła.",
+        "save-success": "Hasło zostało poprawnie zmienione.",
+        "validation": {
+          "current-password": {
+            "required": "Aktualne hasło jest wymagane.",
+            "minlength": "Aktualne hasło musi mieć co najmniej 8 znaków.",
+            "maxlength": "Aktualne hasło jest za długie.",
+            "invalid": "Podane hasło użytkownika nie zgadza się z aktualnym hasłem."
+          },
+          "password": {
+            "required": "Nowe hasło jest wymagane.",
+            "minlength": "Nowe hasło musi mieć co najmniej 8 znaków.",
+            "maxlength": "Nowe hasło jest za długie."
+          },
+          "password-repeat": {
+            "required": "Powtórzenie nowego hasła jest wymagane.",
+            "minlength": "Hasło musi mieć co najmniej 8 znaków.",
+            "maxlength": "Hasło jest za długie.",
+            "match": "Hasła muszą być takie same."
+          }
+        }
+      },
+      "change-basic-data": {
+        "title": "Zmiana danych użytkownika",
+        "description": "Zaktualizuj imię, nazwisko lub identyfikator ORCID przypisany do Twojego konta.",
+        "context": "Instytucja naukowa",
+        "loading": "Pobieranie danych użytkownika...",
+        "load-error": "Nie udało się pobrać danych użytkownika.",
+        "first-name": "Imię",
+        "first-name-placeholder": "Wpisz imię",
+        "last-name": "Nazwisko",
+        "last-name-placeholder": "Wpisz nazwisko",
+        "orcid": "ORCID",
+        "orcid-placeholder": "0000-0000-0000-000X",
+        "orcid-help": "ORCID jest opcjonalny. Użyj formatu 0000-0000-0000-000X.",
+        "submit": "Zapisz dane",
+        "save-error": "Nie udało się zapisać danych użytkownika.",
+        "save-success": "Dane użytkownika zostały zmienione.",
+        "validation": {
+          "first-name": {
+            "required": "Imię jest wymagane.",
+            "maxlength": "Imię nie może przekraczać 128 znaków."
+          },
+          "last-name": {
+            "required": "Nazwisko jest wymagane.",
+            "maxlength": "Nazwisko nie może przekraczać 128 znaków."
+          },
+          "orcid": {
+            "maxlength": "ORCID jest za długi.",
+            "pattern": "ORCID musi mieć format 0000-0000-0000-000X."
+          }
+        }
+      }
+    },
+    "system": {
+      "common": {
+        "filter": "Szukaj",
+        "clear": "Wyczyść",
+        "details": "Szczegóły",
+        "back": "Powrót",
+        "edit": "Edytuj",
+        "save": "Zapisz",
+        "saving": "Zapisywanie...",
+        "cancel": "Anuluj",
+        "activate": "Aktywuj",
+        "deactivate": "Dezaktywuj",
+        "state-change-success": "Status został zmieniony.",
+        "state-change-error": "Nie udało się zmienić statusu.",
+        "yes": "Tak",
+        "no": "Nie",
+        "state": "Status",
+        "orcid": "ORCID",
+        "audit": "Informacje audytowe",
+        "created": "Utworzono",
+        "created-at": "Data utworzenia",
+        "created-by": "Utworzył",
+        "edited": "Edytowano",
+        "edited-at": "Data edycji",
+        "edited-by": "Edytował",
+        "entity-state": {
+          "active": "Aktywny",
+          "inactive": "Nieaktywny"
+        },
+        "confirm": "Zatwierdź",
+        "delete": "Usuń",
+        "loading-data": "Pobieram dane ...",
+        "loading-list": "Pobieram listę elementów ...",
+        "pending": "Oczekuje"
+      },
+      "institution-list": {
+        "title": "Instytucje w systemie",
+        "description": "Widok prezentuje listę instytucji zarejestrowanych w systemie wraz z informacją o przypisanych użytkownikach uprawnionych do korzystania z platformy.",
+        "add-institution": "Dodaj instytucję",
+        "load-error": "Nie udało się pobrać listy instytucji.",
+        "name-placeholder": "Wpisz nazwę instytucji",
+        "all-types": "Wszystkie",
+        "institution-type": {
+          "system-operator": "Operator systemu",
+          "research-unit": "Instytucja naukowa"
+        },
+        "entity-state": {
+          "active": "Aktywna",
+          "inactive": "Nieaktywna"
+        }
+      },
+      "institution-details": {
+        "fallback-title": "Szczegóły instytucji",
+        "description": "Widok prezentuje dane instytucji, przypisanych użytkowników oraz aktywność w systemie, wspierając monitorowanie wykorzystania platformy i zarządzanie dostępem.",
+        "load-error": "Nie udało się pobrać szczegółów instytucji.",
+        "basic-data": "Dane podstawowe",
+        "name": "Nazwa",
+        "type": "Typ",
+        "auth-mode-label": "Tryb dostępu",
+        "registration": "Rejestracja",
+        "allow-other-ip": "Rejestracja spoza IP",
+        "allow-other-email-domain": "Rejestracja z innych domen",
+        "auto-activation": "Automatyczna aktywacja kont",
+        "contact-data": "Dane kontaktowe",
+        "institution-description": "Opis",
+        "no-description": "Brak opisu.",
+        "ip-rules": "Reguły IP",
+        "value": "Wartość",
+        "range": "Zakres",
+        "priority": "Priorytet",
+        "no-ip-rules": "Brak zdefiniowanych reguł IP.",
+        "email-domains": "Domeny email",
+        "domain": "Domena",
+        "no-email-domains": "Brak zdefiniowanych domen.",
+        "related-title": "Dodatkowe informacje powiązane z instytucją",
+        "users-tab": "Lista użytkowników powiązanych z instytucją",
+        "add-user": "Dodaj użytkownika",
+        "users-description": "Lista użytkowników powiązanych z instytucją z filtrowaniem i paginacją.",
+        "users-empty": "Brak użytkowników powiązanych z instytucją.",
+        "users-load-error": "Nie udało się pobrać użytkowników powiązanych z instytucją.",
+        "sessions-tab": "Lista sesji powiązanych z instytucją",
+        "sessions-description": "Lista sesji powiązanych z instytucją z filtrowaniem i paginacją.",
+        "sessions-empty": "Brak logowań dla tej instytucji.",
+        "auth-mode": {
+          "not-required": "Logowanie niewymagane",
+          "required": "Logowanie wymagane"
+        },
+        "invalid-id": "Nieprawidłowy identyfikator instytucji.",
+        "delete-institution": {
+          "button": "Usuń instytucję",
+          "modal-title": "Trwałe usunięcie instytucji",
+          "warning": "Ta operacja jest nieodwracalna.",
+          "impact": "Usunięte zostaną instytucja, jej relacje, logi, aktywności oraz dane użytkowników niepowiązanych z inną instytucją.",
+          "confirmation-instruction": "Proszę przepisać kod widoczny poniżej do pola i potwierdzić. Kod ma 8 losowych liter i cyfr.",
+          "code-label": "Kod potwierdzający",
+          "code-placeholder": "Wpisz kod",
+          "code-mismatch": "Wpisany kod musi być zgodny z kodem wyświetlonym powyżej.",
+          "cancel": "Anuluj",
+          "confirm": "Usuń trwale",
+          "preparation-error": "Nie udało się przygotować potwierdzenia usunięcia instytucji.",
+          "confirmation-invalid": "Kod potwierdzający jest nieprawidłowy. Otwórz okno ponownie i spróbuj jeszcze raz.",
+          "confirmation-expired": "Kod potwierdzający wygasł albo został już użyty. Otwórz okno ponownie, aby wygenerować nowy kod.",
+          "not-allowed": "Tej instytucji nie można obecnie usunąć.",
+          "success": "Instytucja i powiązane dane zostały usunięte.",
+          "error": "Nie udało się usunąć instytucji."
+        }
+      },
+      "institution-edit": {
+        "invalid-institution-id": "Nieprawidłowy identyfikator instytucji."
+      },
+      "select-institution": {
+        "type": "Typ instytucji",
+        "role": "Rola",
+        "login": "Zaloguj się"
+      },
+      "user-create": {
+        "title": "Formularz dodawania użytkownika",
+        "description": "Formularz umożliwia utworzenie konta użytkownika, przypisanie go do instytucji oraz nadanie odpowiednich ról i uprawnień w systemie.",
+        "loading-institution": "Ładowanie danych instytucji...",
+        "institution-load-error": "Nie udało się pobrać danych instytucji.",
+        "institution": "Instytucja",
+        "assigned-role": "Rola nowego powiązania",
+        "existing-user-title": "Użytkownik o podanym email już istnieje",
+        "already-assigned-role-title": "Użytkownik jest już przypisany do wybranej roli",
+        "already-assigned-role-message": "Użytkownik przypisany jest do wybranej instytucji w wybranej roli, nowy użytkownik nie zostanie utworzony, proszę zmienić rolę użytkownika.",
+        "confirm-institution-assignment-title": "Potwierdzenie przypisania w instytucji",
+        "confirm-institution-assignment-message": "Istnieje już użytkownik o podanym emailu przypisany do wybranej instytucji w innej roli. Czy potwierdzasz przypisanie istniejącego użytkownika do wybranej roli?",
+        "confirm-existing-user-title": "Potwierdzenie przypisania istniejącego użytkownika",
+        "confirm-existing-user-message": "Użytkownik przypisany jest do innych instytucji.",
+        "no-memberships": "Użytkownik nie ma jeszcze przypisania do instytucji.",
+        "email": "Email",
+        "email-placeholder": "Wpisz adres email użytkownika",
+        "email-help": "Podaj poprawny adres email. Pole jest wymagane i może mieć maksymalnie 128 znaków.",
+        "password": "Hasło",
+        "password-placeholder": "Ustaw hasło dla użytkownika",
+        "password-help": "Hasło jest wymagane, musi mieć co najmniej 8 znaków i nie może przekraczać 128 znaków.",
+        "first-name": "Imię",
+        "first-name-placeholder": "Wpisz imię użytkownika",
+        "first-name-help": "Imię jest wymagane i może mieć maksymalnie 128 znaków.",
+        "last-name": "Nazwisko",
+        "orcid": "ORCID",
+        "orcid-placeholder": "0000-0000-0000-000X",
+        "role": "Rola",
+        "role-help": "Wybierz rolę użytkownika w tej instytucji.",
+        "orcid-help": "ORCID jest opcjonalny. Podaj identyfikator w formacie 0000-0000-0000-000X.",
+        "last-name-placeholder": "Wpisz nazwisko użytkownika",
+        "last-name-help": "Nazwisko jest wymagane i może mieć maksymalnie 128 znaków.",
+        "attach": "Dołącz",
+        "attaching": "Dołączanie...",
+        "confirm-assignment": "Potwierdź przypisanie",
+        "change-data": "Zmień dane",
+        "invalid-institution-id": "Nieprawidłowy identyfikator instytucji.",
+        "save-error": "Nie udało się dodać użytkownika.",
+        "validation": {
+          "email": {
+            "required": "Email jest wymagany.",
+            "email": "Podaj poprawny email.",
+            "maxlength": "Email nie może przekraczać 128 znaków."
+          },
+          "first-name": {
+            "required": "Imię jest wymagane.",
+            "maxlength": "Imię nie może przekraczać 128 znaków."
+          },
+          "last-name": {
+            "required": "Nazwisko jest wymagane.",
+            "maxlength": "Nazwisko nie może przekraczać 128 znaków."
+          },
+          "orcid": {
+            "maxlength": "ORCID jest za długi.",
+            "pattern": "ORCID musi mieć format 0000-0000-0000-000X."
+          },
+          "role": {
+            "required": "Rola jest wymagana."
+          },
+          "password": {
+            "required": "Hasło jest wymagane.",
+            "minlength": "Hasło musi mieć co najmniej 8 znaków.",
+            "maxlength": "Hasło nie może przekraczać 128 znaków."
+          }
+        },
+        "save-success-attach": "Użytkownik został przypisany do instytucji.",
+        "save-success-create": "Użytkownik został dodany."
+      },
+      "user-list": {
+        "title": "Baza użytkowników serwisu",
+        "description": "Strona prezentuje listę użytkowników systemu z możliwością wyszukiwania i zarządzania rekordami. Podział na strony ułatwia przeglądanie większej liczby użytkowników.",
+        "sort": "Sortowanie",
+        "sortOptions": {
+          "nameAsc": "Nazwisko rosnąco",
+          "nameDesc": "Nazwisko malejąco",
+          "emailAsc": "Email rosnąco",
+          "emailDesc": "Email malejąco"
+        }
+      },
+      "user-details": {
+        "fallback-title": "Szczegóły użytkownika",
+        "description": "Widok prezentuje dane użytkownika, jego przypisaną instytucję, role, status konta oraz historię aktywności, wspierając zarządzanie dostępem do systemu.",
+        "load-error": "Nie udało się pobrać szczegółów użytkownika.",
+        "basic-data": "Dane podstawowe",
+        "email": "Email",
+        "full-name": "Imię i nazwisko",
+        "global-roles": "Role globalne",
+        "memberships": "Powiązane instytucje naukowe",
+        "institution": "Instytucja",
+        "institution-type": "Typ instytucji",
+        "role": "Rola",
+        "no-memberships": "Brak zdefiniowanych instytucji naukowych.",
+        "related-title": "Dodatkowe informacje powiązane z użytkownikiem",
+        "sessions-tab": "Lista sesji powiązanych z użytkownikiem",
+        "sessions-description": "Lista sesji powiązanych z użytkownikiem z filtrowaniem i paginacją.",
+        "sessions-empty": "Brak logowań dla tego użytkownika.",
+        "change-password": "Zmień hasło",
+        "delete-account": "Usuń konto",
+        "delete-modal-title": "Usuwanie konta użytkownika",
+        "delete-modal-message": "Ta operacja trwale usunie konto użytkownika oraz powiązane sesje, tokeny i dane rejestracyjne. Operacji nie można cofnąć.",
+        "delete-modal-user": "Użytkownik",
+        "delete-confirm": "Usuń konto",
+        "delete-success": "Konto użytkownika zostało usunięte.",
+        "delete-error": "Nie udało się usunąć konta użytkownika.",
+        "invalid-id": "Nieprawidłowy identyfikator użytkownika."
+      },
+      "user-lookup-list": {
+        "title": "Użytkownicy",
+        "description": "Lista użytkowników z filtrowaniem i paginacją.",
+        "empty": "Brak użytkowników dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy użytkowników.",
+        "email-placeholder": "Wpisz email użytkownika",
+        "name-placeholder": "Wpisz nazwę użytkownika"
+      },
+      "user-state-change": {
+        "deactivated-with-memberships": "Zmieniono status użytkownika na nieaktywny wraz ze wszystkimi jego powiązaniami.",
+        "activated-with-membership": "Zmieniono status użytkownika na aktywny wraz z jego powiązaniem."
+      },
+      "user-basic-data-edit": {
+        "title": "Edycja podstawowych danych użytkownika",
+        "description": "Formularz umożliwia aktualizację imienia, nazwiska oraz identyfikatora ORCID użytkownika.",
+        "loading": "Pobieranie danych użytkownika...",
+        "load-error": "Nie udało się pobrać danych użytkownika.",
+        "invalid-user-id": "Nieprawidłowy identyfikator użytkownika.",
+        "save-error": "Nie udało się zapisać podstawowych danych użytkownika.",
+        "save-success": "Zmieniono podstawowe dane użytkownika.",
+        "validation": {
+          "first-name": {
+            "required": "Imię jest wymagane.",
+            "maxlength": "Imię nie może przekraczać 128 znaków."
+          },
+          "last-name": {
+            "required": "Nazwisko jest wymagane.",
+            "maxlength": "Nazwisko nie może przekraczać 128 znaków."
+          },
+          "orcid": {
+            "maxlength": "ORCID jest za długi.",
+            "pattern": "ORCID musi mieć format 0000-0000-0000-0000."
+          }
+        }
+      },
+      "user-password-edit": {
+        "title": "Zmiana hasła użytkownika",
+        "description": "Formularz umożliwia ustawienie nowego hasła użytkownika.",
+        "loading": "Pobieranie danych użytkownika...",
+        "load-error": "Nie udało się pobrać danych użytkownika.",
+        "invalid-user-id": "Nieprawidłowy identyfikator użytkownika.",
+        "password": "Hasło",
+        "password-placeholder": "Wpisz nowe hasło",
+        "password-help": "Hasło jest wymagane, musi mieć co najmniej 8 znaków i nie może przekraczać 128 znaków.",
+        "password-repeat": "Powtórz hasło",
+        "password-repeat-placeholder": "Powtórz nowe hasło",
+        "password-repeat-help": "Powtórzone hasło musi być identyczne z nowym hasłem.",
+        "save-error": "Nie udało się zmienić hasła użytkownika.",
+        "save-success": "Hasło użytkownika zostało zmienione.",
+        "validation": {
+          "password": {
+            "required": "Hasło jest wymagane.",
+            "minlength": "Hasło musi mieć co najmniej 8 znaków.",
+            "maxlength": "Hasło nie może przekraczać 128 znaków."
+          },
+          "password-repeat": {
+            "required": "Powtórzenie hasła jest wymagane.",
+            "minlength": "Powtórzenie hasła musi mieć co najmniej 8 znaków.",
+            "maxlength": "Powtórzenie hasła nie może przekraczać 128 znaków.",
+            "match": "Hasła muszą być takie same."
+          }
+        }
+      },
+      "user-activation": {
+        "title": "Aktywacja użytkownika",
+        "description": "Wybierz przypisania użytkownika do aktywnych instytucji, które mają zostać aktywowane.",
+        "loading": "Pobieranie danych formularza aktywacji...",
+        "load-error": "Nie udało się pobrać danych formularza aktywacji.",
+        "missing-data": "Brak danych potrzebnych do wyświetlenia formularza aktywacji. Wróć do listy użytkowników i ponów operację aktywacji.",
+        "inactive-institution": "Aktywowany użytkownik przypisany jest do nieaktywnej instytucji. Brak możliwosci jego aktywacji.",
+        "membership-selection-title": "Wybierz przypisania do aktywacji",
+        "membership-selection-description": "Użytkownik ma wiele przypisań do różnych instytucji. Wybierz przypisania do aktywnych jednostek, które mają zostać aktywowane.",
+        "activate-selected": "Aktywuj wybrane"
+      },
+      "institution-activation": {
+        "title": "Aktywacja instytucji naukowej",
+        "description": "Wybierz użytkowników, których przypisania do aktywowanej instytucji mają zostać ponownie aktywowane.",
+        "loading": "Pobieranie danych formularza aktywacji instytucji...",
+        "load-error": "Nie udało się pobrać danych formularza aktywacji instytucji.",
+        "missing-data": "Brak danych potrzebnych do wyświetlenia formularza aktywacji instytucji.",
+        "membership-selection-title": "Wybierz przypisania użytkowników do aktywacji",
+        "membership-selection-description": "Po aktywacji wybranych przypisań nieaktywni użytkownicy powiązani z tymi przypisaniami zostaną również aktywowani.",
+        "select-all": "Zaznacz wszystkich",
+        "clear-selection": "Odznacz wszystkich",
+        "activate-selected": "Aktywuj wybrane",
+        "user-state": "Aktywność użytkownika"
+      },
+      "institution-membership-list": {
+        "empty": "Brak użytkowników przypisanych do instytucji dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy przypisanych użytkowników.",
+        "email-placeholder": "Wpisz email użytkownika",
+        "name-placeholder": "Wpisz imię lub nazwisko użytkownika",
+        "user-state": "Aktywność użytkownika",
+        "confirm-membership": "Potwierdź konto",
+        "state-change": {
+          "membership-deactivated": "Przeprowadzono dezaktywację przypisania użytkownika do instytucji.",
+          "membership-deactivated-user-deactivated": "Przeprowadzono dezaktywację przypisania użytkownika do instytucji, a także zmieniono status użytkownika na nieaktywny.",
+          "membership-activated": "Zmieniono status przypisania użytkownika na aktywny.",
+          "membership-activated-user-activated": "Zmieniono status przypisania użytkownika na aktywny wraz ze statusem użytkownika.",
+          "membership-confirmed": "Potwierdzono konto użytkownika. Użytkownik może się zalogować."
+        }
+      },
+      "active-session": {
+        "title": "Monitorowanie aktywnych sesji",
+        "description": "Widok prezentuje aktywne sesje użytkowników w czasie rzeczywistym. Informacje o bieżących logowaniach wspierają identyfikację podejrzanej aktywności oraz zarządzanie dostępem do systemu.",
+        "empty": "Brak aktywnych sesji dla wybranych kryteriów."
+      },
+      "account-activation-log": {
+        "title": "Zgłoszenia rejestracji użytkowników",
+        "description": "Lista zdarzeń związanych z obsługą zgłoszeń rejestracji użytkowników: aktywacją konta, oczekiwaniem na potwierdzenie, wygasłym linkiem oraz błędami obsługi tokenu.",
+        "empty": "Brak zgłoszeń rejestracji dla wybranych kryteriów."
+      },
+      "account-activation-log-list": {
+        "empty": "Brak zgłoszeń rejestracji dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy zgłoszeń rejestracji.",
+        "name-placeholder": "Użytkownik lub instytucja",
+        "email-placeholder": "Email użytkownika",
+        "ip-address-placeholder": "Adres IP",
+        "user-agent-placeholder": "User agent",
+        "status-placeholder": "Status",
+        "attempted-from": "Data zdarzenia od",
+        "attempted-to": "Data zdarzenia do",
+        "membership": "Przypisanie",
+        "error": "Błąd obsługi",
+        "no-error": "Bez błędu",
+        "status": {
+          "registration-submitted": "Formularz rejestracji przyjęty",
+          "success-auto-activated": "Aktywowano automatycznie",
+          "success-waiting-for-confirmation": "Oczekuje na potwierdzenie",
+          "failed-token-not-found": "Token nie istnieje",
+          "failed-token-expired": "Token wygasł",
+          "failed-token-already-used": "Token już użyty",
+          "failed-membership-not-found": "Brak przypisania",
+          "failed-user-not-found": "Brak użytkownika",
+          "new-token-generated": "Wygenerowano nowy token"
+        }
+      },
+      "password-reset-request": {
+        "title": "Zgłoszenia resetu hasła",
+        "description": "Lista zgłoszeń resetu hasła zawierająca status obsługi tokenu, datę zgłoszenia, adres IP, dane urządzenia i powiązane konto użytkownika.",
+        "empty": "Brak zgłoszeń resetu hasła dla wybranych kryteriów."
+      },
+      "password-reset-request-list": {
+        "empty": "Brak zgłoszeń resetu hasła dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy zgłoszeń resetu hasła.",
+        "name-placeholder": "Użytkownik",
+        "email-placeholder": "Email użytkownika",
+        "ip-address-placeholder": "Adres IP",
+        "user-agent-placeholder": "User agent",
+        "status-placeholder": "Status",
+        "requested-from": "Data zgłoszenia od",
+        "requested-to": "Data zgłoszenia do",
+        "expires-at": "Ważny do",
+        "completed-at": "Zakończono",
+        "email-log": "Mail",
+        "error": "Błąd",
+        "no-error": "Bez błędu",
+        "status": {
+          "email-queued": "Mail w kolejce",
+          "link-clicked": "Link kliknięty",
+          "completed": "Hasło zmienione",
+          "expired": "Token wygasł",
+          "invalidated": "Unieważnione",
+          "user-not-found": "Brak konta",
+          "user-not-active": "Konto nieaktywne",
+          "rate-limited": "Limit zgłoszeń",
+          "failed": "Błąd"
+        }
+      },
+      "user-data-deletion-request": {
+        "title": "Zgłoszenia usunięcia danych",
+        "description": "Lista zgłoszeń usunięcia danych zawierająca status obsługi tokenu, datę zgłoszenia, adres IP, dane urządzenia oraz powiązane konto i instytucje.",
+        "empty": "Brak zgłoszeń usunięcia danych dla wybranych kryteriów."
+      },
+      "user-data-deletion-request-list": {
+        "empty": "Brak zgłoszeń usunięcia danych dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy zgłoszeń usunięcia danych.",
+        "name-placeholder": "Użytkownik",
+        "email-placeholder": "Email użytkownika",
+        "institution-placeholder": "Instytucja",
+        "ip-address-placeholder": "Adres IP",
+        "user-agent-placeholder": "User agent",
+        "status-placeholder": "Status",
+        "requested-from": "Data zgłoszenia od",
+        "requested-to": "Data zgłoszenia do",
+        "expires-at": "Ważny do",
+        "completed-at": "Zakończono",
+        "email-log": "Mail",
+        "error": "Błąd",
+        "no-error": "Bez błędu",
+        "status": {
+          "email-queued": "Mail w kolejce",
+          "link-clicked": "Link kliknięty",
+          "completed": "Dane usunięte",
+          "expired": "Token wygasł",
+          "invalidated": "Unieważnione",
+          "rejected": "Odrzucone",
+          "failed": "Błąd"
+        }
+      },
+      "email-message-log": {
+        "title": "Rejestr wysyłek email",
+        "description": "Lista wiadomości email zarejestrowanych przez system wraz ze statusem doręczenia, typem wiadomości, odbiorcą, liczbą prób oraz błędami wysyłki.",
+        "empty": "Brak wiadomości email dla wybranych kryteriów."
+      },
+      "email-message-log-list": {
+        "empty": "Brak wysyłek email dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy wysyłek email.",
+        "name-placeholder": "Użytkownik lub instytucja",
+        "email-placeholder": "Email użytkownika",
+        "recipient-placeholder": "Odbiorca",
+        "email-type-placeholder": "Typ wiadomości",
+        "status-placeholder": "Status",
+        "created-from": "Data utworzenia od",
+        "created-to": "Data utworzenia do",
+        "attempt-count": "Próby",
+        "sent-at": "Wysłano",
+        "resend": "Ponów wysyłkę",
+        "resending": "Ponawianie...",
+        "resend-queued": "Zlecono ponowną wysyłkę wiadomości.",
+        "resend-success": "Zlecono ponowną wysyłkę wiadomości.",
+        "resend-error": "Nie udało się zlecić ponownej wysyłki wiadomości.",
+        "email-type": {
+          "account-activation-link": "Link aktywacyjny",
+          "account-activated": "Konto aktywne",
+          "account-waiting-for-confirmation": "Oczekuje na potwierdzenie",
+          "activation-link-regenerated": "Nowy link aktywacyjny",
+          "password-reset-link": "Link resetu hasła",
+          "user-data-deletion-confirmation": "Potwierdzenie usunięcia danych"
+        },
+        "status": {
+          "pending": "Oczekuje",
+          "processing": "Wysyłanie",
+          "sent": "Wysłano",
+          "failed": "Błąd",
+          "retrying": "Ponawianie",
+          "cancelled": "Anulowano"
+        }
+      },
+      "navigation-audit-reports": {
+        "title": "Raporty",
+        "description": "Eksport XLS/XLSX dla wybranego zakresu dni w strefie serwera (domyślnie Europe/Warsaw). Filtry listy poniżej nie wpływają na raport. Wizyty są mierzone od wdrożenia nowego mechanizmu; ich czas kończy się na ostatniej aktywności. Wejścia do serwisu obejmują zapisane zdarzenia, także anonimowe, a nie liczbę wizyt lub unikalnych osób.",
+        "date-from": "Data od",
+        "date-to": "Data do",
+        "type": "Typ raportu",
+        "visits": "Statystyki logowań (wizyty)",
+        "page-views": "Statystyki wyświetleń",
+        "file-downloads": "Statystyki pobrań XLS/XLSX",
+        "service-entries": "Wejścia do serwisu (XLS)",
+        "generate": "Generuj raport",
+        "generating": "Generowanie…",
+        "required-error": "Uzupełnij poprawnie obie daty i typ raportu.",
+        "date-range-error": "Data do nie może być wcześniejsza niż Data od.",
+        "invalid-request": "Nieprawidłowy zakres lub przekroczony limit raportu. Wybierz krótszy zakres dat.",
+        "access-error": "Brak uprawnień do pobrania raportu lub sesja wygasła.",
+        "generate-error": "Nie udało się wygenerować raportu. Spróbuj ponownie.",
+        "download-error": "Nie udało się uruchomić pobrania pliku.",
+        "completed": "Uruchomiono pobranie raportu."
+      },
+      "navigation-audit-event": {
+        "title": "Statystyki nawigacji",
+        "description": "Lista zdarzeń poruszania się użytkowników po stronie, obejmująca wejścia na widoki czasopism, gotowość stron, wyniki wywołań API, kliknięcia w taby kwestionariusza oraz pobrania plików.",
+        "empty": "Brak zdarzeń nawigacji dla wybranych kryteriów."
+      },
+      "navigation-audit-visit-list": {
+        "title": "Wizyty",
+        "description": "Lista wizyt, nie sesji logowania. Nowa wizyta powstaje po co najmniej 30 minutach bezczynności. Czas obejmuje okres od początku do ostatniej odnotowanej aktywności. Otwarta wizyta nie oznacza, że użytkownik jest online.",
+        "date-from": "Początek wizyty od",
+        "date-to": "Początek wizyty do",
+        "institution": "Instytucja",
+        "user": "Użytkownik",
+        "status": "Status",
+        "end-reason": "Powód zakończenia",
+        "all": "Wszystkie",
+        "open": "Otwarta",
+        "closed": "Zakończona",
+        "refresh": "Odśwież",
+        "started-at": "Początek wizyty",
+        "last-activity-at": "Ostatnia aktywność",
+        "duration": "Czas (godz.:min.:sek.)",
+        "ended-at": "Zakończenie",
+        "time-zone": "Strefa czasu",
+        "empty": "Brak wizyt dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać wizyt. Spróbuj ponownie przyciskiem Odśwież.",
+        "validation-error": "Sprawdź daty, kolejność zakresu i długość filtrów (maksymalnie 200 znaków).",
+        "institution-access": "Dostęp instytucjonalny",
+        "anonymized-user": "Użytkownik zanonimizowany",
+        "reason": {
+          "INACTIVITY": "Bezczynność",
+          "LOGOUT": "Wylogowanie",
+          "EXPIRED": "Wygaśnięcie sesji",
+          "REVOKED": "Unieważnienie sesji",
+          "ANONYMIZED": "Anonimizacja"
+        }
+      },
+      "navigation-audit-event-list": {
+        "applied-criteria": "Zastosowane kryteria i wynik operacji P1",
+        "retry": "Ponów próbę",
+        "empty": "Brak zdarzeń nawigacji dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy zdarzeń nawigacji.",
+        "occurred-from": "Data zdarzenia od",
+        "occurred-to": "Data zdarzenia do",
+        "institution-placeholder": "Instytucja lub ID",
+        "user-placeholder": "Użytkownik, e-mail lub ID",
+        "page-placeholder": "Strona",
+        "event-type-placeholder": "Typ zdarzenia",
+        "file": "Plik",
+        "action": {
+          "questionnaire-report-download": "Pobranie raportu ankiety",
+          "questionnaire-report-bulk-download": "Pobranie zbiorczego raportu ankiet"
+        },
+        "journal-id-placeholder": "Journal ID",
+        "duration": "Czas",
+        "status-code": "HTTP",
+        "success": "Sukces",
+        "failure": "Błąd",
+        "unknown-result": "Brak wyniku",
+        "route": "Ścieżka",
+        "resource": "Zasób",
+        "session": "Sesja",
+        "view": "Widok",
+        "event-type": {
+          "service-entry": "Wejście do serwisu",
+          "public-page-view": "Wejście publiczne",
+          "page-heartbeat": "Aktywny czas widoku",
+          "page-leave": "Opuszczenie strony",
+          "page-visible": "Karta widoczna",
+          "page-hidden": "Karta ukryta",
+          "journal-search": "P1 — Szukaj",
+          "journal-filters-clear": "P1 — Wyczyść filtry",
+          "journal-search-result": "P1 — wynik żądania (nie nowe wyszukanie)",
+          "journal-search-empty": "P1 — zero wyników",
+          "journal-issues-click": "P1 — Przejście do wydań i zawartości czasopisma",
+          "journal-card-open": "P1 — przejście do karty",
+          "page-view": "Wejście na stronę",
+          "page-ready": "Strona gotowa",
+          "api-result": "Wynik API",
+          "file-download": "Pobranie pliku",
+          "questionnaire-shown": "Kwestionariusz pokazany",
+          "tab-click": "Kliknięcie taba"
+        },
+        "page": {
+          "public-home": "Strona główna",
+          "public-registration": "Rejestracja ogólna",
+          "public-registration-institution": "Rejestracja w instytucji",
+          "public-denied": "Brak dostępu",
+          "auth-login": "Logowanie",
+          "auth-password-reset": "Reset hasła",
+          "auth-select-institutions": "Wybór instytucji",
+          "auth-select-membership": "Wybór roli",
+          "system-admin-dashboard": "Dashboard operatora systemu",
+          "institution-admin-dashboard": "Dashboard administratora instytucji",
+          "institution-user-dashboard": "Dashboard użytkownika instytucji",
+          "journals-list": "Lista czasopism",
+          "journal-details": "Szczegóły czasopisma"
+        }
+      },
+      "email-template-list": {
+        "title": "Szablony email",
+        "description": "Lista globalnych szablonów e-mail używanych przez system podczas rejestracji i aktywacji kont.",
+        "refresh": "Odśwież",
+        "loading": "Ładowanie szablonów email...",
+        "load-error": "Nie udało się pobrać szablonów email.",
+        "empty": "Brak zdefiniowanych szablonów email.",
+        "no-selection": "Wybierz szablon email do edycji.",
+        "unknown-type": "Nieznany typ wiadomości",
+        "name": "Nazwa",
+        "language": "Język",
+        "subject": "Temat",
+        "html-body": "Treść HTML",
+        "text-body": "Treść tekstowa",
+        "save-success": "Szablon email został zapisany.",
+        "save-error": "Nie udało się zapisać szablonu email.",
+        "validation": {
+          "name": {
+            "required": "Nazwa jest wymagana.",
+            "maxlength": "Nazwa nie może przekraczać 128 znaków."
+          },
+          "language": {
+            "required": "Język jest wymagany.",
+            "maxlength": "Język nie może przekraczać 16 znaków."
+          },
+          "subject": {
+            "required": "Temat jest wymagany.",
+            "maxlength": "Temat nie może przekraczać 256 znaków."
+          },
+          "html-body": {
+            "required": "Treść HTML jest wymagana."
+          },
+          "state": {
+            "required": "Status jest wymagany."
+          }
+        }
+      },
+      "email-template-details": {
+        "title": "Szczegóły szablonu email",
+        "description": "Widok prezentuje konfigurację szablonu email oraz jego wygląd po wyrenderowaniu treści HTML.",
+        "loading": "Ładowanie szablonu email...",
+        "load-error": "Nie udało się pobrać szablonu email.",
+        "template-type": "Typ wiadomości",
+        "html-preview": "Podgląd wiadomości",
+        "text-body": "Treść tekstowa",
+        "no-text-body": "Brak treści tekstowej."
+      },
+      "email-template-edit": {
+        "title": "Edycja szablonu email",
+        "description": "Formularz umożliwia zmianę globalnego szablonu email używanego przez system.",
+        "loading": "Ładowanie szablonu email...",
+        "load-error": "Nie udało się pobrać szablonu email do edycji.",
+        "reset": "Przywróć"
+      },
+      "email-type-configuration": {
+        "title": "Konfiguracja typów wiadomości",
+        "description": "Widok pokazuje typy wiadomości obsługiwane przez system oraz aktywny globalny szablon przypisany do każdego typu.",
+        "loading": "Ładowanie konfiguracji typów wiadomości...",
+        "load-error": "Nie udało się pobrać konfiguracji typów wiadomości.",
+        "languages": "Języki",
+        "templates": "Szablony",
+        "no-active-template": "Brak aktywnego szablonu",
+        "inactive-template-count": "Nieaktywne szablony",
+        "no-template": "Brak przypisanego szablonu",
+        "default-fallback": "System użyje domyślnej treści aplikacji.",
+        "status": {
+          "configured": "Skonfigurowany",
+          "inactive": "Nieaktywny",
+          "missing": "Brak szablonu"
+        }
+      },
+      "login-session": {
+        "title": "Rejestr sesji logowań",
+        "description": "Lista sesji logowań użytkowników zawierająca informacje o czasie logowania, adresie IP, urządzeniu, statusie sesji oraz przypisanym użytkowniku.",
+        "empty": "Brak sesji logowań dla wybranych kryteriów."
+      },
+      "login-session-list": {
+        "empty": "Brak logowań dla wybranych kryteriów.",
+        "load-error": "Nie udało się pobrać listy logowań.",
+        "name-placeholder": "Email lub instytucja",
+        "ip-address-placeholder": "Adres IP",
+        "actor-type-placeholder": "Wybierz typ użytkownika",
+        "status-placeholder": "Status",
+        "end-reason-placeholder": "Zakończenie",
+        "started-at": "Start",
+        "last-seen-at": "Ostatnio widziany",
+        "ended-at": "Koniec",
+        "actor-type": {
+          "user": "Użytkownik",
+          "institution": "Instytucja"
+        },
+        "status": {
+          "active": "Aktywna",
+          "logged-out": "Wylogowana",
+          "expired": "Wygasła",
+          "revoked": "Unieważniona"
+        },
+        "end-reason": {
+          "logout": "Wylogowanie",
+          "expired": "Wygaśnięcie",
+          "revoked": "Unieważnienie"
+        },
+        "institution-role": {
+          "admin": "Administrator instytucji",
+          "user": "Użytkownik instytucji",
+          "viewer": "Obserwator instytucji",
+          "pending": "Oczekuje na aktywację",
+          "to-confirm": "Oczekuje na potwierdzenie"
+        }
+      },
+      "dashboard-cardinality": {
+        "loading": "ładowanie liczników...",
+        "load-error": "Nie udało się pobrać liczników dashboardu.",
+        "metrics": {
+          "institutions-total": "Instytucje razem",
+          "research-units": "Instytucje naukowe",
+          "users-total": "Użytkownicy razem",
+          "memberships": "Powiązania użytkownik-instytucja",
+          "active-sessions": "Aktywne sesje audit",
+          "sessions-today": "Logowania dzisiaj",
+          "sessions-last-7-days": "Logowania z ostatnich 7 dni",
+          "users-multiple-institutions": "Użytkownicy w wielu instytucjach"
+        },
+        "captions": {
+          "details": "Zobacz szczegóły",
+          "events": "Zobacz zdarzenia",
+          "last-15-minutes": "Ostatnie 15 minut"
+        }
+      },
+      "dashboard-navigation-audit-kpi": {
+        "loading": "Ładowanie KPI nawigacji...",
+        "load-error": "Nie udało się pobrać KPI nawigacji.",
+        "metrics": {
+          "users": "Nawigacja: użytkownicy",
+          "institutions": "Nawigacja: instytucje",
+          "sessions": "Nawigacja: sesje",
+          "events": "Nawigacja: zdarzenia"
+        },
+        "captions": {
+          "events": "Zobacz zdarzenia"
+        }
+      },
+      "dashboard-charts": {
+        "loading": "Ładowanie wykresów...",
+        "load-error": "Nie udało się pobrać danych wykresów dashboardu.",
+        "daily-logins-title": "Logowania z Navigation Audit w ostatnich 7 dniach",
+        "top-institutions-title": "Top 10 instytucji wg logowań z Navigation Audit",
+        "logins-series": "Logowania",
+        "no-data": "Brak danych",
+        "login-count": "{{count}} logowań",
+        "institution-fallback": "Instytucja"
+      },
+      "dashboard-session-list": {
+        "loading": "Ładowanie 10 ostatnich logowań",
+        "title": "10 ostatnich logowań z Navigation Audit",
+        "load-error": "Nie udało się pobrać ostatnich logowań z audytu nawigacji.",
+        "empty": "Brak logowań z audytu nawigacji.",
+        "event": "Zdarzenie",
+        "received": "Odebrano",
+        "actor-type": {
+          "user": "Użytkownik",
+          "institution": "Instytucja"
+        }
+      },
+      "institution-form": {
+        "title": {
+          "create": "Nowa instytucja",
+          "edit": "Edycja instytucji"
+        },
+        "description": "Formularz umożliwia aktualizację danych instytucji oraz zarządzanie przypisanymi strefami IP i domenami email wykorzystywanymi do kontroli dostępu do platformy.",
+        "loading": "Pobieram dane ...",
+        "load-error": "Nie udało się pobrać danych instytucji.",
+        "save-error": "Nie udało się zapisać instytucji.",
+        "save-success-create": "Instytucja została dodana.",
+        "save-success-update": "Instytucja została zaktualizowana.",
+        "pending-draft-error": "Zatwierdź albo anuluj edytowany element przed zapisem instytucji.",
+        "basic-data": "Dane podstawowe",
+        "name": "Nazwa",
+        "name-placeholder": "Wpisz nazwę instytucji",
+        "name-help": "Podaj pełną nazwę instytucji. Pole jest wymagane i może mieć maksymalnie 255 znaków.",
+        "type": "Typ instytucji",
+        "access-mode": "Tryb dostępu",
+        "contact-data": "Dane kontaktowe",
+        "contact-data-placeholder": "Podaj dane kontaktowe instytucji",
+        "contact-data-help": "Możesz podać adres, telefon, email kontaktowy lub inne dane organizacyjne. Maksymalnie 4000 znaków.",
+        "description-label": "Opis",
+        "description-placeholder": "Opisz krótko instytucję",
+        "description-help": "Dodaj krótki opis instytucji, jeśli jest potrzebny. Maksymalnie 4000 znaków.",
+        "allow-registration": "Rejestracja włączona",
+        "allow-other-ip": "Rejestracja spoza zdefiniowanych IP",
+        "allow-other-email-domain": "Rejestracja z innych domen email",
+        "auto-activate-new-accounts": "Automatyczna aktywacja nowych kont",
+        "ip-rules": "Reguły IP",
+        "ip-rules-help": "Reguły IP ograniczają dostęp do instytucji do wskazanych adresów. IPv4 obsługuje pojedynczy adres, zakres, CIDR i wildcard. IPv6 obsługuje pojedynczy adres i CIDR, np. 2001:db8:1234::/48. Priorytet nie może być ujemny.",
+        "rule-type": "Typ",
+        "rule-value": "Wartość",
+        "priority": "Priorytet",
+        "add-rule": "Dodaj regułę",
+        "rule-placeholder": "Wpisz wartość reguły, np. 192.168.1.10 lub 2001:db8:1234::/48",
+        "priority-placeholder": "Wpisz priorytet",
+        "no-ip-rules": "Brak zdefiniowanych reguł IP.",
+        "email-domains": "Domeny email",
+        "email-domains-help": "Dodaj domeny email należące do instytucji, np. example.edu.pl. Domena jest wymagana, musi byc poprawna i może mieć maksymalnie 255 znaków.",
+        "domain": "Domena",
+        "add-domain": "Dodaj domenę",
+        "domain-placeholder": "Wpisz domenę instytucji, np. example.edu.pl",
+        "no-email-domains": "Brak zdefiniowanych domen email.",
+        "options": {
+          "system-operator": "Operator systemu",
+          "research-unit": "Instytucja naukowa",
+          "auth-required": "Logowanie wymagane",
+          "auth-not-required": "Logowanie niewymagane",
+          "single-ip": "Pojedynczy IP",
+          "range": "Zakres",
+          "cidr": "CIDR",
+          "wildcard": "Wildcard"
+        },
+        "validation": {
+          "name": {
+            "required": "Nazwa jest wymagana.",
+            "maxlength": "Nazwa nie może przekraczać 255 znaków."
+          },
+          "institutionType": {
+            "required": "Typ instytucji jest wymagany."
+          },
+          "authMode": {
+            "required": "Typ dostępu jest wymagany."
+          },
+          "contactData": {
+            "maxlength": "Dane kontaktowe nie mogą przekraczać 4000 znaków."
+          },
+          "description": {
+            "maxlength": "Opis nie może przekraczać 4000 znaków."
+          },
+          "ipRule": {
+            "required": "Wartość reguły jest wymagana.",
+            "maxlength": "Wartość reguły nie może przekraczać 255 znaków.",
+            "format": "Format reguły nie pasuje do wybranego typu."
+          },
+          "priority": {
+            "required": "Priorytet jest wymagany.",
+            "min": "Priorytet musi być liczbą nieujemną."
+          },
+          "domain": {
+            "required": "Domena jest wymagana.",
+            "pattern": "Domena musi być poprawna.",
+            "maxlength": "Domena nie może przekraczać 255 znaków."
+          }
+        }
+      },
+      "system-tools": {
+        "title": "Import danych z pliku",
+        "status": "Status",
+        "current-item": "Bieżący element",
+        "load-error": "Nie udało się pobrać stanu importu.",
+        "start-error": "Nie udało się uruchomić importu.",
+        "start": "Start",
+        "end": "Koniec",
+        "errors": "Błędy",
+        "journals": "Czasopisma",
+        "run-import": "Uruchom import",
+        "run-questionnaire-report": "Generuj raport XLSX",
+        "questionnaire-report-job": "Oddzielny job raportu ankiet 2024",
+        "report-start-error": "Nie udało się uruchomić generowania raportu.",
+        "states": {
+          "running": "W toku",
+          "completed": "Zakończony",
+          "failed": "Błąd",
+          "idle": "Nieuruchomiony"
+        },
+        "stages": {
+          "preparing": "Przygotowanie",
+          "delete-dictionaries": "Usunięcie słowników",
+          "delete-journals": "Usunięcie czasopism",
+          "dictionaries": "Zaczytanie słowników",
+          "index": "Rekreacja indeksów",
+          "journals": "Zaczytanie czasopism",
+          "not-indexed-2024": "Przyczyny nieindeksowania 2024",
+          "not-indexed-2025": "Przyczyny nieindeksowania 2025",
+          "databases-indexed-2024": "Aktualizacja baz indeksacyjnych 2024",
+          "mnisw-2024": "Import punktacji MNiSW 2024",
+          "wos-categories-2024": "Aktualizacja kategorii WoS 2024",
+          "wos-2022": "Aktualizacja WoS 2022",
+          "wos-2023": "Aktualizacja WoS 2023",
+          "scopus-categories-2024": "Aktualizacja kategorii Scopus 2024",
+          "scopus-2022": "Aktualizacja Scopus 2022",
+          "scopus-2023": "Aktualizacja Scopus 2023",
+          "link-to-review-2024": "Import linków do procedur recenzowania 2024",
+          "kind-2024": "Import rodzajów czasopism 2024",
+          "info-review-2024": "Import procedur recenzowania double-blind 2024",
+          "cooperation-2024": "Import metryk kooperacji 2024",
+          "stability-2024": "Import stabilności wydawniczej dla ankiet 2024",
+          "languages-2024": "Import języków publikacji dla ankiet 2024",
+          "reviewers-2024": "Import recenzentów dla ankiet 2024",
+          "directors-2024": "Import członków rady naukowej dla ankiet 2024",
+          "editorial-staff-2024": "Import składu redakcji dla ankiet 2024",
+          "editorial-2024": "Import danych instytucji redakcji dla ankiet 2024",
+          "publisher-2024": "Import danych wydawców dla ankiet 2024",
+          "update-journals-from-current-questionnaire": "Aktualizacja czasopism z aktualnych ankiet",
+          "delete-p2-analytics": "Usuwanie poprzednich benchmarków P2",
+          "build-p2-analytics": "Generowanie benchmarków P2",
+          "questionnaire-report-2024": "Generowanie raportów ankiet 2024",
+          "none": "Brak etapu"
+        },
+        "stage": "Etap",
+        "update": "Aktualizacja",
+        "dictionaries": "Słowniki",
+        "file": "Plik",
+        "message": "Komunikat"
+      },
+      "email-template": {
+        "type": {
+          "account-activation-link": "Link aktywacyjny konta",
+          "account-activated": "Konto aktywowane",
+          "account-waiting-for-confirmation": "Konto oczekuje na potwierdzenie",
+          "activation-link-regenerated": "Ponownie wygenerowany link aktywacyjny",
+          "password-reset-link": "Link resetowania hasła",
+          "user-data-deletion-confirmation": "Potwierdzenie usunięcia danych użytkownika"
+        }
+      }
+    },
+    "auth": {
+      "login": {
+        "title": "Zaloguj się do systemu",
+        "institutionContext": "Logujesz się w ramach:",
+        "email": "Email",
+        "emailPlaceholder": "Wpisz adres email",
+        "password": "Hasło",
+        "passwordPlaceholder": "Wpisz hasło",
+        "forgotPassword": "Zapomniałeś hasła?",
+        "submit": "Zaloguj się",
+        "backHome": "Przejdź do strony głównej",
+        "invalidCredentials": "Nieprawidłowy email lub hasło.",
+        "failed": "Logowanie nieudane.",
+        "validation": {
+          "emailRequired": "Email jest wymagany.",
+          "emailInvalid": "Podaj poprawny adres email.",
+          "passwordRequired": "Hasło jest wymagane."
+        }
+      },
+      "select": {
+        "type": "Typ instytucji",
+        "role": "Rola",
+        "login": "Zaloguj się"
+      },
+      "passwordResetRequest": {
+        "title": "Reset hasła",
+        "description": "Podaj adres email konta, dla którego chcesz ustawić nowe hasło.",
+        "success": "System przyjął zgłoszenie. Jeżeli konto jest aktywne, link do resetu hasła zostanie wysłany mailem.",
+        "goToLogin": "Przejdź do logowania",
+        "backToLogin": "Powrót do logowania",
+        "email": "Email",
+        "send": "Wyślij link do resetu hasła",
+        "failed": "Nie udało się przyjąć zgłoszenia resetu hasła.",
+        "validation": {
+          "emailRequired": "Email jest wymagany.",
+          "emailInvalid": "Podaj poprawny adres email.",
+          "emailMaxlength": "Podany email jest za długi."
+        }
+      },
+      "passwordResetConfirm": {
+        "title": "Ustaw nowe hasło",
+        "description": "Wprowadź nowe hasło i potwierdź zmianę.",
+        "checking": "Sprawdzanie linku...",
+        "success": "Hasło zostało zmienione. Ze względów bezpieczeństwa aktywne sesje użytkownika zostały wylogowane.",
+        "newPassword": "Nowe hasło",
+        "repeatPassword": "Powtórz nowe hasło",
+        "submit": "Zmien hasło",
+        "newRequest": "Złóż nowe zgłoszenie resetu hasła",
+        "invalid": "Link resetu hasła jest nieprawidłowy.",
+        "expired": "Link resetu hasła wygasł. Złóż nowe zgłoszenie resetu.",
+        "used": "Ten link resetu hasła został już wykorzystany.",
+        "failed": "Nie udało się przetworzyć resetu hasła.",
+        "validation": {
+          "passwordRequired": "Hasło jest wymagane.",
+          "passwordMinlength": "Hasło musi mieć co najmniej 8 znaków.",
+          "passwordMaxlength": "Hasło jest za długie.",
+          "passwordRepeatRequired": "Powtórzenie hasła jest wymagane.",
+          "passwordRepeatMaxlength": "Hasło jest za długie.",
+          "passwordMismatch": "Hasła muszą być takie same."
+        }
+      },
+      "userDataDeletionConfirm": {
+        "title": "Potwierdzenie usunięcia danych",
+        "description": "Potwierdź operacje usunięcia konta i anonimizacji danych.",
+        "checking": "Sprawdzanie linku...",
+        "success": "Konto zostało usunięte, a dane w rejestrach systemowych zostały zanonimizowane.",
+        "warning": "Po potwierdzeniu konto zostanie usunięte, a powiązane dane zostaną zanonimizowane. Operacji nie można cofnąć.",
+        "confirm": "Potwierdź usunięcie danych",
+        "invalid": "Link usunięcia danych jest nieprawidłowy.",
+        "expired": "Link usunięcia danych wygasł. Zaloguj się i ponów usunięcie danych.",
+        "used": "Ten link usunięcia danych został już wykorzystany.",
+        "failed": "Nie udało się przetworzyć usunięcia danych."
+      }
+    },
+    "institution": {
+      "deleteMyData": {
+        "title": "Usuń moje dane",
+        "description": "Wpisz login/email swojego konta. Po zatwierdzeniu system wyśle link potwierdzający usunięcie danych.",
+        "success": "System przyjął zgłoszenie. Link do potwierdzenia usunięcia danych zostanie wysłany na adres e-mail konta.",
+        "dashboard": "Przejdź do panelu",
+        "email": "Login/email",
+        "emailPlaceholder": "Wpisz adres email konta",
+        "sending": "Wysyłanie...",
+        "send": "Wyślij link potwierdzający",
+        "invalidAccount": "Nieprawidłowe konto.",
+        "failed": "Nie udało się przyjąć zgłoszenia usunięcia danych.",
+        "validation": {
+          "emailRequired": "Email jest wymagany.",
+          "emailInvalid": "Podaj poprawny adres email.",
+          "emailMaxlength": "Adres email jest za długi."
+        }
+      },
+      "journalList": {
+        "surveyYear": "Rok ICV",
+        "searchYearsError": "Nie udało się pobrać dostępnych lat wyszukiwania.",
+        "title": "Znajdź czasopismo dla swojej publikacji",
+        "description": "Znajdź czasopismo odpowiednie dla swojej publikacji. Skorzystaj z filtrów, aby wyszukać czasopisma według profilu naukowego, czasu publikacji, kosztów i standardów redakcyjnych.",
+        "downloadQuestionnaireReport": "Pobierz raport",
+        "downloadQuestionnaireReportError": "Nie udało się pobrać raportu.",
+        "loadError": "Nie udało sie pobrać listy czasopism naukowych.",
+        "retrySearch": "Spróbuj ponownie",
+        "viewCard": "Zobacz kartę",
+        "viewCardFor": "Zobacz kartę: {{title}}",
+        "resultsCount": "Wyniki: {{count}}",
+        "mniswResultLabel": "MNiSW",
+        "pointsUnit": "pkt",
+        "feesLabel": "Opłaty",
+        "poland": "Polska",
+        "defaultNotice": "Domyślnie wyświetlamy czasopisma polskie. Aby przeglądać wszystkie czasopisma JML, usuń filtr «Polska» — lista odświeży się automatycznie.",
+        "loading": "Ładowanie czasopism...",
+        "journalTitle": "Tytuł czasopisma",
+        "issn": "ISSN",
+        "publisher": "Wydawca",
+        "country": "Kraj",
+        "language": "Język",
+        "searchCountries": "Wyszukaj kraj",
+        "searchLanguages": "Wyszukaj język",
+        "noCountriesFound": "Nie znaleziono krajów.",
+        "noLanguagesFound": "Nie znaleziono języków.",
+        "loadingCountries": "Ładowanie krajów...",
+        "countriesLoadError": "Nie udało się pobrać krajów.",
+        "loadingLanguages": "Ładowanie języków...",
+        "languagesLoadError": "Nie udało się pobrać języków.",
+        "disciplines": "Dyscypliny JML",
+        "mainFilters": "Filtry główne",
+        "filtersLabel": "Filtry",
+        "applyFilters": "Zastosuj filtry",
+        "unappliedChanges": "Niezastosowane zmiany",
+        "filtersApplied": "Filtry zastosowane",
+        "cancelFilters": "Zamknij bez stosowania zmian",
+        "resultsLabel": "Wyniki wyszukiwania czasopism",
+        "advancedFilters": "Filtry zaawansowane",
+        "processingTimesGroup": "Czas procedowania",
+        "cooperationGroup": "Kooperacja międzynarodowa",
+        "search": "Szukaj",
+        "clearFilters": "Wyczyść filtry",
+        "unrestricted": "Bez ograniczenia",
+        "mniswPointsRange": "Punkty MNiSW",
+        "searchDisciplines": "Wyszukaj dyscyplinę",
+        "noDisciplinesFound": "Nie znaleziono dyscyplin.",
+        "loadingDisciplines": "Ładowanie dyscyplin...",
+        "disciplinesLoadError": "Nie udało się pobrać dyscyplin.",
+        "indexedJournals": "Czasopisma indeksowane",
+        "notIndexedJournals": "Czasopisma nieindeksowane",
+        "notIndexedJournalsTooltip": "Czasopisma, które nie spełniły kryteriów indeksacji",
+        "notEvaluatedJournals": "Czasopisma nieewaluowane",
+        "notEvaluatedJournalsTooltip": "Czasopisma niezgłoszone do oceny",
+        "icvRange": "Punktacja ICV",
+        "removeSelection": "Usuń wybór",
+        "indexationGroup": "Indeksacja",
+        "feeGroup": "Opłaty publikacyjne",
+        "feeExplanation": "Limity podawaj w PLN. Przeliczenia według ostatnich dostępnych średnich kursów NBP, aktualizowanych codziennie. Wyniki pokazują kwoty i waluty oryginalne, bez sumowania.",
+        "otherFeesFreeOnly": "Bez innych opłat",
+        "noFee": "Brak opłaty",
+        "noFees": "Brak opłat",
+        "feePresent": "Występują",
+        "feeLimitPln": "Maksymalnie",
+        "feeValidationError": "Podaj nieujemny limit PLN bez utraty dokładności albo zaznacz brak opłaty w tej kategorii, nie oba warunki jednocześnie.",
+        "chips": {
+          "title": "Zastosowane filtry",
+          "remove": "Usuń filtr {{filter}} i odśwież wyniki",
+          "pendingChanges": "Zmieniono kryteria.",
+          "noFee": "Brak opłaty",
+          "range": "{{minimum}}–{{maximum}}",
+          "minimum": "≥ {{minimum}}",
+          "maximum": "≤ {{maximum}}",
+          "units": { "days": "dni", "percent": "%", "pln": "PLN" }
+        },
+        "pagination": {
+          "label": "Strony wyników wyszukiwania",
+          "summary": "Strona {{page}} z {{pages}}. Wyników: {{total}}.",
+          "pageSize": "Rekordów na stronie:",
+          "previous": "Poprzednia strona",
+          "next": "Następna strona",
+          "page": "Strona {{page}}",
+          "jump": "Przejdź do strony",
+          "go": "Przejdź"
+        },
+        "publicationTime": "Średni czas publikacji",
+        "daysUnit": "dni",
+        "feeLabels": {
+          "OTHER": "Inne opłaty",
+          "OPEN_ACCESS": "Open access fee",
+          "PUBLICATION": "Publication fee",
+          "RAPID_REVIEW": "Rapid review",
+          "SUBMISSION": "Submission fee"
+        },
+        "feeFilterLabels": {
+          "SUBMISSION": "Złożenie manuskryptu",
+          "PUBLICATION": "Opublikowanie artykułu",
+          "OPEN_ACCESS": "Publikacja w modelu Open Access",
+          "RAPID_REVIEW": "Szybka recenzja"
+        },
+        "publicationProcessGroup": "Proces publikacji",
+        "editorialStandardsGroup": "Standardy redakcyjne",
+        "repositories": "Bazy indeksacyjne",
+        "searchValues": "Szukaj wartości",
+        "loadingRepositories": "Pobieranie listy baz…",
+        "repositoriesError": "Nie udało się pobrać listy baz. Wybrane wartości zostały zachowane.",
+        "retryRepositories": "Ponów pobranie baz",
+        "firstIssueYear": "Rok pierwszego wydania",
+        "frequency": "Częstotliwość wydawnicza",
+        "reviewModels": "Model recenzowania",
+        "reviewModelLabels": {
+          "DOUBLE_BLIND_REVIEW": "Double blind review",
+          "SINGLE_BLIND_REVIEW": "Single blind review",
+          "OPEN_PEER_REVIEW": "Open peer review"
+        },
+        "aopOnly": "Ahead of print / early birds",
+        "doiOnly": "Nadaje artykułom identyfikatory DOI",
+        "editorialSystemOnly": "Korzysta z elektronicznego systemu wydawniczo-edytorskiego",
+        "newsletterOnly": "Wysyła newsletter",
+        "socialMediaOnly": "Korzysta z mediów społecznościowych",
+        "antiPlagiarismOnly": "Korzysta z systemu antyplagiatowego",
+        "licenses": "Licencje Creative Commons stosowane do artykułów",
+        "accessModels": "Model dostępu",
+        "accessModelOa": "Open Access (OA)",
+        "accessModelHybrid": "Hybrydowy",
+        "accessModelClosed": "Zamknięty (subskrypcyjny)",
+        "nonFeeValidationError": "Sprawdź wybrane wartości i zakres lat. Lata muszą być nieujemnymi liczbami całkowitymi, a minimum nie może przekraczać maksimum.",
+        "mniswFilters": "Punkty MNiSW",
+        "mniswOnly": "Tylko czasopisma z wykazu MNiSW",
+        "mniswDisciplines": "Dyscypliny MNiSW",
+        "loadingMniswDisciplines": "Ładowanie dyscyplin MNiSW…",
+        "mniswDisciplinesLoadError": "Nie udało się pobrać dyscyplin MNiSW.",
+        "reloadMniswDisciplines": "Spróbuj ponownie pobrać dyscypliny MNiSW",
+        "mniswUnrestricted": "Bez ograniczenia",
+        "mniswUnavailablePoint": "wartość spoza aktualnych klas",
+        "retrySearchMetadata": "Spróbuj ponownie",
+        "loadingSearchCounts": "Przeliczanie liczników…",
+        "searchCountsError": "Nie udało się przeliczyć liczników. Wyniki wyszukiwania są nadal dostępne.",
+        "searchCountsExplanation": "Liczby uwzględniają pozostałe filtry. Wartości w grupie mogą się nakładać — nie należy ich sumować.",
+        "loadingSearchMetadata": "Pobieranie danych filtrów…",
+        "searchMetadataError": "Nie udało się pobrać dostępnych wartości filtrów.",
+        "mniswRangeError": "Wybierz granice spośród aktualnych klas punktowych MNiSW. Minimum nie może przekraczać maksimum.",
+        "surveyFilters": "Czasy procedowania i odsetki",
+        "reviewDays": "Czas recenzji (dni)",
+        "initialAssessmentDays": "Czas wstępnej oceny (dni)",
+        "publicationDays": "Czas publikacji (dni)",
+        "rejectionRate": "Wskaźnik odrzuceń (%)",
+        "authorForeignAffiliationPercentage": "Autorzy z afiliacją zagraniczną (%)",
+        "reviewerForeignAffiliationPercentage": "Recenzenci z afiliacją zagraniczną (%)",
+        "invalidSurveyRanges": "Podaj nieujemne całkowite limity dni i odsetki od 0 do 100. Minimum nie może przekraczać maksimum.",
+        "icvRangeError": "Podaj wartości ICV od 1, z maksymalnie dwoma miejscami po przecinku.",
+        "icvRangeOrderError": "Minimum ICV nie może przekraczać maksimum.",
+        "icvPointsRange": "Zakres punktów ICV",
+        "minimumLabel": "Min:",
+        "maximumLabel": "Max:",
+        "sort": "Sortowanie",
+        "empty": "Brak czasopism dla wybranych kryteriów.",
+        "publisherLabel": "Wydawca:",
+        "countryLabel": "Kraj:",
+        "languagesLabel": "Języki:",
+        "mniswLabel": "MNiSW:",
+        "outsideMniswList": "Spoza wykazu",
+        "depositedPublications": "Zdeponowane publikacje",
+        "fullText": "Pełna treść",
+        "abstract": "Abstrakt",
+        "keywords": "Słowa kluczowe",
+        "references": "Referencje",
+        "notIndexedTooltip": "Czasopismo nie spełniło kryteriów indeksacji",
+        "notEvaluatedTooltip": "Czasopismo niezgłoszone do oceny",
+        "sortOptions": {
+          "titleAsc": "Tytuł rosnąco",
+          "titleDesc": "Tytuł malejąco",
+          "icvDesc": "ICV malejąco",
+          "icvAsc": "ICV rosnąco",
+          "mniswDesc": "Punkty MNiSW malejąco",
+          "mniswAsc": "Punkty MNiSW rosnąco",
+          "publicationDaysAsc": "Średni czas publikacji rosnąco",
+          "publicationDaysDesc": "Średni czas publikacji malejąco"
+        }
+      },
+      "journalDetails": {
+        "missingQuestionnaire": "Brak ankiety za rok {{year}}. Poniżej wyświetlamy dane katalogowe czasopisma.",
+        "availableQuestionnaires": "Dostępne ankiety z innych lat:",
+        "loading": "Pobieranie danych czasopisma...",
+        "loadError": "Nie udało się pobrać szczegółów czasopisma.",
+        "invalidId": "Nieprawidłowy identyfikator czasopisma.",
+        "fallbackTitle": "Nie podano",
+        "englishTitle": "Tytuł angielski",
+        "website": "www",
+        "publisher": "Wydawca",
+        "country": "Kraj",
+        "languages": "Języki",
+        "depositedPublications": "Zdeponowane publikacje",
+        "fullText": "Pełna treść",
+        "abstract": "Abstrakt",
+        "keywords": "Słowa kluczowe",
+        "references": "Referencje",
+        "descriptionTab": "Opis czasopisma",
+        "detailsTab": "Szczegóły",
+        "scientificProfileTab": "Profil naukowy",
+        "editorialTab": "Redakcja",
+        "publisherTab": "Wydawca",
+        "originalTitle": "Tytuł oryginalny",
+        "shortTitle": "Tytuł skrócony",
+        "originCountry": "Kraj pochodzenia czasopisma",
+        "journalKind": "Charakter czasopisma",
+        "printedVersion": "Wersja drukowana",
+        "electronicVersion": "Wersja elektroniczna",
+        "fullContentAccess": "Dostęp do pełnych treści",
+        "mainCategory": "Główna kategoria/profil naukowy",
+        "otherCategories": "Pozostałe kategorie",
+        "list": "Lista",
+        "editorInChief": "Redaktor naczelny",
+        "deputyEditorInChief": "Zastępca redaktora naczelnego",
+        "editorialSecretary": "Sekretarz redakcji",
+        "editorialAddress": "Adres redakcji",
+        "affiliatedAt": "Afiliowane przy",
+        "currentNotEvaluated": "Niezgłoszone do oceny w ICI Journals Master List w roku {{year}}",
+        "currentNotIndexed": "Nieindeksowane w ICI Journals Master List w roku {{year}}",
+        "currentIndexed": "Indeksowane w ICI Journals Master List {{year}}",
+        "year": "Rok",
+        "icvValue": "Punktacja ICV",
+        "notIndexedLegend": "N/I - czasopismo nie spełniło kryteriów indeksacji",
+        "notEvaluatedLegend": "N/E - czasopismo nie zostało zgłoszone do oceny"
+      },
+      "questionnaireCharts": {
+        "loadError": "Nie udało się pobrać danych analitycznych czasopisma.",
+        "common": {
+          "noData": "Brak danych"
+        },
+        "tabs": {
+          "chart": "Wykres",
+          "table": "Dane tabelaryczne"
+        },
+        "table": {
+          "series": "Seria",
+          "year": "Rok",
+          "value": "Wartość"
+        },
+        "publication": {
+          "title": "Liczba publikacji naukowych",
+          "articleScientificAmount": "Liczba artykułów naukowych",
+          "articleManuscriptReceived": "Liczba otrzymanych manuskryptów"
+        },
+        "author": {
+          "title": "Liczba unikalnych autorów",
+          "series": "Liczba unikalnych autorów"
+        },
+        "reviewer": {
+          "title": "Udział zagranicznych recenzentów",
+          "series": "Udział zagranicznych recenzentów"
+        },
+        "reviewersMap": {
+          "title": "Kraje, z których pochodzą podani w ankiecie recenzenci",
+          "tooltipLabel": "Recenzenci"
+        }
+      },
+      "questionnaire": {
+        "title": "Kwestionariusz czasopisma",
+        "titleWithYear": "Kwestionariusz czasopisma za rok {{year}}",
+        "descriptionText": "Szczegółowe dane ankiety dla wybranego roku.",
+        "surveyYear": "Rok ankiety:",
+        "availableStatus": "Dostępna ankieta",
+        "unavailableStatus": "Brak danych ankiety",
+        "hiddenStatus": "Ankieta nie jest udostępniona",
+        "emptyTitle": "Brak danych kwestionariusza za rok {{year}}",
+        "emptyDescription": "Dla wybranego roku nie są dostępne dane kwestionariusza czasopisma.",
+        "showYear": "Wyświetl ankietę {{year}}",
+        "showQuestionnaire": "Pokaż ankietę",
+        "retry": "Spróbuj ponownie",
+        "reportError": "Nie udało się pobrać raportu ankiety.",
+        "detailedData": "Dane szczegółowe kwestionariusza",
+        "loading": "Pobieranie danych z kwestionariusza...",
+        "loadingShort": "Ładowanie kwestionariusza...",
+        "loadError": "Nie udało się pobrać kwestionariusza czasopisma.",
+        "empty": "Brak aktualnego kwestionariusza dla tego czasopisma.",
+        "noSurveyData": "Kwestionariusz nie zawiera danych ankiety.",
+        "year": "Rok",
+        "completeness": "Kompletność",
+        "metadata": "Metadane ankiety",
+        "journal": "Czasopismo",
+        "supplementaryData": "Dane uzupełniające",
+        "publishingVersions": "Wersje wydawnicze",
+        "stability": "Stabilność",
+        "standards": "Standardy",
+        "reviewStandards": "Standardy recenzji",
+        "forAuthors": "Dla autorów",
+        "digitalization": "Digitalizacja",
+        "scientificDatabases": "Bazy naukowe",
+        "cooperation": "Kooperacja",
+        "editorial": "Redakcja",
+        "publisher": "Wydawca",
+        "description": "Opis",
+        "value": "Wartość",
+        "element": "Element {{index}}",
+        "labels": {
+          "evaluationYear": "Rok oceny",
+          "timestamp": "Data przesłania",
+          "title": "Tytuł",
+          "titleOriginal": "Tytuł oryginalny",
+          "titleEnglish": "Tytuł angielski",
+          "titleShort": "Tytuł skrócony",
+          "issn": "ISSN",
+          "eissn": "e-ISSN",
+          "pissn": "p-ISSN",
+          "doi": "DOI",
+          "website": "Strona www",
+          "publisher": "Wydawca",
+          "country": "Kraj",
+          "languages": "Języki",
+          "email": "Email",
+          "phone": "Telefon",
+          "firstName": "Imię",
+          "lastName": "Nazwisko",
+          "fullName": "Imię i nazwisko",
+          "year": "Rok",
+          "value": "Wartość",
+          "content": "Treść"
+        },
+        "tabs": {
+          "publishingVersions": "Wersje wydawnicze",
+          "stability": "Stabilność",
+          "reviewStandards": "Standardy recenzji",
+          "forAuthors": "Dla autorów",
+          "digitalization": "Digitalizacja",
+          "scientificDatabases": "Bazy naukowe",
+          "cooperation": "Kooperacja",
+          "supplementaryData": "Dane uzupełniające"
+        },
+        "publishing": {
+          "onlineVersion": "Wersja online czasopisma naukowego",
+          "onlineFormats": "Formaty publikacji online",
+          "allIssuesAvailableAt": "Wszystkie wydania z roku {{year}} dostępne na",
+          "onlineInformation": "Informacje znajdujące się w wersji online czasopisma",
+          "electronicMetadata": "Metadane dołączone do artykułów naukowych opublikowanych w {{year}} roku",
+          "aheadOfPrint": "Wydawanie w trybie \"ahead of print\" / \"early birds\" w {{year}} roku",
+          "aopArticlesCount": "Liczba artykułów opublikowanych w trybie \"ahead of print\" / \"early birds\" w {{year}} roku",
+          "printedVersion": "Wersja drukowana czasopisma naukowego",
+          "coverInformation": "Informacje znajdujące się na okładce wszystkich wydań z {{year}} roku",
+          "circulation": "Nakład",
+          "printedMetadata": "Metadane dołączone do artykułów naukowych opublikowanych w {{year}} roku",
+          "policy": "Polityka wydawnicza czasopisma naukowego",
+          "versionsPolicy": "Polityka w sprawie wydawania dwóch wersji czasopisma naukowego",
+          "electronicVersionsPercentage": "Udział procentowy artykułów naukowych dostępnych w pełnej wersji online spośród ogólnej liczby artykułów naukowych opublikowanych przez czasopismo w roku {{year}}"
+        },
+        "stabilitySection": {
+          "publicationsByYear": "Liczba publikacji z podziałem na rok",
+          "publicationCount": "Liczba publikacji",
+          "scientificArticleCount": "Liczba artykułów naukowych",
+          "receivedManuscripts": "Liczba otrzymanych manuskryptów naukowych",
+          "rejectedManuscripts": "Liczba odrzuconych manuskryptów naukowych",
+          "publishedIssues": "Liczba opublikowanych wydań",
+          "frequency": "Częstotliwość wydawania",
+          "otherInformation": "Pozostałe informacje",
+          "articlesInLanguage": "Liczba artykułów w języku: {{language}}",
+          "englishTitleAndAbstract": "Artykuły z tytułem i streszczeniem w języku angielskim",
+          "combinedIssue": "Numer łączony w danym roku",
+          "publishingDelay": "Opóźnienie wydawnicze powyżej 6 miesięcy w danym roku"
+        },
+        "standardsSection": {
+          "reviewProcedure": "Procedura recenzowania",
+          "reviewModel": "Model recenzowania",
+          "internationalPolicies": "Przyjęte międzynarodowe polityki wydawnicze",
+          "appliedReviewStandards": "Standardy recenzji stosowane przez czasopismo",
+          "doubleBlind": "double blind (podwójnie anonimowe recenzje)",
+          "singleBlind": "single blind (jednostronnie anonimowe recenzje)",
+          "openPeer": "open peer (otwarte recenzje)",
+          "reviewersListPublished": "lista recenzentów jest publikowana przynajmniej raz w roku",
+          "minTwoReviewers": "do każdego artykułu naukowego powoływanych jest minimum dwóch niezależnych recenzentów",
+          "publicReviewForm": "formularz recenzji jest udostępniany publicznie",
+          "publicCriteria": "kryteria kwalifikacji lub odrzucenia artykułów naukowych są udostępniane publicznie",
+          "reviewerConflictStatement": "czasopismo wymaga od recenzentów złożenia oświadczenia o niewystępowaniu konfliktu interesów",
+          "writtenReview": "recenzenci są zobowiązani do przygotowania recenzji z podsumowaniem opisowym, zawierającej jednoznaczne wskazanie odnośnie dalszej procedury postępowania redakcji"
+        },
+        "authors": {
+          "guidelines": "Wytyczne dla autorów",
+          "instruction": "Instrukcja dla autorów",
+          "instructionContains": "Instrukcja zawiera",
+          "aiUsageInstructions": "wytyczne dotyczące dozwolonego zakresu wykorzystania narzędzi AI",
+          "aiUsageScope": "wskazanie zakresu wykorzystania narzędzi AI przy przygotowaniu artykułu",
+          "articleStructure": "wytyczne dotyczące struktury artykułów",
+          "literatureInstruction": "wytyczne dotyczące przygotowania piśmiennictwa",
+          "requiredStatements": "Wymagane oświadczenia",
+          "originalKind": "oryginalny charakter artykułu naukowego",
+          "authorContribution": "wskazanie wkładu poszczególnych współautorów w powstawanie artykułu naukowego",
+          "financeSource": "wskazanie źródeł finansowania badań przedstawionych w artykule lub powstania artykułu",
+          "orcidRequired": "Wymagane posiadanie numeru ORCID",
+          "citationStyles": "Style bibliograficzne w czasopiśmie",
+          "manuscriptProcessingTime": "Czas procedowania manuskryptów",
+          "type": "Typ",
+          "averageDays": "Średni czas - liczba dni",
+          "initialAssessment": "Ocena wstępna",
+          "review": "Recenzja",
+          "publication": "Publikacja",
+          "onlineProcessingTime": "Informacje online o czasie procedowania",
+          "notProvided": "Nie podano",
+          "publicationFees": "Opłaty publikacyjne",
+          "feeSelection": {
+            "RESOLVED": "Dla autora z Polski",
+            "UNRESOLVED": "Nie ustalono wariantu dla autora z Polski",
+            "INCOMPLETE": "Niekompletne dane wyboru opłaty",
+            "INVALID": "Wybór opłaty wymaga wyjaśnienia",
+            "LEGACY": "Brak informacji o wyborze w starszych danych",
+            "source": {
+              "JOURNAL_OVERRIDE": "Wyjątek administratora",
+              "JOURNAL_COUNTRY": "Wybór według kraju czasopisma"
+            }
+          },
+          "feeType": "Rodzaj opłaty",
+          "minAmount": "Kwota minimalna",
+          "maxAmount": "Kwota maksymalna",
+          "currency": "Waluta",
+          "onlinePublicationFees": "Informacje online o opłatach publikacyjnych",
+          "feeGroups": {
+            "submission": "submission fee - złożenie manuskryptu",
+            "publication": "publication fee - publikacja artykułu",
+            "openAccess": "publikacja Open Access",
+            "apc": "other APC - inne opłaty związane z procedowaniem",
+            "rapidReview": "rapid review - płatna ścieżka szybkiej publikacji"
+          }
+        },
+        "digitalizationSection": {
+          "website": "Strona internetowa czasopisma naukowego",
+          "wwwAddress": "Adres www",
+          "websiteLanguages": "Języki strony",
+          "websiteInformation": "Informacje na stronie",
+          "journalTitle": "tytuł czasopisma",
+          "scientificCouncil": "wykaz członków Rady Naukowej",
+          "editorialData": "dane redakcji",
+          "antiAbusePolicy": "polityka przeciwdziałania nadużyciom",
+          "doiPrefix": "DOI czasopisma/prefix wydawcy",
+          "doiInYear": "DOI w roku {{year}}",
+          "tools": "Narzędzia i systemy",
+          "toolSystemLicense": "Narzędzie/system/licencja",
+          "creativeCommons": "Creative Commons - licencje przyjęte przez czasopismo",
+          "preservation": "Digital preservation - systemy, w których są archiwizowane artykuły",
+          "socialMedia": "Media społecznościowe - czasopismo prowadzi profile w serwisach",
+          "publishingTools": "System wydawniczo-edytorski wykorzystywany przez redakcję",
+          "citationTools": "Zarządzanie danymi bibliograficznymi - wykorzystywane narzędzia",
+          "antiPlagiarism": "Czasopismo korzysta z systemu antyplagiatowego do weryfikacji oryginalności manuskryptów",
+          "statistics": "Czasopismo gromadzi statystyki dotyczące wyświetleń lub pobrań artykułów",
+          "newsletters": "Komunikacja w formie newsletterów"
+        },
+        "scientificDatabasesSection": {
+          "indexing": "Indeksacja czasopisma w bazach naukowych",
+          "indexingDatabases": "Bazy indeksacyjne",
+          "otherDatabases": "Inne bazy",
+          "indicators": "Wskaźniki czasopisma w bazie Scopus i Web of Science",
+          "indicator": "Wskaźnik"
+        },
+        "cooperationSection": {
+          "title": "Autorzy, Recenzenci, Członkowie Rady Naukowej",
+          "role": "Rola",
+          "uniqueResearchers": "Liczba unikalnych naukowców",
+          "externalResearchersShare": "Udział zewnętrznych naukowców (%)",
+          "foreignResearchersShare": "Udział zagranicznych naukowców (%)",
+          "authors": "Autorzy",
+          "reviewers": "Recenzenci",
+          "directors": "Członkowie Rady Naukowej",
+          "reviewersInYear": "Recenzenci współpracujący z czasopismem w roku {{year}}",
+          "directorsInYear": "Członkowie Rady Naukowej czasopisma w roku {{year}}",
+          "fullName": "Imię i nazwisko",
+          "affiliation": "Afiliacja",
+          "country": "Kraj",
+          "email": "Email"
+        },
+        "supplementary": {
+          "journalHistory": "Czasopismo - historia",
+          "firstIssueYear": "Rok pierwszego wydania",
+          "continuedYear": "Czasopismo funkcjonuje nieprzerwanie od",
+          "titleHistory": "Tytuł - historia",
+          "title": "Tytuł",
+          "active": "Aktualny",
+          "type": "Typ",
+          "yearFrom": "Rok od",
+          "yearTo": "Rok do",
+          "issnHistory": "ISSN - historia"
+        }
+      }
+    }
+  },
+  "common": {
+    "depositedPublicationsNewTab": "Zdeponowane publikacje — Wydania i zawartość (otwiera w nowej karcie)",
+    "yes": "Tak",
+    "no": "Nie",
+    "nd": "Brak danych",
+    "back": "Powrót",
+    "cancel": "Anuluj",
+    "clear": "Wyczyść",
+    "filter": "Szukaj",
+    "details": "Szczegóły",
+    "loading": "Ładowanie...",
+    "get-report": "Pobierz raport",
+    "serverError": "Wystąpił błąd serwera ({{status}}). Spróbuj ponownie później.",
+    "connectionError": "Nie można połączyć się z serwerem. Sprawdź połączenie i spróbuj ponownie."
+  },
+  "shared": {
+    "cookieConsent": {
+      "messagePrefix": "Uprzejmie informujemy, że używamy plików \"cookies\" zgodnie z",
+      "privacyPolicy": "polityką prywatności",
+      "messageSuffix": "portalu.",
+      "accept": "Akceptuję"
+    },
+    "header": {
+      "languageVersion": "Wybór wersji językowej",
+      "fullscreen": "Tryb pełnoekranowy",
+      "darkMode": "Tryb ciemny",
+      "lightMode": "Tryb jasny",
+      "hello": "Witaj {{name}}!",
+      "changeContext": "Zmień kontekst",
+      "changeData": "Zmień dane",
+      "changePassword": "Zmień hasło",
+      "deleteMyData": "Usuń moje dane",
+      "logout": "Wyloguj",
+      "register": "Zarejestruj się",
+      "login": "Zaloguj się"
+    },
+    "footer": {
+      "legalInfo": "Informacje prawne",
+      "terms": "Regulamin",
+      "privacyPolicy": "Polityka prywatności",
+      "assessmentMethodology": "Metodyka oceny",
+      "indexingProcedure": "Procedura indeksacji",
+      "indexCopernicusApps": "Aplikacje Index Copernicus",
+      "worldOfJournals": "ICI World of Journals",
+      "contact": "Kontakt"
+    },
+    "denied": {
+      "title": "Dostęp zabroniony",
+      "heading": "Nie masz dostępu do tej strony.",
+      "description": "Sprawdź, czy jesteś zalogowany na właściwe konto, lub wróć do strony głównej.",
+      "backHome": "Przejdź do strony głównej"
+    }
+  },
+  "journal": {
+    "dictionary": {
+      "common": {
+        "scan": "Skan",
+        "other": "Inny",
+        "otherPlural": "Inne",
+        "none": "Brak",
+        "year": "Rok",
+        "volume": "Tom",
+        "number": "Numer",
+        "month": "Miesiąc",
+        "other-plural": "Inne"
+      },
+      "current-reason-not-indexing": {
+        "dec01": "Czasopismo nie dostarczyło wymaganych dokumentów recenzji do weryfikacji.",
+        "dec02": "Czasopismo nie dostarczyło wymaganych wydań do weryfikacji.",
+        "dec03": "Czasopismo nie funkcjonowało w roku objętym oceną.",
+        "dec04": "Czasopismo nie spełniło kryteriów wstępnych indeksacji - brak aktywnej strony internetowej.",
+        "dec05": "Czasopismo nie spełniło kryteriów wstępnych indeksacji - brak opublikowanej procedury recenzji.",
+        "dec06": "Czasopismo nie spełniło kryteriów wstępnych indeksacji - brak wymaganego minimum artykułów naukowych opublikowanych w roku objętym oceną.",
+        "dec07": "Czasopismo nie spełniło kryteriów wstępnych indeksacji - czasopismo nie funkcjonowało przez pełny rok objęty oceną.",
+        "dec08": "Czasopismo podaje fałszywe wskaźniki bibliometryczne na swojej stronie internetowej.",
+        "dec09": "Podano nieprawdziwe informacje w kwestionariuszu oceny (Bazy naukowe).",
+        "dec10": "Podano nieprawdziwe informacje w kwestionariuszu oceny (Digitalizacja).",
+        "dec11": "Podano nieprawdziwe informacje w kwestionariuszu oceny (Kooperacja).",
+        "dec12": "Podano nieprawdziwe informacje w kwestionariuszu oceny (Wersje wydawnicze)."
+      },
+      "kind": {
+        "scientific": "Czasopismo naukowe",
+        "other": "Czasopismo nienaukowe ",
+        "popularScience": "Czasopismo popularno-naukowe",
+        "popular-science": "Czasopismo popularno-naukowe"
+      },
+      "title": {
+        "citation": "Tytuł do cytowań",
+        "original": "Tytuł oryginalny",
+        "english": "Tytuł angielski",
+        "short": "Tytuł skrócony"
+      },
+      "paidType": {
+        "freeArticles": "Wszystkie artykuły są dostępne bezpłatnie",
+        "allArticlesPaid": "Wszystkie artykuły są dostępne za opłatą",
+        "paidArticles": "Wybrane artykuły są dostępne bezpłatnie"
+      },
+      "issnType": {
+        "print": "ISSN drukowany",
+        "electronic": "ISSN elektroniczny"
+      },
+      "publishing": {
+        "versionInformation": {
+          "volumeNumberIssueMonth": "Tom, numer, zeszyt i miesiąc"
+        },
+        "policy": {
+          "extendedElectronicVersions": "Wersja elektroniczna jest rozszerzona",
+          "sameArticles": "Takie same artykuły w obu wersjach",
+          "sameArticlesAndOthers": "Takie same artykuły i inne materiały",
+          "printedMoreThanElectronic": "Wersja drukowana zawiera więcej artykułów niż elektroniczna",
+          "electronicMoreThanPrinted": "Wersja elektroniczna zawiera więcej artykułów niż drukowana",
+          "extended-electronic-versions": "Wersja elektroniczna jest rozszerzona",
+          "same-articles": "Takie same artykuły w obu wersjach",
+          "same-articles-and-others": "Takie same artykuły i inne materiały",
+          "printed-more-than-electronic": "Wersja drukowana zawiera więcej artykułów niż elektroniczna",
+          "electronic-more-than-printed": "Wersja elektroniczna zawiera więcej artykułów niż drukowana"
+        },
+        "version-information": {
+          "volume-number-issue-month": "Tom, numer, zeszyt i miesiąc"
+        }
+      },
+      "articleMetadata": {
+        "nationalKeywords": "Słowa kluczowe w języku oryginalnym",
+        "englishKeywords": "Słowa kluczowe w języku angielskim",
+        "authorAffiliation": "Afiliacja autora",
+        "sendDate": "Data przesłania artykułu do redakcji",
+        "acceptedDate": "Data akceptacji artykułu przez redakcję",
+        "authorStatement": "Oświadczenie autora o źródłach finansowania badań przedstawionych w artykule naukowym lub powstania artykułu naukowego",
+        "sendDateShort": "Data przesłania",
+        "acceptedDateShort": "Data akceptacji",
+        "authorStatementShort": "Oświadczenie autora"
+      },
+      "month": {
+        "decYearBefore": "Grudzień roku poprzedniego",
+        "january": "Styczeń",
+        "february": "Luty",
+        "march": "Marzec",
+        "april": "Kwiecień",
+        "may": "Maj",
+        "june": "Czerwiec",
+        "july": "Lipiec",
+        "august": "Sierpień",
+        "september": "Wrzesień",
+        "october": "Październik",
+        "november": "Listopad",
+        "december": "Grudzień",
+        "janNextYear": "Styczeń roku kolejnego",
+        "dec-year-before": "Grudzień roku poprzedniego",
+        "jan-next-year": "Styczeń roku kolejnego"
+      },
+      "frequency": {
+        "biweekly": "Dwutygodnik",
+        "bimonthly": "Dwumiesięcznik",
+        "semiannual": "Półrocznik",
+        "irregular": "Nieregularny",
+        "weekly": "Tygodnik",
+        "quarterly": "Kwartalnik",
+        "monthly": "Miesięcznik",
+        "annual": "Rocznik",
+        "continuous": "Ciągła aktualizacja",
+        "threeTimesYear": "3 wydania w roku",
+        "three-times-year": "3 wydania w roku"
+      },
+      "standards": {
+        "authorInstructions": {
+          "articleStructure": "Instrukcja dotycząca struktury artykułu",
+          "literatureInstruction": "Instrukcja dotycząca przygotowania piśmiennictwa",
+          "noInstruction": "Brak instrukcji"
+        },
+        "statements": {
+          "conflict": "Konflikt interesów",
+          "financeSource": "Wskazanie źródeł finansowania badań przedstawionych w artykule lub powstania artykułu",
+          "authorContribution": "Wskazanie wkładu poszczególnych współautorów w powstawanie artykułu naukowego",
+          "originalKind": "Oryginalny charakter artykułu naukowego",
+          "finance-source": "Wskazanie źródeł finansowania badań przedstawionych w artykule lub powstania artykułu",
+          "author-contribution": "Wskazanie wkładu poszczególnych współautorów w powstawanie artykułu naukowego",
+          "original-kind": "Oryginalny charakter artykułu naukowego",
+          "ai-usage-scope": "Oświadczenie o zakresie wykorzystania narzędzi AI przy przygotowaniu artykułu"
+        },
+        "reviewRules": {
+          "publishedReviewersList": "Lista recenzentów jest publikowana przynajmniej raz w roku",
+          "min2Reviewers": "Do każdego artykułu naukowego powoływanych jest minimum dwóch niezależnych recenzentów",
+          "reviewerStatement": "Czasopismo wymaga od recenzentów złożenia oświadczenia o niewystępowaniu konfliktu interesów",
+          "prepareReview": "Recenzenci są zobowiązani do przygotowania recenzji z podsumowaniem opisowym, zawierającej jednoznaczne wskazanie odnośnie dalszej procedury postępowania redakcji",
+          "publicForm": "Formularz recenzji jest udostępniany publicznie",
+          "publicCriteria": "Kryteria kwalifikacji lub odrzucenia artykułów naukowych są udostępniane publicznie"
+        },
+        "author-instructions": {
+          "article-structure": "Instrukcja dotycząca struktury artykułu",
+          "literature-instruction": "Instrukcja dotycząca przygotowania piśmiennictwa",
+          "no-instruction": "Brak instrukcji",
+          "ai-usage-instructions": "Instrukcje określające dozwolony zakres wykorzystania AI"
+        },
+        "review-rules": {
+          "published-reviewers-list": "Lista recenzentów jest publikowana przynajmniej raz w roku",
+          "min-2-reviewers": "Do każdego artykułu naukowego powoływanych jest minimum dwóch niezależnych recenzentów",
+          "reviewer-statement": "Czasopismo wymaga od recenzentów złożenia oświadczenia o niewystępowaniu konfliktu interesów",
+          "prepare-review": "Recenzenci są zobowiązani do przygotowania recenzji z podsumowaniem opisowym, zawierającej jednoznaczne wskazanie odnośnie dalszej procedury postępowania redakcji",
+          "public-form": "Formularz recenzji jest udostępniany publicznie",
+          "public-criteria": "Kryteria kwalifikacji lub odrzucenia artykułów naukowych są udostępniane publicznie"
+        }
+      },
+      "authorsFee": {
+        "noFee": "Brak opłaty",
+        "oneFee": "Jedna opłata",
+        "countrySpecificFee": "Opłata zależna od kraju",
+        "variousFee": "Różne opłaty"
+      },
+      "digitalization": {
+        "editorialTools": {
+          "antiPlagiarismSystem": "System antyplagiatowy",
+          "editorialSystem": "System redakcyjny",
+          "manuscriptSystem": "System obsługi manuskryptów",
+          "exportTools": "Narzędzia eksportu",
+          "statistics": "Statystyki",
+          "newsletters": "Newslettery"
+        },
+        "articleLicense": {
+          "authorPreference": "Według preferencji autora"
+        },
+        "doiType": {
+          "all": "Wszystkie artykuły",
+          "part": "Część artykułów"
+        },
+        "editorial-tools": {
+          "anti-plagiarism-system": "System antyplagiatowy",
+          "editorial-system": "System redakcyjny",
+          "manuscript-system": "System obsługi manuskryptów",
+          "export-tools": "Narzędzia eksportu"
+        },
+        "article-license": {
+          "author-preference": "Według preferencji autora"
+        },
+        "doi-type": {
+          "all": "Wszystkie artykuły",
+          "part": "Część artykułów"
+        },
+        "publishing-tools": {
+          "amsys": "Article Management System",
+          "dru": "Drupal",
+          "jmsys": "e-Journal Management System",
+          "emana": "Editorial Manager",
+          "edsys": "Editorial System",
+          "ejour": "eJournals",
+          "elsev": "Elsevier",
+          "ici": "ICI Publishers Panel",
+          "jooml": "Joomla",
+          "jousys": "Journals System",
+          "lodel": "LODEL",
+          "ojs": "Open Journal System (OJS)",
+          "wordpress": "Wordpress"
+        }
+      },
+      "paid-type": {
+        "free-articles": "Wszystkie artykuły są dostępne bezpłatnie",
+        "all-articles-paid": "Wszystkie artykuły są dostępne za opłatą",
+        "paid-articles": "Wybrane artykuły są dostępne bezpłatnie"
+      },
+      "issn-type": {
+        "print": "ISSN drukowany",
+        "electronic": "ISSN elektroniczny"
+      },
+      "article-metadata": {
+        "publication-date": "Data opublikowania artykułu",
+        "conflict-of-interest": "Informacja o konflikcie interesów",
+        "sharing-policy": "Zasady udostępniania pracy",
+        "national-keywords": "Słowa kluczowe w języku oryginalnym",
+        "english-keywords": "Słowa kluczowe w języku angielskim",
+        "author-affiliation": "Afiliacja autora",
+        "send-date": "Data przesłania artykułu do redakcji",
+        "accepted-date": "Data akceptacji artykułu przez redakcję",
+        "author-statement": "Oświadczenie autora o źródłach finansowania badań przedstawionych w artykule naukowym lub powstania artykułu naukowego",
+        "send-date-short": "Data przesłania",
+        "accepted-date-short": "Data akceptacji",
+        "author-statement-short": "Oświadczenie autora"
+      },
+      "authors-fee": {
+        "no-fee": "Brak opłaty",
+        "one-fee": "Jedna opłata",
+        "country-specific-fee": "Opłata zależna od kraju",
+        "various-fee": "Różne opłaty",
+        "detail-description": {
+          "for-all": "Dla wszystkich autorów",
+          "internal-authors": "Dla autorów wewnętrznych",
+          "external-authors": "Dla autorów zewnętrznych"
+        }
+      }
+    }
+  },
+  "decisionCard": {
+    "audit": {
+      "eventType": "Akcja na Karcie decyzji (P2)",
+      "context": "Kontekst Karty decyzji",
+      "description": "Rozwinięcie opisu czasopisma",
+      "open": "Otwarcie Karty",
+      "history": "Rozwinięcie historii ICV",
+      "indexing": "Rozwinięcie listy indeksacji",
+      "wos": "Rozwinięcie kategorii WoS",
+      "scopus": "Rozwinięcie kategorii Scopus",
+      "fullData": "Przejście do Pełnych danych JML",
+      "time": "Rozwinięcie sekcji Czas",
+      "costs": "Rozwinięcie sekcji Koszty",
+      "standards": "Rozwinięcie sekcji Standardy",
+      "process": "Rozwinięcie sekcji Proces",
+      "international": "Rozwinięcie sekcji Umiędzynarodowienie",
+      "website": "Przejście do WWW czasopisma",
+      "issues": "Przejście do wydań i zawartości czasopisma"
+    },
+    "open": "Karta decyzji",
+    "benchmarkDiscipline": "Benchmarki liczone względem {{discipline}} (ICI JML)",
+    "title": "Karta decyzji publikacyjnej",
+    "navigation": "Nawigacja Karty decyzji",
+    "back": "Powrót do wyników",
+    "fullData": "Pełne dane JML",
+    "issues": "Wydania i zawartość",
+    "issuesNewTab": "Wydania i zawartość — otwiera się w nowej karcie",
+    "issuesUnavailable": "Wydania i zawartość — link jest obecnie niedostępny",
+    "yearLabel": "Rok danych:",
+    "englishTitle": "Tytuł angielski",
+    "publisher": "Wydawca",
+    "country": "Kraj",
+    "languages": "Języki",
+    "less": "Pokaż mniej",
+    "publications": "Zdeponowane publikacje",
+    "moreAboutJournal": "Więcej o czasopiśmie",
+    "preview": {
+      "review": "Recenzja {{duration}}",
+      "typical": "typowo {{duration}}",
+      "oneFeeCategory": "Jedna kategoria opłat",
+      "feeCategories": "{{count}} kategorie opłat",
+      "fiveFeeCategories": "5 kategorii opłat",
+      "rejection": "{{value}} odrzuceń"
+    },
+    "summary": {
+      "mnisw": "Punktacja MNiSW",
+        "process": "Proces publikacji",
+      "fees": "Opłaty dla autorów",
+      "feeCategories": {
+        "SUBMISSION": "Opłata za zgłoszenie",
+        "PUBLICATION": "Opłata za publikację (APC)",
+        "OPEN_ACCESS": "Opłata za otwarty dostęp",
+        "RAPID_REVIEW": "Opłata za szybką recenzję",
+        "OTHER": "Inne opłaty"
+      },
+      "domesticAuthors": "Autorzy krajowi",
+      "foreignAuthors": "Autorzy zagraniczni",
+      "noFees": "Brak opłat",
+      "incompleteFees": "Nie można ustalić wszystkich opłat.",
+      "typicalTime": "Typowo w grupie {{duration}}"
+    },
+    "fullText": "Pełna treść",
+    "abstracts": "Abstrakt",
+    "keywords": "Słowa kluczowe",
+    "references": "Referencje",
+    "reference": "MNiSW, ICV, indeksacja i profil naukowy",
+    "icv": "Wskaźnik ICV",
+    "icvComparison": {
+      "lower": "Lepszy niż {{percent}} czasopism",
+      "equal": "Identyczny ICV: {{percent}}",
+      "allEqual": "ICV identyczny jak u 100% czasopism w grupie porównawczej"
+    },
+    "time": {
+      "initialAssessment": "Średni czas wstępnej oceny",
+      "review": "Średni czas recenzji",
+      "publication": "Średni czas publikacji",
+      "days": "{{value}} dni",
+      "day": "{{value}} dzień",
+      "typical": "Typowy czas w grupie:",
+      "chart": {
+        "below": "Czas czasopisma: {{value}} dni — poniżej typowego przedziału w grupie: {{range}} dni",
+        "within": "Czas czasopisma: {{value}} dni — w typowym przedziale w grupie: {{range}} dni",
+        "above": "Czas czasopisma: {{value}} dni — powyżej typowego przedziału w grupie: {{range}} dni"
+      }
+    },
+    "yes": "Tak",
+    "no": "Nie",
+    "process": {
+      "since": "Ukazuje się od",
+      "frequency": "Częstotliwość wydawnicza",
+      "rejection": "Wskaźnik odrzuceń",
+      "regularity": "Regularność wydawania",
+      "continuous": "{{first}} (nieprzerwanie)",
+      "restarted": "{{first}} (nieprzerwanie od {{continued}})",
+      "firstOnly": "{{first}} (brak roku nieprzerwanej działalności)",
+      "continuedOnly": "Nieprzerwanie od {{continued}} (brak roku pierwszego wydania)",
+      "typicalRejection": "(typowy wskaźnik w grupie: {{value}})",
+      "delayed": "Opóźnienia > 6 mies.",
+      "regular": "Brak opóźnień powyżej 6 miesięcy"
+    },
+    "international": {
+      "authors": "Autorzy z zagraniczną afiliacją",
+      "reviewers": "Recenzenci z zagraniczną afiliacją",
+      "scientificCouncil": "Rada Naukowa z zagraniczną afiliacją",
+      "median": "Mediana w grupie: {{value}}",
+      "chart": "Własny udział: {{own}}; mediana w grupie: {{median}}; skala 0–100%"
+    },
+    "standards": {
+      "labels": {
+        "antiPlagiarism": "System antyplagiatowy",
+        "publicCriteria": "Publiczne udostępnianie kryteriów kwalifikacji lub odrzucenia artykułów",
+        "editorialSystem": "Elektroniczny system wydawniczo-edytorski",
+        "reviewing": "Model recenzowania",
+        "access": "Model dostępu",
+        "licence": "Licencje Creative Commons",
+        "socialMedia": "Media społecznościowe"
+      },
+      "declaration": {
+        "INDICATED": "Tak — zadeklarowano stosowanie",
+        "NONE": "Zadeklarowano: żadne z powyższych",
+        "NOT_INDICATED": "Nie wskazano tego narzędzia"
+      },
+      "publicIndicated": "Tak — zadeklarowano publiczne udostępnianie",
+      "publicNotIndicated": "Nie wskazano publicznego udostępniania kryteriów",
+      "noDeclaration": "Brak deklaracji",
+      "invalid": "Nieprawidłowa deklaracja",
+      "noSelection": "Brak wskazania",
+      "noneSelected": "Żadne z powyższych",
+      "shareMissing": "udział niepodany",
+      "shareInvalid": "nieprawidłowy udział",
+      "invalidReview": "Niespójne dane deklaracji recenzowania",
+      "models": {
+        "DOUBLE_BLIND_REVIEW": "Double blind",
+        "SINGLE_BLIND_REVIEW": "Single blind",
+        "OPEN_PEER_REVIEW": "Open peer review"
+      },
+      "access": {
+        "FREE_ARTICLES": "Dostęp bezpłatny do wszystkich artykułów naukowych",
+        "ALL_ARTICLES_PAID": "Dostęp płatny do wszystkich artykułów naukowych",
+        "PAID_ARTICLES": "Dostęp częściowo płatny — wybrane artykuły płatne, pozostałe bezpłatne"
+      },
+      "conditions": {
+        "date": "Zależny od daty publikacji",
+        "article": "Zależny od konkretnego artykułu",
+        "language": "Zależny od wersji językowej",
+        "other": "Inny warunek: {{value}}"
+      },
+      "conditionsMissing": "Nie podano warunków dostępu",
+      "conditionsInvalid": "Nieprawidłowe dane warunków dostępu",
+      "noCC": "Nie publikuje na licencjach Creative Commons",
+      "authorPreference": "Publikowanie na CC zgodnie z preferencjami autora",
+      "noSocial": "Nie korzysta z mediów społecznościowych",
+      "channelsMissing": "Korzysta z mediów społecznościowych — kanały niepodane",
+      "otherSocial": "Inne: {{value}}"
+    },
+    "fees": {
+      "categories": {
+        "SUBMISSION": "Submission fee",
+        "PUBLICATION": "Publication fee",
+        "OPEN_ACCESS": "Open access fee",
+        "RAPID_REVIEW": "Rapid review",
+        "OTHER": "Inne APC"
+      },
+      "values": {
+        "noFee": "Brak",
+        "present": "Występują",
+        "unavailable": "Nie można ustalić opłaty",
+        "multipleCurrencies": "Różne stawki i waluty",
+        "domestic": "Krajowi",
+        "foreign": "Zagraniczni"
+      },
+      "explanation": "Odsetek czasopism pobierających daną opłatę w grupie porównawczej.",
+      "comparison": "{{percent}} innych czasopism pobiera tę opłatę"
+    },
+    "indexing": "Indeksacja",
+    "scientificProfile": "Profil naukowy",
+    "mnisw": "Punktacja MNiSW {{year}}",
+    "points": "{{points}} pkt",
+    "unlisted": "Spoza wykazu",
+    "mniswDisciplines": "Dyscypliny MNiSW",
+    "history": "Historia ICV",
+    "mainGroup": "Profil naukowy JML / grupa odniesienia",
+    "mainDiscipline": "Profil naukowy JML",
+    "noData": "Brak danych",
+    "partialData": "Niepełne dane",
+    "moreCount": "+{{count}} więcej",
+    "categories": {
+      "wos": "Kategorie Web of Science",
+      "scopus": "Kategorie Scopus"
+    },
+    "loadError": "Nie udało się pobrać Karty decyzji.",
+    "retry": "Spróbuj ponownie",
+    "sections": {
+      "time": "Czas publikacji",
+      "costs": "Koszty dla autorów",
+      "process": "Proces publikacji",
+      "international": "Umiędzynarodowienie",
+      "standards": "Standardy redakcyjne"
+    },
+    "status": {
+      "DATA_UPDATING": "Trwa aktualizacja danych za rok {{year}}. Dane roczne Karty są tymczasowo niedostępne.",
+      "DATA_NOT_READY": "Dane roczne Karty za rok {{year}} nie zostały jeszcze przygotowane do udostępnienia.",
+      "MISSING_SURVEY": "Brak ankiety za rok {{year}}.",
+      "NOT_EVALUATED": "Brak opublikowanej oceny ankiety za rok {{year}}.",
+      "NOT_INDEXED": "Czasopismo nie jest indeksowane w roku {{year}}. Dane roczne Karty są niedostępne.",
+      "UNAVAILABLE": "Nie można jednoznacznie ustalić danych za rok {{year}}."
+    }
+  }
+}

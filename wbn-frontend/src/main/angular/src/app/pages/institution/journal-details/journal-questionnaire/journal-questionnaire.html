@@ -1,0 +1,400 @@
+<section class="card questionnaire-card" aria-labelledby="questionnaire-heading" data-testid="journal-questionnaire">
+  <header class="card-header d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div>
+      <h2 id="questionnaire-heading" class="card-title fs-4 mb-1">{{ 'page.institution.questionnaire.title' | transloco }}</h2>
+      <p class="text-muted small mb-0">{{ 'page.institution.questionnaire.descriptionText' | transloco }}</p>
+    </div>
+    @if (canDownloadReport()) {
+      <button
+        type="button"
+        class="btn btn-primary d-inline-flex align-items-center gap-2"
+        data-testid="questionnaire-report-download"
+        [disabled]="isReportDownloading()"
+        [attr.aria-busy]="isReportDownloading()"
+        (click)="downloadQuestionnaireReport()"
+      >
+        @if (isReportDownloading()) {
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        } @else {
+          <i class="ri-file-download-line" aria-hidden="true"></i>
+        }
+        {{ 'common.get-report' | transloco }}
+      </button>
+    }
+  </header>
+  <div class="card-body border-bottom d-flex flex-wrap align-items-center gap-3 questionnaire-year-bar">
+    @if (availableYears().length) {
+      <div class="questionnaire-year-picker d-flex align-items-center gap-3">
+        <span id="questionnaire-year-label" class="fw-medium flex-shrink-0">{{ 'page.institution.questionnaire.surveyYear' | transloco }}</span>
+        <div class="questionnaire-years">
+          <div class="btn-group" role="group" aria-labelledby="questionnaire-year-label">
+            @for (year of availableYears(); track year) {
+              <button
+                type="button"
+                class="btn"
+                [class.btn-primary]="year === surveyYear()"
+                [class.btn-outline-primary]="year !== surveyYear()"
+                [attr.aria-pressed]="year === surveyYear()"
+                [attr.data-survey-year]="year"
+                (click)="yearChange.emit(year)"
+              >{{ year }}</button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+    <div class="small ms-sm-auto" role="status" aria-live="polite" data-testid="questionnaire-status">
+      @if (isLoading()) {
+        <span class="text-muted"><span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>{{ 'page.institution.questionnaire.loadingShort' | transloco }}</span>
+      } @else if (hasError()) {
+        <span class="text-danger">{{ 'page.institution.questionnaire.loadError' | transloco }}</span>
+      } @else if (isEmpty()) {
+        <span class="badge bg-warning-subtle text-warning-emphasis">{{ 'page.institution.questionnaire.unavailableStatus' | transloco }}</span>
+      } @else if (isHidden()) {
+        <span class="text-muted">{{ 'page.institution.questionnaire.hiddenStatus' | transloco }}</span>
+      } @else {
+        <span class="badge bg-success-subtle text-success-emphasis">{{ 'page.institution.questionnaire.availableStatus' | transloco }}</span>
+      }
+    </div>
+  </div>
+  @if (isLoading()) {
+    <div class="card-body" aria-busy="true">
+      <app-local-spinner [height]="120" [overlay]="false" [text]="'page.institution.questionnaire.loading' | transloco" />
+    </div>
+  } @else if (hasError()) {
+    <div class="card-body">
+      <app-aler-data [message]="errorMessage()" />
+      <button type="button" class="btn btn-outline-primary" data-testid="questionnaire-retry" (click)="retryQuestionnaire()">
+        {{ 'page.institution.questionnaire.retry' | transloco }}
+      </button>
+    </div>
+  } @else if (isEmpty()) {
+    <div class="card-body text-center py-4" data-testid="missing-questionnaire">
+      <i class="ri-file-list-3-line fs-2 text-muted" aria-hidden="true"></i>
+      <h3 class="h5 mt-2">{{ 'page.institution.questionnaire.emptyTitle' | transloco: { year: surveyYear() } }}</h3>
+      <p class="text-muted mb-0">{{ 'page.institution.questionnaire.emptyDescription' | transloco }}</p>
+      @if (latestAvailableYear(); as latestYear) {
+        <button type="button" class="btn btn-outline-primary mt-3" data-testid="questionnaire-latest-year" (click)="yearChange.emit(latestYear)">
+          {{ 'page.institution.questionnaire.showYear' | transloco: { year: latestYear } }}
+        </button>
+      }
+    </div>
+  } @else if (isHidden()) {
+    <div class="card-body">
+      @if (notIndexingReason()) {
+        <p class="text-danger fw-semibold mb-3">{{ journalNameService.getJournalDictionaryItem(notIndexingReason()) }}</p>
+      }
+      @if (revealRequired()) {
+        <button type="button" class="btn btn-primary" data-testid="questionnaire-reveal" (click)="reveal.emit()">
+          {{ 'page.institution.questionnaire.showQuestionnaire' | transloco }}
+        </button>
+      } @else {
+        <p class="text-muted mb-0">{{ 'page.institution.questionnaire.hiddenStatus' | transloco }}</p>
+      }
+    </div>
+  }
+@if (!isLoading() && !hasError() && !isEmpty() && !isHidden()) {
+  @if (questionnaire(); as questionnaire) {
+      @if (questionnaire.rating?.reasonNotIndexing){
+        <div class="card-body border-bottom mb-3 pb-0">
+          <p class="text-danger fw-semibold">{{ journalNameService.getJournalDictionaryItem(questionnaire.rating?.reasonNotIndexing) }}</p>
+        </div>
+      }
+
+      <div class="card-body ">
+        @if (reportDownloadError(); as reportError) {
+          <app-aler-data [message]="reportError"></app-aler-data>
+        }
+        <div class="row">
+          <div class="col-xxl-12">
+            <ul
+              ngbNav
+              #Arrow="ngbNav"
+              [(activeId)]="activeQuestionnaireTabId"
+              (navChange)="onQuestionnaireTabChange($event)"
+              class="nav nav-pills arrow-navtabs nav-primary bg-light mb-3"
+            >
+
+
+              <!-- Wersje wydawnicze -->
+              <li [ngbNavItem]="1">
+                @let publishingVersions = questionnaire.survey?.publishingVersions;
+                <a ngbNavLink>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.publishingVersions' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <app-publishing-versions [publishingVersions]="publishingVersions" [year]="year()"></app-publishing-versions>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="2">
+                @let stability = questionnaire.survey?.stability;
+                @let digitalization = questionnaire.survey?.digitalization;
+                @let standards = questionnaire.survey?.standards;
+                <a ngbNavLink>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.stability' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <app-stability [stability]="stability" [year]="year()"></app-stability>
+                </ng-template>
+              </li>
+
+              <li [ngbNavItem]="3">
+                <a ngbNavLink>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.reviewStandards' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <div style="text-align: justify; text-align-all: justify;">
+                    <app-standards [standards]="standards"  [year]="year()"></app-standards>
+
+                  </div>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="4">
+                <a ngbNavLink>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.forAuthors' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                    <app-for-authors [standards]="standards" [digitalization]="digitalization"  [year]="year()"></app-for-authors>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="5">
+                <a ngbNavLink>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.digitalization' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                    <app-digitalization [digitalization] = "digitalization" [year]="year()"></app-digitalization>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="6">
+                <a ngbNavLink>
+                  <span class="d-block d-sm-none"></span>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.scientificDatabases' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <app-scientific-databases [digitalization] = "digitalization" [year]="year()"></app-scientific-databases>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="7">
+                @let cooperation = questionnaire.survey?.cooperation;
+                <a ngbNavLink>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.cooperation' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <div>
+                    @if (cooperation) {
+                      <app-cooperation [cooperation] = "cooperation" [year]="year()"></app-cooperation>
+                    }
+                  </div>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="8">
+                <a ngbNavLink>
+                  <span class="d-sm-block">{{ 'page.institution.questionnaire.tabs.supplementaryData' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                  @let journal = questionnaire.survey?.journal;
+                  @let stability = questionnaire.survey?.stability;
+
+                  <app-supplementary-data [journal]="journal" [stability]="stability" [year]="year()"></app-supplementary-data>
+
+                </ng-template>
+              </li>
+            </ul>
+            <div class="tab-content text-muted">
+              <div [ngbNavOutlet]="Arrow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  }
+}
+
+@if (isDetailedSectionEnabled()) {
+  <section class="border-top" data-testid="detailed-section">
+  <div class="card-body pb-0">
+    <h3 class="h5 mb-0">{{ 'page.institution.questionnaire.detailedData' | transloco }}</h3>
+  </div>
+
+  @if (isLoading()) {
+    <div class="card-body ">
+      <div class="d-flex align-items-center gap-2 text-muted">
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        <span>{{ 'page.institution.questionnaire.loadingShort' | transloco }}</span>
+      </div>
+    </div>
+  }
+
+  @if (hasError()) {
+    <div class="card-body">
+      <app-aler-data [message]="errorMessage()"></app-aler-data>
+    </div>
+  }
+
+  @if (isEmpty()) {
+    <div class="card-body">
+      <p class="text-muted mb-0">{{ emptyMessage() }}</p>
+    </div>
+  }
+
+  @if (!isLoading() && !hasError() && !isEmpty()) {
+    @if (questionnaire(); as questionnaire) {
+      <div class="card-body">
+        <section class="row mb-3">
+          <div class="col-xxl-4 col-lg-6">
+            <dt>{{ 'page.institution.questionnaire.year' | transloco }}</dt>
+            <dd>{{ formatText(questionnaire.year) }}</dd>
+          </div>
+          <div class="col-xxl-4 col-lg-6">
+            <dt>{{ 'page.institution.questionnaire.completeness' | transloco }}</dt>
+            <dd>{{ formatPercent(questionnaire.completeness) }}</dd>
+          </div>
+          <div class="col-xxl-4 col-lg-6">
+            <dt>ICV</dt>
+            <dd>{{ formatText(questionnaire.rating?.icv) }}</dd>
+          </div>
+        </section>
+
+        @if (hasSurveyRows()) {
+          @let rows = surveyRows();
+          <div class="questionnaire-sections">
+            @if (rows.metadata.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.metadata' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.metadata; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.journal.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.journal' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.journal; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.supplementaryData.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.tabs.supplementaryData' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.supplementaryData; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.publishingVersions.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.tabs.publishingVersions' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.publishingVersions; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.stability.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.tabs.stability' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.stability; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.standards.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.standards' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.standards; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.digitalization.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.tabs.digitalization' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.digitalization; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.cooperation.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.tabs.cooperation' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.cooperation; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.editorial.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.editorial' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.editorial; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.publisher.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.publisher' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.publisher; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+
+            @if (rows.description.length) {
+              <section class="questionnaire-section border border-dashed border-start-0 border-end-0 py-3">
+                <h6 class="card-title mb-3">{{ 'page.institution.questionnaire.description' | transloco }}</h6>
+                <dl class="row mb-0">
+                  @for (row of rows.description; track trackByRow($index, row)) {
+                    <dt class="col-md-4 col-sm-5">{{ row.label }}</dt>
+                    <dd class="col-md-8 col-sm-7 text-muted">{{ row.value }}</dd>
+                  }
+                </dl>
+              </section>
+            }
+          </div>
+        } @else {
+          <p class="text-muted mb-0">{{ 'page.institution.questionnaire.noSurveyData' | transloco }}</p>
+        }
+      </div>
+    }
+  }
+  </section>
+}
+</section>

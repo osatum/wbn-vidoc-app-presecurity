@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between">
+  <div class="d-flex align-items-center">
+    @if (isHomeLink()) {
+      <a (click)="goToHome()" href="javascript:void()"><img src="assets/images/ici-ms-small.png"  class="image-gray-invert" /></a>
+    } @else {
+      <img src="assets/images/ici-ms-small.png" class="image-gray-invert" />
+    }
+  </div>
+  <div class="navbar-header d-flex align-items-end pe-0">
+    <div class="dropdown ms-1 topbar-head-dropdown header-item" ngbDropdown>
+      <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+        @if (activeLang !== undefined) {
+          <img src="{{activeLang.flag}}" height="20" class="rounded custom-flags" placement="bottom" [ngbTooltip]="'shared.header.languageVersion' | transloco">
+        }
+      </button>
+      <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+        @for (item of getLanguages(); track $index) {
+          <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="eng"
+             (click)="setLanguage(item.text, item.lang, item.flag)"
+             [ngClass]="{'active': activeLang.lang === item.lang}">
+            <img src="{{item.flag}}" alt="user-image" class="me-2 rounded border-1" height="18">
+            <span class="align-middle">{{ item.text }}</span>
+          </a>
+        }
+      </div>
+    </div>
+
+    <div class="ms-1 header-item d-none d-sm-flex">
+      <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" placement="bottom" [ngbTooltip]="'shared.header.fullscreen' | transloco" data-toggle="fullscreen"
+              (click)="fullscreen()">
+        <i class="bx bx-fullscreen fs-22"></i>
+      </button>
+    </div>
+    <div class="ms-1 header-item d-none d-sm-flex">
+      <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+        <i class="bx bx-moon fs-22" (click)="changeMode('dark')" placement="bottom" [ngbTooltip]="'shared.header.darkMode' | transloco"></i>
+        <i class="bx bx-sun fs-22" (click)="changeMode('light')" placement="bottom" [ngbTooltip]="'shared.header.lightMode' | transloco"></i>
+      </button>
+    </div>
+  </div>
+</div>

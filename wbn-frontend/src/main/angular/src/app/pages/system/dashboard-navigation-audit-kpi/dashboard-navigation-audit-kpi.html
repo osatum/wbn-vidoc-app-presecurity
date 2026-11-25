@@ -1,0 +1,53 @@
+<section class="row">
+  @if (isLoading()) {
+    <div>
+      <app-local-spinner
+        [height]="200"
+        [overlay]="false"
+        [text]="'page.system.dashboard-navigation-audit-kpi.loading' | transloco"
+      ></app-local-spinner>
+    </div>
+  }
+  @if (hasError()) {
+    <div class="card-body">
+      <app-aler-data [message]="'page.system.dashboard-navigation-audit-kpi.load-error' | transloco"></app-aler-data>
+    </div>
+  }
+
+  @if (!isLoading() && !hasError()) {
+    @for (metric of metrics(); track metric.id) {
+      <div class="col-xl-3 col-md-6">
+        <div class="card card-animate dashboard-navigation-kpi-card">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <p class="text-uppercase fw-medium text-muted mb-0">{{ metric.labelKey | transloco }}</p>
+              </div>
+            </div>
+            <div class="d-flex align-items-end justify-content-between mt-4">
+              <div>
+                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                  <span
+                    [countUp]="metric.counter"
+                    class="counter-value"
+                    [countUpOptions]="countUpOptions"
+                  ></span>
+                </h4>
+                <div class="dashboard-navigation-kpi-caption">
+                  <a href="javascript:void(0);" [routerLink]="metric.routerLink" class="text-decoration-underline">
+                    {{ metric.captionKey | transloco }}
+                  </a>
+                </div>
+              </div>
+              <div class="avatar-sm flex-shrink-0">
+                <span class="avatar-title {{ metric.iconClass }} rounded fs-3">
+                  <i class="{{ metric.icon }}"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  }
+</section>

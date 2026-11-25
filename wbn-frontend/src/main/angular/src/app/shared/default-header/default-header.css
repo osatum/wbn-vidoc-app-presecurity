@@ -1,0 +1,13 @@
+.navbar-header {
+  flex: none !important;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.navbar-header {
+  .header-item {
+    .dropdown-toggle:after {
+      display: none;
+    }
+  }
+}

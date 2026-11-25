@@ -1,0 +1,267 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header d-flex align-items-center justify-content-between">
+        <h4>{{ user()?.email || ('page.system.user-details.fallback-title' | transloco) }}</h4>
+        <div>
+        <a type="submit" class="btn btn-info btn-label" routerLink="../">
+          <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+          {{ 'page.system.common.back' | transloco }}
+        </a>
+        @if (user(); as user) {
+          <a
+            type="button"
+            class="btn btn-primary btn-label ms-1"
+            [routerLink]="['/system/admin/users', user.id, 'edit']"
+          >
+            <i class="ri-edit-line label-icon align-middle fs-16 me-2"></i>
+            {{ 'page.system.common.edit' | transloco }}
+          </a>
+          <a
+            type="button"
+            class="btn btn-secondary btn-label ms-1"
+            [routerLink]="['/system/admin/users', user.id, 'password']"
+          >
+            <i class="ri-lock-password-line label-icon align-middle fs-16 me-2"></i>
+            {{ 'page.system.user-details.change-password' | transloco }}
+          </a>
+          @if (user.state) {
+            <button
+              type="button"
+              [class]="stateActionButtonClass(user.state)"
+              [disabled]="isStateChangePending()"
+              (click)="changeState(user)"
+            >
+              <i [class]="stateActionIcon(user.state) + ' label-icon align-middle fs-16 me-2'"></i>
+              {{ stateActionLabelKey(user.state) | transloco }}
+            </button>
+          }
+          <button
+            type="button"
+            class="btn btn-danger btn-label ms-1"
+            [disabled]="isDeletePending()"
+            (click)="openDeleteModal(deleteUserModal)"
+          >
+            <i class="ri-delete-bin-line label-icon align-middle fs-16 me-2"></i>
+            {{ 'page.system.user-details.delete-account' | transloco }}
+          </button>
+        }
+        </div>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.user-details.description' | transloco }}</p>
+      </div>
+      @if (hasError()) {
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.user-details.load-error' | transloco"></app-aler-data>
+        </div>
+      }
+      @if (isLoading()) {
+
+        <div >
+          <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.common.loading-data' | transloco"></app-local-spinner>
+        </div>
+      }
+      @if (!isLoading() && !hasError()) {
+        @if (user(); as user) {
+          <div class="card-body">
+            <h6 class="card-title mb-3">{{ 'page.system.user-details.basic-data' | transloco }}</h6>
+            <section class="row mb-3">
+              <div class="col-xxl-4">
+                <dt>{{ 'page.system.user-details.email' | transloco }}</dt>
+                <dd>{{ user.email || '-' }}</dd>
+              </div>
+              <div class="col-xxl-4">
+                <dt>{{ 'page.system.user-details.full-name' | transloco }}</dt>
+                <dd>{{ fullName() }}</dd>
+              </div>
+              <div class="col-xxl-4">
+                <dt>{{ 'page.system.common.orcid' | transloco }}</dt>
+                <dd>{{ user.orcid || '-' }}</dd>
+              </div>
+              <div class="col-xxl-4">
+                <dt>{{ 'page.system.user-details.global-roles' | transloco }}</dt>
+                <dd>{{ user.roles || '-' }}</dd>
+              </div>
+              @if (user.state) {
+                <div class="col-xxl-4">
+                  <dt>{{ 'page.system.common.state' | transloco }}</dt>
+                  <dd>
+                    <span [class]="stateBadgeClass(user.state)">
+                      {{ stateLabelKey(user.state) | transloco }}
+                    </span>
+                  </dd>
+                </div>
+              }
+            </section>
+            @if (user.createdAt || user.createdBy || user.editedAt || user.editedBy) {
+              <h6 class="card-title mb-3">{{ 'page.system.common.audit' | transloco }}</h6>
+              <section class="row mb-3">
+                @if (user.createdAt || user.createdBy) {
+                  <div class="col-xxl-6 col-lg-6">
+                    <dl>
+                      <dt>{{ 'page.system.common.created' | transloco }}</dt>
+                      @if (user.createdAt) {
+                        <dd class="mb-1">
+                          {{ 'page.system.common.created-at' | transloco }}:
+                          {{ user.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}
+                        </dd>
+                      }
+                      @if (user.createdBy) {
+                        <dd>
+                          {{ 'page.system.common.created-by' | transloco }}:
+                          {{ user.createdBy }}
+                        </dd>
+                      }
+                    </dl>
+                  </div>
+                }
+                @if (user.editedAt || user.editedBy) {
+                  <div class="col-xxl-6 col-lg-6">
+                    <dl>
+                      <dt>{{ 'page.system.common.edited' | transloco }}</dt>
+                      @if (user.editedAt) {
+                        <dd class="mb-1">
+                          {{ 'page.system.common.edited-at' | transloco }}:
+                          {{ user.editedAt | date: 'yyyy-MM-dd HH:mm:ss' }}
+                        </dd>
+                      }
+                      @if (user.editedBy) {
+                        <dd>
+                          {{ 'page.system.common.edited-by' | transloco }}:
+                          {{ user.editedBy }}
+                        </dd>
+                      }
+                    </dl>
+                  </div>
+                }
+              </section>
+            }
+            <h6 class="card-title mb-3">{{ 'page.system.user-details.memberships' | transloco }}</h6>
+            <table class="table table-borderless table-nowrap table-striped">
+              <thead class="table-light">
+              <tr>
+                <th>{{ 'page.system.user-details.institution' | transloco }}</th>
+                <th>{{ 'page.system.user-details.institution-type' | transloco }}</th>
+                <th>{{ 'page.system.user-details.role' | transloco }}</th>
+              </tr>
+              </thead>
+              @if (memberships().length) {
+                <tbody>
+                  @for (membership of memberships(); track trackByMembership($index, membership)) {
+                    <tr>
+                      <td>{{ membership.institutionName || '-' }}</td>
+                      <td>{{ institutionTypeLabelKey(membership.institutionType) | transloco }}</td>
+                      <td>{{ roleLabelKey(membership.role) | transloco }}</td>
+                    </tr>
+                  }
+                </tbody>
+
+              } @else {
+                <tbody>
+                <tr>
+                  <td colspan="4">{{ 'page.system.user-details.no-memberships' | transloco }}</td>
+                </tr>
+                </tbody>
+              }
+            </table>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>
+
+@if (!isLoading() && !hasError()) {
+  @if (user(); as user) {
+
+    <div class="row">
+      <div class="col-xxl-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.user-details.related-title' | transloco }}</h4>
+          </div>
+          <div class="card-body">
+            <ul ngbNav #Arrow="ngbNav" [activeId]="1" class="nav nav-pills arrow-navtabs nav-success bg-light mb-3">
+              <li [ngbNavItem]="1">
+                <a ngbNavLink>
+                  <span class="d-block d-sm-none"></span>
+                  <span class="d-sm-block">{{ 'page.system.user-details.sessions-tab' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+
+
+                  <section class="row">
+
+                    <div class="col-xl-12">
+                      <div class="card border-0 shadow-none">
+                        <div class="card-body">
+                          <p class="text-muted">{{ 'page.system.user-details.sessions-description' | transloco }}</p>
+                        </div>
+                        <app-login-session-list
+                          [userId]="loginSessionUserId()"
+                          [showHeader]="false"
+                          [showStatusFilters]="true"
+                          [emptyMessage]="'page.system.user-details.sessions-empty' | transloco"
+                        />
+                      </div>
+                    </div>
+                  </section>
+
+
+                </ng-template>
+              </li>
+
+            </ul>
+            <div class="tab-content text-muted">
+              <div [ngbNavOutlet]="Arrow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}
+
+<ng-template #deleteUserModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ 'page.system.user-details.delete-modal-title' | transloco }}</h5>
+    <button
+      type="button"
+      class="btn-close"
+      [disabled]="isDeletePending()"
+      [attr.aria-label]="'page.system.common.cancel' | transloco"
+      (click)="modal.dismiss('cancel')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p class="mb-3">{{ 'page.system.user-details.delete-modal-message' | transloco }}</p>
+    <div class="alert alert-warning mb-0">
+      <strong>{{ 'page.system.user-details.delete-modal-user' | transloco }}:</strong>
+      {{ user()?.email || '-' }}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      [disabled]="isDeletePending()"
+      (click)="modal.dismiss('cancel')"
+    >
+      {{ 'page.system.common.cancel' | transloco }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger btn-label"
+      [disabled]="isDeletePending()"
+      (click)="deleteUser(modal)"
+    >
+      @if (isDeletePending()) {
+        <span class="spinner-border spinner-border-sm label-icon align-middle fs-16 me-2"></span>
+      } @else {
+        <i class="ri-delete-bin-line label-icon align-middle fs-16 me-2"></i>
+      }
+      {{ 'page.system.user-details.delete-confirm' | transloco }}
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,62 @@
+<fieldset
+  class="journal-range"
+  [class.journal-range-disabled]="disabled()"
+  [attr.tabindex]="showBounds() ? null : -1"
+  [attr.aria-invalid]="showBounds() ? null : invalid()"
+  [attr.aria-describedby]="showBounds() ? null : describedBy()"
+>
+  <legend [class]="labelClass()" [id]="minimumId() + '-label'">{{ label() }}</legend>
+  @if (!discrete() || points().length > 1) {
+    <div #slider class="journal-range-slider" [attr.aria-labelledby]="minimumId() + '-label'"></div>
+  }
+  <div class="journal-range-scale text-muted small" aria-hidden="true">
+    @for (point of discrete() ? points() : [0, 25, 50, 75, 100]; track point) {
+      <span>{{ point }}{{ unit() }}</span>
+    }
+  </div>
+  @if (showBounds()) {
+    <div class="row g-2">
+      @for (
+        bound of [
+          { control: minimum(), id: minimumId(), label: minimumLabel() },
+          { control: maximum(), id: maximumId(), label: maximumLabel() },
+        ];
+        track bound.id
+      ) {
+        <div class="col-6">
+          <label [for]="bound.id" class="form-label small">{{ bound.label }}</label>
+          @if (discrete()) {
+            <select
+              [id]="bound.id"
+              [formControl]="bound.control"
+              class="form-select"
+              [attr.aria-invalid]="invalid()"
+              [attr.aria-describedby]="describedBy()"
+            >
+              <option value="">{{ unrestrictedLabel() }}</option>
+              @if (isUnavailable(bound.control.value)) {
+                <option [value]="bound.control.value" disabled>
+                  {{ bound.control.value }} — {{ unavailableLabel() }}
+                </option>
+              }
+              @for (point of points(); track point) {
+                <option [value]="point">{{ point }}</option>
+              }
+            </select>
+          } @else {
+            <input
+              [id]="bound.id"
+              [formControl]="bound.control"
+              type="text"
+              inputmode="decimal"
+              class="form-control"
+              [placeholder]="unrestrictedLabel()"
+              [attr.aria-invalid]="invalid()"
+              [attr.aria-describedby]="describedBy()"
+            />
+          }
+        </div>
+      }
+    </div>
+  }
+</fieldset>

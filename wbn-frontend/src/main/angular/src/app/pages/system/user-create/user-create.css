@@ -1,0 +1,12 @@
+.user-create-form {
+  display: grid;
+  gap: 1rem;
+}
+
+dl {
+  margin-bottom: 0;
+}
+
+dd {
+  margin-bottom: 0;
+}

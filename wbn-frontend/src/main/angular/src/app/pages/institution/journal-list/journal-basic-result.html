@@ -1,0 +1,181 @@
+<article
+  class="d-flex position-relative flex-column flex-sm-row border border-dashed border-start-0 border-end-0 border-top-0 pt-3"
+  data-testid="journal-basic-result"
+  [attr.aria-labelledby]="'basic-journal-title-' + journal().id"
+>
+  <div class="journal-basic-cover me-3 mt-2 flex-sm-shrink-1">
+    <app-safe-image
+      [src]="journal().cover"
+      alt=""
+      [width]="240"
+      [height]="300"
+      [priority]="priority()"
+      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+      objectFit="fill"
+    />
+  </div>
+  <div class="row flex-grow-1">
+    <div class="col-xxl-10 col-lg-12">
+      <a
+        [routerLink]="detailsRoute()"
+        [state]="detailsState()"
+        data-testid="journal-result-title"
+        (click)="detailsClick.emit($event)"
+        (auxclick)="detailsClick.emit($event)"
+      >
+        <h2 class="fs-4 fw-semibold" [id]="'basic-journal-title-' + journal().id">
+          {{ journal().title }}
+        </h2>
+      </a>
+      <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+        @if (journal().pissn) {
+          <span
+            ><i class="ri-book-open-line me-1" aria-hidden="true"></i
+            >{{ journal().pissn }} (pISSN)</span
+          >
+        }
+        @if (journal().pissn && journal().eissn) {
+          <span aria-hidden="true">|</span>
+        }
+        @if (journal().eissn) {
+          <span
+            ><i class="ri-global-line me-1" aria-hidden="true"></i
+            >{{ journal().eissn }} (eISSN)</span
+          >
+        }
+      </div>
+      @if (journal().publisher) {
+        <p class="mb-2 gap-2">
+          <span class="me-1 text-muted">{{
+            'page.institution.journalList.publisherLabel' | transloco
+          }}</span>
+          <span><i class="ri-bank-line me-1" aria-hidden="true"></i>{{ journal().publisher }}</span>
+        </p>
+      }
+      <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+        @if (country()) {
+          <span
+            ><i class="ri-flag-line me-1" aria-hidden="true"></i>
+            <span class="m-1 text-muted">{{
+              'page.institution.journalList.countryLabel' | transloco
+            }}</span
+            >{{ country() }}</span
+          >
+        }
+        @if (country() && languages()) {
+          <span aria-hidden="true">|</span>
+        }
+        @if (languages()) {
+          <span
+            ><i class="ri-translate-2 me-1" aria-hidden="true"></i>
+            <span class="me-1 text-muted">{{
+              'page.institution.journalList.languagesLabel' | transloco
+            }}</span
+            >{{ languages() }}</span
+          >
+        }
+      </div>
+      <p>
+        <span class="text-muted">{{ 'page.institution.journalList.mniswLabel' | transloco }}</span>
+        @if (journal().lastMniswPoints != null) {
+          {{ journal().lastMniswPoints }}
+        } @else {
+          {{ 'page.institution.journalList.outsideMniswList' | transloco }}
+        }
+      </p>
+      <div
+        class="d-flex align-items-center gap-2 mb-3 flex-wrap"
+        data-testid="journal-basic-deposit"
+      >
+        @if (issuesUrl(); as url) {
+          <a
+            class="link-primary text-decoration-underline"
+            [href]="url"
+            target="_blank"
+            rel="noopener noreferrer"
+            [attr.aria-label]="'common.depositedPublicationsNewTab' | transloco"
+            data-testid="journal-publications-link"
+            (click)="issuesClick.emit($event)"
+            (auxclick)="issuesClick.emit($event)"
+            >{{ 'page.institution.journalList.depositedPublications' | transloco }}:
+            <span>{{ names.formatText(journal().numberOfPublications) }}</span></a
+          >
+        } @else {
+          <span class="text-muted"
+            >{{ 'page.institution.journalList.depositedPublications' | transloco }}:</span
+          >
+          {{ names.formatText(journal().numberOfPublications) }}
+        }
+        <span aria-hidden="true">|</span>
+        @for (metric of depositMetrics(); track metric.label) {
+          <span
+            ><span class="text-muted"
+              >{{ 'page.institution.journalList.' + metric.label | transloco }}:</span
+            >
+            {{ names.formatText(metric.value) }}{{ metric.value != null ? '%' : '' }}</span
+          >
+          @if (!$last) {
+            <span aria-hidden="true">|</span>
+          }
+        }
+      </div>
+      <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+        <a
+          [routerLink]="detailsRoute()"
+          [state]="detailsState()"
+          class="text-decoration-underline"
+          data-testid="journal-result-details"
+          (click)="detailsClick.emit($event)"
+          (auxclick)="detailsClick.emit($event)"
+        >
+          {{
+            (decisionCardAvailable() ? 'page.institution.journalList.viewCard' : 'common.details')
+              | transloco
+          }}<i class="ri-arrow-right-line" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <div class="col-xxl-2 col-lg-6 pt-2">
+      @for (rating of ratings(); track $index) {
+        <div
+          class="card shadow-none border-0 border-opacity-50"
+          [class.bg-success-subtle]="rating.status === 'INDEXED'"
+          [class.text-body]="rating.status === 'INDEXED'"
+          [class.bg-danger-subtle]="rating.status === 'NOT_INDEXED'"
+          [class.text-danger]="rating.status === 'NOT_INDEXED'"
+          [class.bg-dark-subtle]="rating.status === 'NOT_EVALUATED'"
+          data-testid="journal-basic-icv"
+        >
+          <div class="card-body p-2">
+            <div class="d-flex justify-content-between fs-6">
+              <span>ICV {{ rating.year ?? '-' }}:</span>
+              <span class="fw-semibold">
+                @if (rating.status === 'INDEXED') {
+                  {{ formatPoints(rating.points) }}
+                } @else if (rating.status === 'NOT_INDEXED') {
+                  <span
+                    tabindex="0"
+                    triggers="hover focus"
+                    [attr.aria-label]="'page.institution.journalList.notIndexedTooltip' | transloco"
+                    [ngbTooltip]="'page.institution.journalList.notIndexedTooltip' | transloco"
+                    >N/I</span
+                  >
+                } @else {
+                  <span
+                    tabindex="0"
+                    triggers="hover focus"
+                    [attr.aria-label]="
+                      'page.institution.journalList.notEvaluatedTooltip' | transloco
+                    "
+                    [ngbTooltip]="'page.institution.journalList.notEvaluatedTooltip' | transloco"
+                    >N/E</span
+                  >
+                }
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</article>

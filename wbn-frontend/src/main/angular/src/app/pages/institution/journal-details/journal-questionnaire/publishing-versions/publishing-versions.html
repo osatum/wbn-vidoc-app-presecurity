@@ -1,0 +1,109 @@
+@if (publishingVersions) {
+  <div>
+    <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.publishing.onlineVersion' | transloco }}</h5>
+    <div class="border rounded overflow-hidden mb-3">
+
+      <app-questionnaire-row [highlight]="true" [description]="'page.institution.questionnaire.publishing.onlineFormats' | transloco" >
+        @if (journalNameService.hasCollectionItems(publishingVersions.articlesFormats)) {
+          @for (item of publishingVersions.articlesFormats; track item) {
+            <div>{{ journalNameService.getJournalDictionaryItem(item) }}</div>
+          }
+        } @else {
+          -
+        }
+      </app-questionnaire-row>
+
+      <app-questionnaire-row [description]="'page.institution.questionnaire.publishing.allIssuesAvailableAt' | transloco : { year: year }" >
+        @if (journalNameService.isEmptyValue(publishingVersions.electronicVersionWww)) {
+          -
+        } @else {
+          <a  class="text-break"  target="_blank"  href="{{ publishingVersions.electronicVersionWww }}">{{ journalNameService.formatText(publishingVersions.electronicVersionWww) }}</a>
+        }
+      </app-questionnaire-row>
+
+      <app-questionnaire-row  [highlight]="true" [description]="'page.institution.questionnaire.publishing.onlineInformation' | transloco" >
+        @if (journalNameService.hasCollectionItems(publishingVersions.electronicVersionInformation)) {
+          @for (item of publishingVersions.electronicVersionInformation; track item) {
+            <div>{{ journalNameService.getJournalDictionaryItem(item) }}</div>
+          }
+        } @else {
+          -
+        }
+      </app-questionnaire-row>
+
+      <app-questionnaire-row data-testid="electronic-article-metadata" [description]="'page.institution.questionnaire.publishing.printedMetadata' | transloco : { year: year }" >
+        @let electronicMetadata = articleMetadata(publishingVersions.electronicArticleMetadata);
+        @if (electronicMetadata.length) {
+          @for (item of electronicMetadata; track item) {
+            <div>{{ journalNameService.getJournalDictionaryItem(item) }}</div>
+          }
+        } @else {
+          -
+        }
+      </app-questionnaire-row>
+
+      <app-questionnaire-row data-testid="aop" [borderBottom]="year === 2024 || year === 2025" [highlight]="true" [description]="'page.institution.questionnaire.publishing.aheadOfPrint' | transloco : { year: year }" >
+        {{ journalNameService.formatBoolean(publishingVersions.aop) }}
+      </app-questionnaire-row>
+
+      @if (year === 2024 || year === 2025) {
+        <app-questionnaire-row data-testid="aop-articles-count" [borderBottom]="false" [description]="'page.institution.questionnaire.publishing.aopArticlesCount' | transloco : { year: year }">
+          {{ journalNameService.formatText(aopArticlesCount) }}
+        </app-questionnaire-row>
+      }
+
+
+    </div>
+    @if ( publishingVersions.printedVersion) {
+    <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.publishing.printedVersion' | transloco }}</h5>
+    <div class="border rounded overflow-hidden mb-3">
+
+
+      <app-questionnaire-row [highlight]="true" [description]="'page.institution.questionnaire.publishing.coverInformation' | transloco : { year: year }" >
+        @if (journalNameService.hasCollectionItems(publishingVersions.coverInformation)) {
+          @for (item of publishingVersions.coverInformation; track item) {
+            <div>{{ journalNameService.getJournalDictionaryItem(item) }}</div>
+          }
+        } @else {
+          -
+        }
+      </app-questionnaire-row>
+
+      <app-questionnaire-row  [description]="'page.institution.questionnaire.publishing.circulation' | transloco" >
+        {{ journalNameService.formatText(publishingVersions.circulation) }}
+      </app-questionnaire-row>
+
+      <app-questionnaire-row data-testid="printed-article-metadata" [borderBottom]="false" [highlight]="true" [description]="'page.institution.questionnaire.publishing.electronicMetadata' | transloco : { year: year }" >
+        @let printedMetadata = articleMetadata(publishingVersions.printedArticleMetadata);
+        @if (printedMetadata.length) {
+          @for (item of printedMetadata; track item) {
+            <div>{{ journalNameService.getJournalDictionaryItem(item) }}</div>
+          }
+        } @else {
+          -
+        }
+      </app-questionnaire-row>
+
+
+
+    </div>
+    }
+    @if (publishingVersions.electronicVersion && publishingVersions.printedVersion) {
+      <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.publishing.policy' | transloco }}</h5>
+      <div class="border rounded overflow-hidden mb-3">
+
+        <app-questionnaire-row [highlight]="true" [description]="'page.institution.questionnaire.publishing.versionsPolicy' | transloco" >
+          {{ journalNameService.getJournalDictionaryItem(publishingVersions.publishingPolicy) }}
+        </app-questionnaire-row>
+
+        <app-questionnaire-row  [description]="'page.institution.questionnaire.publishing.electronicVersionsPercentage' | transloco : { year: year }" >
+          {{ journalNameService.formatText(publishingVersions.electronicVersionsPercentage) }}
+        </app-questionnaire-row>
+
+
+
+      </div>
+    }
+
+  </div>
+}

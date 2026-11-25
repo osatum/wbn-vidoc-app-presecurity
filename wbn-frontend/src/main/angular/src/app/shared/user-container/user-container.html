@@ -1,0 +1,45 @@
+<div class="row">
+  @let ctx = (userProfile$ | async);
+  @if (ctx) {
+      <div class="col">
+
+        <div class="btn-group material-shadow" ngbDropdown>
+          <button type="button" ngbDropdownToggle
+                  class="btn btn-outline-primary btn-icon waves-effect waves-light user-profile-dropdown-button">
+            PK
+          </button>
+          <div ngbDropdownMenu class="user-profile-dropdown dropdown-menu-end">
+
+            <div ngbDropdownItem class="user-profile-dropdown-content">
+              <div class="fs-13 text-muted">
+                <p class="mb-1 user-profile-dropdown-content-caption">Użytkownik:</p>
+              </div>
+              <p>
+                {{ ctx.name }}<br/>
+              </p>
+            </div>
+            <button ngbDropdownItem>Action</button>
+            <button ngbDropdownItem>Another action</button>
+            <button ngbDropdownItem>Something else here</button>
+            <div class="dropdown-divider"></div>
+            <button (click)="logout()" class="link-danger" ngbDropdownItem>Wyloguj się</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="col">
+
+        <button type="button" (click)="logout()"
+                class="btn btn-outline-danger btn-icon waves-effect waves-light">
+          <i class="bi bi-power"></i> wyloguj sie
+        </button>
+      </div>
+
+
+  } @else {
+    <div class="col">
+    <!-- Soft Buttons -->
+    <button type="button" (click)="login()" class="btn btn-soft-primary waves-effect waves-light">Zaloguj się</button>
+    </div>
+  }
+</div>

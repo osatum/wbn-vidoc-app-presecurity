@@ -1,0 +1,183 @@
+@if (digitalization){
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.digitalizationSection.website' | transloco }}</h5>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <table class="table table-bordered table-header-custom">
+        <tbody>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.wwwAddress' | transloco"
+            widthClass="w-50"
+            bgClass="bg-light-subtle">
+          @if(journalNameService.isEmptyValue(digitalization.website)) {
+            {{"-"}}
+          } @else {
+            <a  class="text-break"  href="{{ digitalization.website }}" target="_blank">{{ journalNameService.formatText(digitalization.website) }}</a>
+          }
+
+        </tr>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.websiteLanguages' | transloco"
+            widthClass="w-50">
+          @if(journalNameService.isEmptyValue(digitalization.websiteLanguages)) {
+            {{"-"}}
+          } @else {
+            {{websiteLanguagesNames()}}
+          }
+        </tr>
+        <tr appQuestionnaireTableRow data-testid="website-information"
+            [description]="'page.institution.questionnaire.digitalizationSection.websiteInformation' | transloco"
+            widthClass="w-50"
+            bgClass="bg-light-subtle">
+          @if (!digitalization.infoWebsite) {
+            -
+          } @else {
+            @if (digitalization.infoWebsite.titles || digitalization.infoWebsite.titlesMainSite) {
+              <div>{{ 'page.institution.questionnaire.digitalizationSection.journalTitle' | transloco }}</div>
+            }
+            @if (digitalization.infoWebsite.issn || digitalization.infoWebsite.issnMainSite) {
+              <div>ISSN/eISSN</div>
+            }
+            @if (digitalization.infoWebsite.directors) {
+              <div>
+                <div>{{ 'page.institution.questionnaire.digitalizationSection.scientificCouncil' | transloco }}</div>
+                @if (linkFor2025(year, digitalization.infoWebsite.directors, digitalization.infoWebsite.directorsWww); as url) {
+                  <a class="d-block text-break" [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a>
+                }
+              </div>
+            }
+            @if (digitalization.infoWebsite.editOfficeInfo) {
+              <div>
+                <div>{{ 'page.institution.questionnaire.digitalizationSection.editorialData' | transloco }}</div>
+                @if (linkFor2025(year, digitalization.infoWebsite.editOfficeInfo, digitalization.infoWebsite.editOfficeInfoWww); as url) {
+                  <a class="d-block text-break" [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a>
+                }
+              </div>
+            }
+            @if (year === 2025 && digitalization.infoWebsite.antiAbusePolicyInfo === true) {
+              <div>
+                <div>{{ 'page.institution.questionnaire.digitalizationSection.antiAbusePolicy' | transloco }}</div>
+                @if (linkFor2025(year, digitalization.infoWebsite.antiAbusePolicyInfo, digitalization.infoWebsite.antiAbusePolicyInfoWww); as url) {
+                  <a class="d-block text-break" [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a>
+                }
+              </div>
+            }
+            @if (digitalization.infoWebsite.none)  {
+              -
+            }
+          }
+        </tr>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.doiPrefix' | transloco"
+            widthClass="w-50">
+          {{ journalNameService.formatText(digitalization.doiPrefix) }}
+        </tr>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.doiInYear' | transloco: { year: year }"
+            widthClass="w-50"
+            bgClass="bg-light-subtle">
+          {{ journalNameService.getJournalDictionaryItem(digitalization.doiType) }}
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <h5 class="header-item-custom mb-4">{{ 'page.institution.questionnaire.digitalizationSection.tools' | transloco }}</h5>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <table class="table table-bordered table-header-custom">
+        <thead>
+        <tr>
+          <th scope="col" colspan="2">{{ 'page.institution.questionnaire.digitalizationSection.toolSystemLicense' | transloco }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.creativeCommons' | transloco"
+            bgClass="bg-light-subtle">
+          @if (journalNameService.isEmptyValue(digitalization.articlePublishedLicense)) {
+            -
+          } @else {
+            {{journalNameService.getJournalDictionaryItem(digitalization.articlePublishedLicense)}}
+          }
+        </tr>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.digitalizationSection.preservation' | transloco">
+          @if (journalNameService.isEmptyValue(digitalization.systemForPublishedArticlesUsed)) {
+            -
+          } @else {
+            @if (journalNameService.isEmptyValue(digitalization.systemForPublishedArticlesName)) {
+              -
+            } @else {
+              {{digitalization.systemForPublishedArticlesName}}
+            }
+          }
+
+        </tr>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.socialMedia' | transloco"
+            bgClass="bg-light-subtle">
+          @if (journalNameService.isEmptyValue(digitalization.socialMedias)) {
+            -
+          } @else {
+            @if (digitalization.socialMedias?.used ) {
+              @for (item of digitalization.socialMedias?.ids; track $index ) {
+                <div>{{journalNameService.getJournalDictionaryItem(item)}}</div>
+              }
+              @if (digitalization.socialMedias?.other) {
+                <div>{{digitalization.socialMedias?.other}}</div>
+              }
+            } @else {
+              -
+            }
+          }
+
+        </tr>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.digitalizationSection.publishingTools' | transloco">
+          @if (journalNameService.isEmptyValue(digitalization.publishingTools)) {
+            -
+          } @else {
+            @if (digitalization.publishingTools?.used ) {
+              @for (item of digitalization.publishingTools?.ids; track $index ) {
+                <div>{{journalNameService.getJournalDictionaryItem(item)}}</div>
+              }
+              @if (digitalization.publishingTools?.other) {
+                <div>{{digitalization.publishingTools?.other}}</div>
+              }
+            } @else {
+              -
+            }
+          }
+        </tr>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.citationTools' | transloco"
+            bgClass="bg-light-subtle">
+          @if (journalNameService.isEmptyValue(digitalization.citationsTools)) {
+            -
+          } @else {
+              @for (item of digitalization.citationsTools; track $index ) {
+                <div>{{journalNameService.getJournalDictionaryItem(item)}}</div>
+              }
+          }
+        </tr>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.digitalizationSection.antiPlagiarism' | transloco">
+          @let antiPlagiarismSystem = isAntiPlagiarismSystem();
+          {{ journalNameService.formatBoolean(antiPlagiarismSystem) }}
+        </tr>
+        <tr appQuestionnaireTableRow
+            [description]="'page.institution.questionnaire.digitalizationSection.statistics' | transloco"
+            bgClass="bg-light-subtle">
+          @let statistics = isStatistics();
+          {{ journalNameService.formatBoolean(statistics) }}
+        </tr>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.digitalizationSection.newsletters' | transloco">
+          @let newsletters = isNewsletters();
+          {{ journalNameService.formatBoolean(newsletters) }}
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+}

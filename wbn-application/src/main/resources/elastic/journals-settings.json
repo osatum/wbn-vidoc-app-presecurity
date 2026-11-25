@@ -1,0 +1,61 @@
+{
+  "max_result_window": 10000,
+  "analysis": {
+    "char_filter": {
+      "p1_issn_separators": {
+        "type": "pattern_replace",
+        "pattern": "[\\p{Pd}\\s\\p{Z}]+",
+        "replacement": ""
+      },
+      "sort_html_quote_entities": {
+        "type": "pattern_replace",
+        "pattern": "(?i)&(?:quot|ldquo|rdquo|bdquo|laquo|raquo|#34|#x22|#8220|#8221|#8222|#x201c|#x201d|#x201e);",
+        "replacement": ""
+      },
+      "sort_trim_punctuation": {
+        "type": "pattern_replace",
+        "pattern": "^[\\p{P}\\p{S}\\p{Z}\\p{C}]+|[\\p{P}\\p{S}\\p{Z}\\p{C}]+$",
+        "replacement": ""
+      }
+    },
+    "normalizer": {
+      "p1_text_normalizer": {
+        "type": "custom",
+        "filter": ["lowercase", "asciifolding"]
+      },
+      "p1_issn_normalizer": {
+        "type": "custom",
+        "char_filter": ["p1_issn_separators"],
+        "filter": ["lowercase"]
+      },
+      "code_normalizer": {
+        "type": "custom",
+        "filter": ["lowercase"]
+      },
+      "sort_normalizer": {
+        "type": "custom",
+        "char_filter": ["sort_html_quote_entities", "sort_trim_punctuation"],
+        "filter": ["lowercase", "asciifolding"]
+      }
+    },
+    "filter": {
+      "edge_ngram_filter": {
+        "type": "edge_ngram",
+        "min_gram": 2,
+        "max_gram": 20
+      }
+    },
+    "analyzer": {
+      "issn_pattern": {
+        "type": "pattern",
+        "pattern": "[^0-9Xx]",
+        "lowercase": true
+      },
+      "edge_ngram_analyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": ["lowercase", "edge_ngram_filter"]
+      }
+    }
+  }
+}

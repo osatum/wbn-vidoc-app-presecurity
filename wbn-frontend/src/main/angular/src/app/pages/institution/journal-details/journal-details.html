@@ -1,0 +1,201 @@
+@if (hasError() && !journal()) {
+  <div class="alert alert-danger" role="alert">{{ errorMessage() }}</div>
+}
+
+@if (isLoading() && !journal()) {
+  <section class="row">
+    <div class="col-lg-8 col-xxl-8">
+      <div class="card" style="min-height: 300px;">
+        <app-local-spinner [height]="200" [overlay]="false" [text]="'page.institution.journalDetails.loading' | transloco"></app-local-spinner>
+      </div>
+    </div>
+    <div class="col-lg-4 col-xxl-4">
+      <div class="card card-rating pb-0 fade-in-card" style="min-height: 300px;">
+      </div>
+    </div>
+  </section>
+}
+
+@if (journal()) {
+  @if (journal(); as journal) {
+    <section class="row">
+      <div class="col-lg-8 col-xxl-8">
+        <div class="card">
+          <header class="card-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <h4 class="card-title mb-0 flex-grow-1 fs-4 fw-semibold">{{ title() }}</h4>
+            <nav class="d-flex flex-wrap gap-2" [attr.aria-label]="'decisionCard.navigation' | transloco">
+              <a class="btn btn-primary btn-label text-nowrap" routerLink="/institution/user/journals" [state]="journalListReturnState()" data-testid="journal-details-return">
+                <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2" aria-hidden="true"></i>
+                {{ 'common.back' | transloco }}
+              </a>
+              @if (decisionCardAvailable()) {
+                <a class="btn btn-primary text-nowrap"
+                   [routerLink]="['/institution/user/journals', journal.id, 'decision']"
+                   [state]="decisionNavigationState()"
+                   data-testid="journal-details-decision">
+                  {{ 'decisionCard.open' | transloco }}
+                </a>
+              }
+            </nav>
+          </header>
+          <div class="card-body">
+
+            <div class="d-flex position-relative flex-column flex-sm-row ">
+              <div style="min-width: 150px; min-height: 212px; " class="me-3 mt-1 mb-3 flex-sm-shrink-1">
+                <app-safe-image
+                  [src]="cover()"
+                  [alt]="''"
+                  [width]="240"
+                  [height]="300"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  objectFit="fill"
+                />
+              </div>
+              <div class="row flex-grow-1">
+                <div class="col-xxl-12 col-sm-12">
+                  <dl class="row description-custom">
+                    <dt class="col-3 col-xl-2">{{ 'page.institution.journalDetails.englishTitle' | transloco }}</dt>
+                    <dd class="col-9 col-xl-10 text-muted">{{ titleEnglish() }}</dd>
+                    <dt class="col-3 col-xl-2">ISSN</dt>
+                    <dd class="col-9 col-xl-10">
+                      @if (!isPissn() && !isEissn()) {
+                        -
+                      }
+                      @if (isPissn()) {
+                        <span ><i class="ri-book-open-line me-1"></i> {{ pissn() }} (pISSN)</span>
+                      }
+                      @if (isPissn() && isEissn()) {
+                        |
+                      }
+                      @if (isEissn()) {
+                        <span ><i class="ri-global-line me-1"></i> {{ eissn() }} (eISSN)</span>
+                      }
+                    </dd>
+                    <dt class="col-3 col-xl-2">{{ 'page.institution.journalDetails.website' | transloco }}</dt>
+                    <dd class="col-9 col-xl-10 text-muted">
+                      @if (isWww()) {
+                        <span class="text-muted"><i class="ri-link-m me-1"></i></span>
+                        <a target="_blank" class="text-break" href="{{ journal.website }}">{{ formatText(journal.website) }}</a>
+                      } @else {
+                        -
+                      }
+                    </dd>
+                    <dt class="col-3 col-xl-2">{{ 'page.institution.journalDetails.publisher' | transloco }}</dt>
+                    <dd class="col-9 col-xl-10 text-muted"><i class="ri-bank-line me-1"></i> {{ formatText(journal.publisher) }}</dd>
+                    <dt class="col-3 col-xl-2">{{ 'page.institution.journalDetails.country' | transloco }}</dt>
+                    <dd class="col-9 col-xl-10 ">
+                      @if (journal.country) {
+                        <span class="">
+                          <i class="ri-flag-line me-1"></i>
+                          {{ journalNameService.getCountryName(journal.country) }}
+                      </span>
+                      } @else {
+                        -
+                      }
+                    </dd>
+                    <dt class="col-3 col-xl-2">{{ 'page.institution.journalDetails.languages' | transloco }}</dt>
+                    <dd class="col-9 col-xl-10 text-muted">
+                      @if (languages().length) {
+                        <span class="">
+                        <i class="ri-translate-2 me-1"></i>
+                          {{ languageNames() }}
+                      </span>
+                      } @else {
+                        -
+                      }
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="card-body border-0 border-dashed border-top ">
+            <div class="row">
+              <div class="col-xxl-10">
+                @if (issuesUrl(); as url) {
+                  <a
+                    class="link-primary text-decoration-underline"
+                    [href]="url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    [attr.aria-label]="'common.depositedPublicationsNewTab' | transloco"
+                    data-testid="journal-full-data-publications-link"
+                  >
+                    {{ 'page.institution.journalDetails.depositedPublications' | transloco }}:
+                    <span>{{ formatText(journal.cardinality?.numberOfPublications) }}</span>
+                  </a>
+                } @else {
+                  <span class="text-muted">{{ 'page.institution.journalDetails.depositedPublications' | transloco }}:</span>
+                  {{ formatText(journal.cardinality?.numberOfPublications) }}
+                }
+                <span class="ms-1 me-1">|</span>
+                <span >
+                  <span class="text-muted">{{ 'page.institution.journalDetails.fullText' | transloco }}:</span> {{ formatText(journal.cardinality?.percentFullText) }}%
+                  | <span class="text-muted">{{ 'page.institution.journalDetails.abstract' | transloco }}:</span> {{ formatText(journal.cardinality?.percentAbstracts) }}%
+                  | <span class="text-muted">{{ 'page.institution.journalDetails.keywords' | transloco }}:</span> {{ formatText(journal.cardinality?.percentKeywords) }}%
+                        | <span class="text-muted">{{ 'page.institution.journalDetails.references' | transloco }}:</span> {{ formatText(journal.cardinality?.percentReferences) }}%
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-body border-0 border-dashed border-top ">
+            <div class="row">
+              <div class="col-xxl-12">
+                <app-journal-information-tabs [journal]="journal" [publishers]="journal.publishers" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-xxl-4">
+        <section
+          app-journal-icv-card
+          class="card"
+          data-testid="journal-icv"
+          prefix="journal"
+          [year]="journal.currentIcvYear"
+          [value]="journal.currentIcvPoints"
+          [status]="journal.currentStatus"
+          [reason]="journalNameService.getJournalDictionaryItem(journal.currentReasonNotIndexing)"
+          [history]="icvHistory()"
+          [comparisonSource]="icvBenchmarks()"
+          [historyOpen]="icvHistoryOpen()"
+          (historyOpenChange)="icvHistoryOpen.set($event)"
+        ></section>
+
+      </div>
+
+      @if (journal.id !== undefined) {
+        <div class="col-12">
+          <app-journal-questionnaire
+            [journalId]="journal.id"
+            [surveyYear]="selectedSurveyYear()"
+            [availableYears]="selectableSurveyYears()"
+            [yearsWithData]="journal.availableSurveyYears ?? []"
+            [questionnaireAvailable]="journal.questionnaireAvailable"
+            [contextLoading]="isLoading()"
+            [contextError]="hasError() ? errorMessage() : null"
+            [questionnaireVisible]="isCurrentIndexed(journal) || isCurrentNotEvaluated(journal) || (isCurrentNotIndexed(journal) && showNotIndexedQuestionnaire())"
+            [revealRequired]="!!journal.currentReasonNotIndexingFlag && !showNotIndexedQuestionnaire()"
+            [notIndexingReason]="journal.currentReasonNotIndexing"
+            (yearChange)="selectSurveyYear($event)"
+            (reveal)="showNotIndexedQuestionnaire.set(true)"
+            (retryContext)="retrySurveyYear()"
+          />
+        </div>
+      }
+      @if(!isLoading() && !hasError() && journal.questionnaireAvailable !== false && (isCurrentIndexed(journal) || (isCurrentNotIndexed(journal) && showNotIndexedQuestionnaire()))) {
+        @if (journal.id !== undefined) {
+          <app-journal-questionnaire-charts [journalId]="journal.id" [surveyYear]="journal.surveyYear ?? journal.currentIcvYear"></app-journal-questionnaire-charts>
+        }
+      }
+
+
+
+
+    </section>
+  }
+}

@@ -1,0 +1,24 @@
+<div id="layout-wrapper" (window:resize)="onResize($event)">
+    <!-- Top Bar -->
+    <app-ovr-topbar (mobileMenuButtonClicked)="onToggleMobileMenu()"></app-ovr-topbar>
+    <!-- Side Bar -->
+    @if(issemiboxLayoutRequested()){
+    <app-ovr-sidebar></app-ovr-sidebar>
+    }
+    @if(isTwoColumnLayoutRequested()){
+    <app-ovr-two-column-sidebar></app-ovr-two-column-sidebar>
+    }
+    <app-ovr-sidebar id="side-bar" class="d-none"></app-ovr-sidebar>
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- Main Content -->
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <!-- Footer -->
+        <app-ovr-footer></app-ovr-footer>
+    </div>
+</div>
+<!-- Right Side Bar -->
+<app-ovr-rightsidebar (settingsButtonClicked)="onSettingsButtonClicked()"></app-ovr-rightsidebar>

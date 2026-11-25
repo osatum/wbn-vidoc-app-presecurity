@@ -1,0 +1,113 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6 col-xl-5">
+    <div class="card mt-4">
+
+      <div class="card-body p-4">
+        <div class="text-center mt-2">
+          <h5 class="text-primary">{{ 'page.account.change-basic-data.title' | transloco }}</h5>
+          <p class="text-muted"> {{ 'page.account.change-basic-data.description' | transloco }}</p>
+        </div>
+
+        <div class="p-2">
+          @if (isLoading()) {
+            <div class="card-body border-top">
+              <p class="text-muted mb-0">{{ 'page.account.change-basic-data.loading' | transloco }}</p>
+            </div>
+          } @else if (hasError()) {
+              <div class="alert border-0 alert-danger" role="alert">
+                <p role="alert" class="mb-0">{{ 'page.account.change-basic-data.load-error' | transloco }}</p>
+              </div>
+          } @else {
+            <form [formGroup]="form" (ngSubmit)="save()">
+                @if (errorMessage()) {
+                  <div class="alert border-0 alert-danger" role="alert">
+                    <p role="alert" class="mb-0">{{ errorMessage() }}</p>
+                  </div>
+                }
+
+                @if (fieldErrorEntries().length) {
+                  <ul class="text-danger">
+                    @for (error of fieldErrorEntries(); track error[0]) {
+                      <li>{{ error[0] }}: {{ error[1] }}</li>
+                    }
+                  </ul>
+                }
+
+                <div class="row g-3 mb-3">
+                  <div class="col-xxl-12 col-md-12">
+                    <label class="form-label" for="firstName">{{ 'page.account.change-basic-data.first-name' | transloco }}</label>
+                    <input
+                      id="firstName"
+                      type="text"
+                      formControlName="firstName"
+                      class="form-control"
+                      autocomplete="given-name"
+                      [placeholder]="'page.account.change-basic-data.first-name-placeholder' | transloco"
+                      [class.is-invalid]="isInvalid('firstName')"
+                    />
+                    @if (validationError('firstName'); as message) {
+                      <div class="text-danger small mt-1">{{ message }}</div>
+                    }
+                  </div>
+
+                  <div class="col-xxl-12 col-md-12">
+                    <label class="form-label" for="lastName">{{ 'page.account.change-basic-data.last-name' | transloco }}</label>
+                    <input
+                      id="lastName"
+                      type="text"
+                      formControlName="lastName"
+                      class="form-control"
+                      autocomplete="family-name"
+                      [placeholder]="'page.account.change-basic-data.last-name-placeholder' | transloco"
+                      [class.is-invalid]="isInvalid('lastName')"
+                    />
+                    @if (validationError('lastName'); as message) {
+                      <div class="text-danger small mt-1">{{ message }}</div>
+                    }
+                  </div>
+
+                  <div class="col-xxl-12 col-md-12">
+                    <label class="form-label" for="orcid">{{ 'page.account.change-basic-data.orcid' | transloco }}</label>
+                    <input
+                      id="orcid"
+                      type="text"
+                      formControlName="orcid"
+                      class="form-control"
+                      autocomplete="off"
+                      [placeholder]="'page.account.change-basic-data.orcid-placeholder' | transloco"
+                      aria-describedby="orcidHelp"
+                      [class.is-invalid]="isInvalid('orcid')"
+                    />
+                    @if (validationError('orcid'); as message) {
+                      <div class="text-danger small mt-1">{{ message }}</div>
+                    }
+                    <div id="orcidHelp" class="form-text">{{ 'page.account.change-basic-data.orcid-help' | transloco }}</div>
+                  </div>
+                </div>
+
+              <div class="row g-3">
+                <div class="col-6">
+                  <button type="submit" class="btn btn-success btn-label fs-5 me-2 w-100" [disabled]="isSaving()">
+                    <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                    {{ (isSaving() ? 'page.system.common.saving' : 'page.account.change-basic-data.submit') | transloco }}
+                  </button>
+                </div>
+                <div class="col-6">
+                  <a type="button" class="btn btn-warning btn-label fs-5 w-100" [routerLink]="returnUrl">
+                    <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.common.cancel' | transloco }}
+                  </a>
+                </div>
+              </div>
+
+
+            </form>
+          }
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+
+  </div>
+</div>

@@ -1,0 +1,27 @@
+@if (institution){
+  <p>
+    @if (!journalNameService.isEmptyValue(institution.name)) {
+      {{ institution.name }}<br/>
+    }
+    @if (!journalNameService.isEmptyValue(institution.street)) {
+      {{ institution.street }}<br/>
+    }
+    @if (!journalNameService.isEmptyValue(institution.postCode) && !journalNameService.isEmptyValue(institution.city)) {
+      {{ institution.postCode }} {{ institution.city }}<br/>
+    }
+    @if (!journalNameService.isEmptyValue(institution.country)) {
+      {{ journalNameService.getCountryName(institution.country) }}<br/>
+    }
+  </p>
+  <p>
+    @if (!journalNameService.isEmptyValue(institution.phone)) {
+      Tel. {{ institution.phone }}<br/>
+    }
+    @if (!journalNameService.isEmptyValue(institution.email)) {
+      Email: {{ institution.email }}<br/>
+    }
+    @if (!journalNameService.isEmptyValue(institution.www)) {
+      www: <a [href]="institution.www" target="_blank">{{ institution.www }}</a><br/>
+    }
+  </p>
+}

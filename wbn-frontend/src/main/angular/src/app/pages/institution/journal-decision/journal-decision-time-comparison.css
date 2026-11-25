@@ -1,0 +1,76 @@
+:host {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.65fr) minmax(0, 2fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.75rem;
+  min-width: 0;
+}
+:host(:not(:first-child)) {
+  border-top: 1px dashed var(--vz-border-color);
+}
+:host(.own-only) {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+:host(.own-only) .time-own {
+  text-align: end;
+}
+.time-label,
+.time-typical {
+  overflow-wrap: anywhere;
+}
+.time-chart {
+  width: 100%;
+  min-width: 0;
+  color: var(--vz-primary-text-emphasis);
+}
+.time-chart svg {
+  width: 100%;
+  display: block;
+}
+.time-axis-labels {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 6.25%;
+  font-size: 0.75rem;
+}
+.time-axis {
+  stroke: var(--vz-border-color);
+  stroke-width: 3;
+}
+.time-ticks {
+  stroke: var(--vz-secondary-color);
+  stroke-width: 1;
+}
+.time-range {
+  fill: var(--vz-primary-bg-subtle);
+  stroke: var(--vz-primary-text-emphasis);
+  stroke-width: 1;
+}
+.time-equal-range {
+  stroke: var(--vz-primary-text-emphasis);
+  stroke-width: 6;
+}
+.time-marker {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.time-dot {
+  fill: currentColor;
+}
+@media (max-width: 767.98px) {
+  :host {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 0.75rem;
+  }
+  .time-own {
+    text-align: end;
+  }
+  .time-chart,
+  .time-typical {
+    grid-column: 1 / -1;
+  }
+}

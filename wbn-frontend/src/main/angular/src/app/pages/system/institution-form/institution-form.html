@@ -1,0 +1,433 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header  d-flex align-items-center justify-content-between">
+        <h4>{{ (isEdit() ? 'page.system.institution-form.title.edit' : 'page.system.institution-form.title.create') | transloco }}</h4>
+        <a type="submit" class="btn btn-info btn-label" routerLink="../">
+          <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+          {{ 'page.system.common.back' | transloco }}
+        </a>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.institution-form.description' | transloco }}</p>
+      </div>
+      @if (hasError()) {
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.institution-form.load-error' | transloco"></app-aler-data>
+        </div>
+      }
+      @if (isLoading()) {
+
+          <div >
+            <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.institution-form.loading' | transloco"></app-local-spinner>
+          </div>
+      }
+      @if (!isLoading() && !hasError()) {
+
+        <form [formGroup]="form" (ngSubmit)="save()">
+
+          <div class="card-body">
+
+
+            @if (errorMessage()) {
+              <div class="alert border-0 alert-danger" role="alert">
+                <p role="alert" class="mb-0">{{ errorMessage() }}</p>
+
+                @if (fieldErrorEntries().length) {
+                  <ul class="error-list">
+                    @for (error of fieldErrorEntries(); track error[0]) {
+                      <li>{{ error[0] }}: {{ error[1] }}</li>
+                    }
+                  </ul>
+                }
+
+              </div>
+            }
+
+            <h6 class="card-title mb-3">{{ 'page.system.institution-form.basic-data' | transloco }}</h6>
+            <div class="row">
+              <div class="col-xl-8 col-lg-12 mb-3">
+                <label for="name" class="form-label">{{ 'page.system.institution-form.name' | transloco }}</label>
+
+                <input id="name" type="text" class="form-control" formControlName="name"
+                       [placeholder]="'page.system.institution-form.name-placeholder' | transloco" />
+                <div id="nameHelp" class="form-text">{{ 'page.system.institution-form.name-help' | transloco }}</div>
+                @if (validationError('name'); as message) {
+                  <span class="field-error">{{ message }}</span>
+                }
+
+              </div>
+              <div class="col-xl-2  col-lg-6  mb-3 ">
+                <label for="institutionType" class="form-label">{{ 'page.system.institution-form.type' | transloco }}</label>
+                <select id="institutionType" class="form-control" formControlName="institutionType">
+                  @for (type of institutionTypes; track type.value) {
+                    <option [value]="type.value">{{ type.labelKey | transloco }}</option>
+                  }
+                </select>
+                @if (validationError('institutionType'); as message) {
+                  <span class="field-error">{{ message }}</span>
+                }
+
+              </div>
+
+              <div class="col-xl-2  col-lg-6 mb-3 ">
+                <label for="authMode" class="form-label">{{ 'page.system.institution-form.access-mode' | transloco }}</label>
+                <select id="authMode" class="form-control" formControlName="authMode">
+                  @for (mode of authModes; track mode.value) {
+                    <option [value]="mode.value">{{ mode.labelKey | transloco }}</option>
+                  }
+                </select>
+                @if (validationError('authMode'); as message) {
+                  <span class="field-error">{{ message }}</span>
+                }
+
+              </div>
+
+              <div class="col-xl-12 col-lg-12 mb-3 ">
+                @if (form.controls.institutionType.value === 'RESEARCH_UNIT') {
+                  <div class="mb-3">
+                    <app-operating-profile-setting [editable]="true" [value]="form.controls.operatingProfile.value"
+                      (valueChange)="form.controls.operatingProfile.setValue($event)" />
+                  </div>
+                }
+                <label for="contactData" class="form-label">{{ 'page.system.institution-form.contact-data' | transloco }}</label>
+
+                <textarea id="contactData" class="form-control" formControlName="contactData" rows="3"
+                          [placeholder]="'page.system.institution-form.contact-data-placeholder' | transloco"></textarea>
+                <div id="contactDataHelp" class="form-text">{{ 'page.system.institution-form.contact-data-help' | transloco }}</div>
+                @if (validationError('contactData'); as message) {
+                  <span class="field-error">{{ message }}</span>
+                }
+              </div>
+
+              <div class="col-xl-12 col-lg-12 mb-3 ">
+                <label for="description" class="form-label">{{ 'page.system.institution-form.description-label' | transloco }}</label>
+                <textarea id="description" class="form-control" formControlName="description" rows="3"
+                          [placeholder]="'page.system.institution-form.description-placeholder' | transloco"></textarea>
+                <div id="descriptionHelp" class="form-text">{{ 'page.system.institution-form.description-help' | transloco }}</div>
+                @if (validationError('description'); as message) {
+                  <span class="field-error">{{ message }}</span>
+                }
+              </div>
+              <div class="col-xl-6 col-lg-6 mb-3 ">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" formControlName="allowRegistration" type="checkbox" role="switch"
+                         id="allowRegistration">
+                  <label class="form-check-label" for="allowRegistration">{{ 'page.system.institution-form.allow-registration' | transloco }}</label>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 mb-3 ">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" formControlName="allowOtherIp" type="checkbox" role="switch"
+                         id="allowOtherIp">
+                  <label class="form-check-label" for="allowOtherIp">{{ 'page.system.institution-form.allow-other-ip' | transloco }}</label>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 mb-3 ">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" formControlName="allowOtherEmailDomain" type="checkbox"
+                         role="switch" id="allowOtherEmailDomain">
+                  <label class="form-check-label" for="allowOtherEmailDomain">{{ 'page.system.institution-form.allow-other-email-domain' | transloco }}</label>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 mb-3 ">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" formControlName="autoActivateNewAccounts" type="checkbox"
+                         role="switch" id="autoActivateNewAccounts">
+                  <label class="form-check-label" for="autoActivateNewAccounts">{{ 'page.system.institution-form.auto-activate-new-accounts' | transloco }}</label>
+                </div>
+              </div>
+
+            </div>
+
+
+            <h6 class="card-title mt-4  mb-1 clearfix">{{ 'page.system.institution-form.ip-rules' | transloco }} </h6>
+            <p id="ipRulesHelp" class="text-muted">{{ 'page.system.institution-form.ip-rules-help' | transloco }}</p>
+
+            <div class="row bg-light pt-3 pb-3  border-bottom clearfix  d-flex align-items-center"
+                 style="min-height: 71px;">
+              <div class="col-2  ">{{ 'page.system.institution-form.rule-type' | transloco }}</div>
+              <div class="col-5  ">{{ 'page.system.institution-form.rule-value' | transloco }}</div>
+              <div class="col-2  ">{{ 'page.system.institution-form.priority' | transloco }}</div>
+              <div class="col-3 text-end">
+
+                @if (!hasPendingElementDraft()) {
+                  <button type="button" class="btn btn-soft-primary btn-label float-end" (click)="addIpRule()"
+                          [disabled]="hasPendingElementDraft()">
+                    <i class="ri-add-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.institution-form.add-rule' | transloco }}
+                  </button>
+                }
+
+
+              </div>
+            </div>
+
+            @if (ipRuleEditorIndex() === 'new') {
+
+
+              <div [formGroup]="ipRuleDraft" class="row pb-2 pt-2 bg-light-subtle d-flex align-items-center"
+                   style="min-height: 60px;">
+
+                <div class="col-2 ">
+                  <select class="form-control mb-2" formControlName="addressFamily" aria-label="IP address family"
+                          (change)="onIpRuleAddressFamilyChange()">
+                    @for (family of ipAddressFamilies; track family.value) {
+                      <option [value]="family.value">{{ family.label }}</option>
+                    }
+                  </select>
+                  <select class="form-control" formControlName="ruleType">
+                    @for (type of availableIpRuleTypes(); track type.value) {
+                      <option [value]="type.value">{{ type.labelKey | transloco }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="col-5  ">
+                  <input class="form-control" type="text" formControlName="ruleRaw"
+                         [placeholder]="'page.system.institution-form.rule-placeholder' | transloco" />
+                  @if (ipRuleDraftValidationError('ruleRaw'); as message) {
+                    <div class="field-error">{{ message }}</div>
+                  }
+                  @if (ipRuleDraftFormatValidationError(); as message) {
+                    <div class="field-error">{{ message }}</div>
+                  }
+                </div>
+                <div class="col-2  ">
+
+                  <input class="form-control" type="number" min="0" formControlName="priority"
+                         [placeholder]="'page.system.institution-form.priority-placeholder' | transloco" />
+                  @if (ipRuleDraftValidationError('priority'); as message) {
+                    <span class="field-error">{{ message }}</span>
+                  }
+
+                </div>
+                <div class="col-3 text-end">
+                  <button type="button" class="btn btn-soft-success btn-label me-2" (click)="confirmIpRule()">
+                    <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.common.confirm' | transloco }}
+                  </button>
+                  <button type="button" class="btn btn-soft-warning btn-label" (click)="cancelIpRuleEdit()">
+                    <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.common.cancel' | transloco }}
+                  </button>
+
+                </div>
+              </div>
+            }
+
+            @if (institutionIpRules.controls.length) {
+
+              @for (group of institutionIpRules.controls; track $index; let index = $index) {
+
+
+                @if (ipRuleEditorIndex() === index) {
+
+
+                  <div [formGroup]="ipRuleDraft" class="row pb-2 pt-2 bg-light-subtle d-flex align-items-center"
+                       style="min-height: 60px;">
+
+                <div class="col-2 ">
+                  <select class="form-control mb-2" formControlName="addressFamily" aria-label="IP address family"
+                          (change)="onIpRuleAddressFamilyChange()">
+                    @for (family of ipAddressFamilies; track family.value) {
+                      <option [value]="family.value">{{ family.label }}</option>
+                    }
+                  </select>
+                  <select class="form-control" formControlName="ruleType">
+                    @for (type of availableIpRuleTypes(); track type.value) {
+                          <option [value]="type.value">{{ type.labelKey | transloco }}</option>
+                        }
+                      </select>
+                    </div>
+                    <div class="col-5  ">
+                      <input class="form-control" type="text" formControlName="ruleRaw"
+                             [placeholder]="'page.system.institution-form.rule-placeholder' | transloco" />
+                      @if (ipRuleDraftValidationError('ruleRaw'); as message) {
+                        <div class="field-error">{{ message }}</div>
+                      }
+                      @if (ipRuleDraftFormatValidationError(); as message) {
+                        <div class="field-error">{{ message }}</div>
+                      }
+                    </div>
+                    <div class="col-2  ">
+
+                      <input class="form-control" type="number" min="0" formControlName="priority"
+                             [placeholder]="'page.system.institution-form.priority-placeholder' | transloco" />
+                      @if (ipRuleDraftValidationError('priority'); as message) {
+                        <span class="field-error">{{ message }}</span>
+                      }
+
+                    </div>
+                    <div class="col-3 text-end">
+                      <button type="button" class="btn btn-soft-success btn-label me-2" (click)="confirmIpRule()">
+                        <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                        {{ 'page.system.common.confirm' | transloco }}
+                      </button>
+                      <button type="button" class="btn btn-soft-warning btn-label" (click)="cancelIpRuleEdit()">
+                        <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                        {{ 'page.system.common.cancel' | transloco }}
+                      </button>
+
+                    </div>
+                  </div>
+                } @else {
+                  <div class="row pb-2 pt-2 d-flex align-items-center" style="min-height: 60px;"
+                       [class.bg-light-subtle]="index % 2 === 1">
+                    <div class="col-2  ">{{ group.controls.ruleType.value }}</div>
+                    <div class="col-5 ">{{ group.controls.ruleRaw.value }}</div>
+                    <div class="col-2 ">{{ group.controls.priority.value }}</div>
+                    <div class="col-3 text-end">
+
+                      @if (!hasPendingElementDraft()) {
+                        <button type="button" class="btn btn-soft-danger btn-label float-end" type="button"
+                                (click)="removeIpRule(index)" [disabled]="hasPendingElementDraft()">
+                          <i class="ri-delete-bin-line label-icon align-middle fs-16 me-2"></i>
+                          {{ 'page.system.common.delete' | transloco }}
+                        </button>
+
+                        <button type="button" class="btn btn-soft-primary btn-label float-end me-2"
+                                (click)="editIpRule(index)" [disabled]="hasPendingElementDraft()">
+                          <i class="ri-edit-line label-icon align-middle fs-16 me-2"></i>
+                          {{ 'page.system.common.edit' | transloco }}
+                        </button>
+                      }
+
+                    </div>
+                  </div>
+                }
+              }
+
+            } @else {
+              @if (ipRuleEditorIndex() === null) {
+                <div class="row pb-2 pt-2 bg-light-subtle d-flex align-items-center" style="min-height: 60px;">
+                  <div class="col-12  ">{{ 'page.system.institution-form.no-ip-rules' | transloco }}</div>
+                </div>
+              }
+            }
+
+            <h6 class="card-title mt-4 mb-1 clearfix">{{ 'page.system.institution-form.email-domains' | transloco }} </h6>
+            <p id="emailDomainsHelp" class="text-muted">{{ 'page.system.institution-form.email-domains-help' | transloco }}</p>
+            <div class="row bg-light pt-3 pb-3  border-bottom clearfix  d-flex align-items-center"
+                 style="min-height: 71px;">
+              <div class="col-9  ">{{ 'page.system.institution-form.domain' | transloco }}</div>
+              <div class="col-3 text-end">
+
+                @if (!hasPendingElementDraft()) {
+                  <button type="button" class="btn btn-soft-primary btn-label float-end" (click)="addEmailDomain()"
+                          [disabled]="hasPendingElementDraft()">
+                    <i class="ri-add-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.institution-form.add-domain' | transloco }}
+                  </button>
+                }
+
+              </div>
+            </div>
+
+
+            @if (emailDomainEditorIndex() === 'new') {
+              <div [formGroup]="emailDomainDraft" class="row pb-2 pt-2 bg-light-subtle d-flex align-items-center"
+                   style="min-height: 60px;">
+                <div class="col-9  ">
+                  <input type="text" class="form-control" formControlName="domain"
+                         [placeholder]="'page.system.institution-form.domain-placeholder' | transloco" />
+                  @if (emailDomainDraftValidationError('domain'); as message) {
+                    <div class="field-error">{{ message }}</div>
+                  }
+                </div>
+
+                <div class="col-3 text-end d-flex align-items-center justify-content-end">
+
+                  <button type="button" class="btn btn-soft-success btn-label me-2" (click)="confirmEmailDomain()">
+                    <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.common.confirm' | transloco }}
+                  </button>
+                  <button type="button" class="btn btn-soft-warning btn-label" (click)="cancelEmailDomainEdit()">
+                    <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.common.cancel' | transloco }}
+                  </button>
+                </div>
+              </div>
+            }
+
+            @if (emailDomains.controls.length) {
+              @for (group of emailDomains.controls; track $index; let index = $index) {
+
+                @if (emailDomainEditorIndex() === index) {
+
+                  <div [formGroup]="emailDomainDraft" class="row pb-2 pt-2 bg-light-subtle d-flex align-items-center"
+                       style="min-height: 60px;">
+                    <div class="col-9  ">
+                      <input type="text" class="form-control" formControlName="domain"
+                             [placeholder]="'page.system.institution-form.domain-placeholder' | transloco" />
+                      @if (emailDomainDraftValidationError('domain'); as message) {
+                        <div class="field-error">{{ message }}</div>
+                      }
+                    </div>
+
+                    <div class="col-3 text-end d-flex align-items-center justify-content-end">
+
+                      <button type="button" class="btn btn-soft-success btn-label me-2" (click)="confirmEmailDomain()">
+                        <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                        {{ 'page.system.common.confirm' | transloco }}
+                      </button>
+                      <button type="button" class="btn btn-soft-warning btn-label" (click)="cancelEmailDomainEdit()">
+                        <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                        {{ 'page.system.common.cancel' | transloco }}
+                      </button>
+                    </div>
+                  </div>
+
+                } @else {
+                  <div class="row pb-2 pt-2 d-flex align-items-center" style="min-height: 60px;"
+                       [class.bg-light-subtle]="index % 2 === 1">
+                    <div class="col-9  ">{{ group.controls.domain.value }}</div>
+                    <div class="col-3  text-end">
+
+                      @if (!hasPendingElementDraft()) {
+                        <button type="button" class="btn btn-soft-danger  btn-label float-end"
+                                (click)="removeEmailDomain(index)" [disabled]="hasPendingElementDraft()">
+                          <i class="ri-delete-bin-line label-icon align-middle fs-16 me-2"></i>
+                          {{ 'page.system.common.delete' | transloco }}
+                        </button>
+
+                        <button type="button" class="btn btn-soft-primary btn-label float-end me-2"
+                                (click)="editEmailDomain(index)" [disabled]="hasPendingElementDraft()">
+                          <i class="ri-edit-line label-icon align-middle fs-16 me-2"></i>
+                          {{ 'page.system.common.edit' | transloco }}
+                        </button>
+                      }
+                    </div>
+                  </div>
+                }
+
+
+              }
+
+            } @else {
+              @if (emailDomainEditorIndex() === null) {
+                <div class="row pb-2 pt-2 bg-light-subtle d-flex align-items-center" style="min-height: 60px;">
+                  <div class="col-12  ">{{ 'page.system.institution-form.no-email-domains' | transloco }}</div>
+                </div>
+              }
+            }
+
+
+          </div>
+          <div class="card-footer">
+            <div class="d-flex flex-wrap gap-2 mb-3 mb-lg-0">
+              <button type="submit" class="btn btn-success btn-label me-2"
+                      [disabled]="isSaving() || hasPendingElementDraft()">
+                <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                {{ (isSaving() ? 'page.system.common.saving' : 'page.system.common.save') | transloco }}
+              </button>
+              <a type="submit" class="btn btn-warning btn-label" routerLink="/system/admin/institutions">
+                <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                {{ 'page.system.common.cancel' | transloco }}
+              </a>
+            </div>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>

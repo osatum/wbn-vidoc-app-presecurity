@@ -1,0 +1,7 @@
+<router-outlet></router-outlet>
+
+@if (loadingService.loading()) {
+  <div class="global-loader" aria-busy="true" aria-live="polite">
+    <div class="spinner-global" role="status" aria-label="Pobieranie danych"></div>
+  </div>
+}

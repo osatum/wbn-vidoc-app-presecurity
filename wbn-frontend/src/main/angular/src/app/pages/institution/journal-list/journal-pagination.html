@@ -1,0 +1,95 @@
+<footer class="journal-pagination">
+  <div class="journal-pagination-toolbar">
+    <label class="journal-pagination-size" for="journal-page-size">
+      {{ 'page.institution.journalList.pagination.pageSize' | transloco }}
+      <select
+        #pageSizeSelect
+        id="journal-page-size"
+        class="form-select"
+        [disabled]="disabled()"
+        (change)="selectPageSize(pageSizeSelect.value)"
+      >
+        @for (size of pageSizeOptions; track size) {
+          <option [value]="size" [selected]="size === pageSize()">{{ size }}</option>
+        }
+      </select>
+    </label>
+    <nav
+      class="journal-pagination-navigation"
+      [attr.aria-label]="'page.institution.journalList.pagination.label' | transloco"
+    >
+      <ul class="pagination journal-pagination-pages">
+        <li class="page-item" [class.disabled]="disabled() || page() <= 0">
+          <button
+            type="button"
+            class="page-link"
+            (click)="select(page() - 1)"
+            [disabled]="disabled() || page() <= 0"
+            [attr.aria-label]="'page.institution.journalList.pagination.previous' | transloco"
+          >
+            ‹
+          </button>
+        </li>
+        @for (entry of pages(); track entry.page) {
+          @if (entry.gap) {
+            <li class="page-item disabled" aria-hidden="true"><span class="page-link">…</span></li>
+          }
+          <li class="page-item" [class.active]="entry.page === page()">
+            <button
+              type="button"
+              class="page-link"
+              (click)="select(entry.page)"
+              [disabled]="disabled()"
+              [attr.aria-current]="entry.page === page() ? 'page' : null"
+              [attr.aria-label]="
+                'page.institution.journalList.pagination.page' | transloco: { page: entry.page + 1 }
+              "
+            >
+              {{ entry.page + 1 }}
+            </button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="disabled() || page() + 1 >= totalPages()">
+          <button
+            type="button"
+            class="page-link"
+            (click)="select(page() + 1)"
+            [disabled]="disabled() || page() + 1 >= totalPages()"
+            [attr.aria-label]="'page.institution.journalList.pagination.next' | transloco"
+          >
+            ›
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <form
+      class="journal-pagination-jump"
+      (submit)="$event.preventDefault(); jump(targetPage.value)"
+    >
+      <label for="journal-target-page">{{
+        'page.institution.journalList.pagination.jump' | transloco
+      }}</label>
+      <input
+        #targetPage
+        id="journal-target-page"
+        class="form-control"
+        type="number"
+        min="1"
+        [max]="totalPages() || 1"
+        step="1"
+        required
+        [value]="page() + 1"
+        [disabled]="disabled() || totalPages() <= 1"
+      />
+      <button type="submit" class="btn btn-primary" [disabled]="disabled() || totalPages() <= 1">
+        {{ 'page.institution.journalList.pagination.go' | transloco }}
+      </button>
+    </form>
+  </div>
+  <span class="journal-pagination-summary" aria-live="polite">
+    {{
+      'page.institution.journalList.pagination.summary'
+        | transloco: { page: page() + 1, pages: totalPages() || 1, total: totalElements() }
+    }}
+  </span>
+</footer>

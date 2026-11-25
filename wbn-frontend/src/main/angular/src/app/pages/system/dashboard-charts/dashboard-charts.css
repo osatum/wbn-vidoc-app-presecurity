@@ -1,0 +1,7 @@
+.dashboard-charts .card {
+  min-height: 430px;
+}
+
+.dashboard-charts .card-body {
+  min-height: 360px;
+}

@@ -1,0 +1,58 @@
+@for (tile of tiles(); track tile.category) {
+  <article
+    class="fee-tile border border-dashed rounded p-3"
+    [attr.data-fee-category]="tile.category"
+  >
+    <h3 class="fs-6 text-muted mb-2">
+      {{ 'decisionCard.fees.categories.' + tile.category | transloco }}
+    </h3>
+    <div
+      class="d-flex justify-content-between align-items-start flex-wrap gap-2"
+      [class.fee-variants]="tile.presentation.state === 'variants'"
+    >
+      <p
+        class="fee-value fw-semibold mb-0"
+        [class.text-success]="tile.presentation.state === 'noFee'"
+        data-testid="decision-fee-value"
+      >
+        @if (tile.presentation.state === 'amount') {
+          {{ tile.presentation.amount }}
+        } @else if (tile.presentation.state === 'variants') {
+          @for (variant of tile.presentation.variants; track variant.variant) {
+            <span class="fee-variant-row" [attr.data-fee-variant]="variant.variant">
+              <span class="fw-normal text-muted"
+                >{{
+                  (variant.variant === 'INTERNAL_AUTHORS'
+                    ? 'decisionCard.fees.values.domestic'
+                    : 'decisionCard.fees.values.foreign'
+                  ) | transloco
+                }}:</span
+              >{{ ' '
+              }}<span [class.text-success]="variant.amount == null">{{
+                variant.amount ?? ('decisionCard.fees.values.noFee' | transloco)
+              }}</span>
+            </span>
+          }
+        } @else {
+          {{ 'decisionCard.fees.values.' + tile.presentation.state | transloco }}
+        }
+      </p>
+      @if (tile.percent; as percent) {
+        <span
+          class="fw-semibold text-body-emphasis text-nowrap"
+          data-testid="decision-fee-percent"
+          [attr.aria-label]="'decisionCard.fees.comparison' | transloco: { percent }"
+          >{{ percent }}</span
+        >
+      }
+    </div>
+  </article>
+}
+@if (card().benchmarksVisible) {
+  <div
+    class="fee-tile border border-dashed rounded p-3 bg-light text-muted"
+    data-testid="decision-fees-explanation"
+  >
+    {{ 'decisionCard.fees.explanation' | transloco }}
+  </div>
+}

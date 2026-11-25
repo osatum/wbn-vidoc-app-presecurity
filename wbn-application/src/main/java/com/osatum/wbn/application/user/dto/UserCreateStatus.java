@@ -1,0 +1,10 @@
+package com.osatum.wbn.application.user.dto;
+
+public enum UserCreateStatus {
+    CREATED,
+    USER_EXISTS,
+    USER_ALREADY_ASSIGNED_SELECTED_ROLE,
+    USER_ASSIGNED_SELECTED_INSTITUTION_OTHER_ROLE,
+    USER_ASSIGNED_OTHER_INSTITUTION,
+    EXISTING_USER_ATTACHED
+}

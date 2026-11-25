@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6 col-xl-5">
+    <div class="card mt-4">
+      <div class="card-body p-4">
+        <div class="text-center mt-2">
+          <h5 class="text-primary">{{ 'page.auth.userDataDeletionConfirm.title' | transloco }}</h5>
+          <p class="text-muted">{{ 'page.auth.userDataDeletionConfirm.description' | transloco }}</p>
+        </div>
+
+        @if (loading()) {
+          <app-local-spinner [overlay]="false" [text]="'page.auth.userDataDeletionConfirm.checking' | transloco"></app-local-spinner>
+        } @else if (success()) {
+          <div class="alert alert-success" role="alert">
+            {{ 'page.auth.userDataDeletionConfirm.success' | transloco }}
+          </div>
+          <div class="text-center">
+            <a routerLink="/auth/login" class="btn btn-primary w-100 fs-5">{{ 'page.auth.passwordResetRequest.backToLogin' | transloco }}</a>
+          </div>
+        } @else {
+          @if (errorMessage() || statusMessage()) {
+            <div class="alert alert-danger" role="alert">
+              {{ errorMessage() || statusMessage() }}
+            </div>
+          }
+
+          @if (canConfirm()) {
+            <div class="alert alert-warning" role="alert">
+              {{ 'page.auth.userDataDeletionConfirm.warning' | transloco }}
+            </div>
+            <button class="btn btn-danger w-100" type="button" [disabled]="saving()" (click)="confirm()">
+              @if (saving()) {
+                <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+              }
+              {{ 'page.auth.userDataDeletionConfirm.confirm' | transloco }}
+            </button>
+          } @else {
+            <div class="text-center">
+              <a routerLink="/auth/login" class="btn btn-primary fs-5">{{ 'page.auth.passwordResetRequest.backToLogin' | transloco }}</a>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+@if (institutionId(); as institutionId) {
+  <app-institution-form [institutionId]="institutionId" />
+} @else {
+  <p>{{ 'page.system.institution-edit.invalid-institution-id' | transloco }}</p>
+}

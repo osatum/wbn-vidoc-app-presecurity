@@ -1,0 +1,128 @@
+<div [formGroup]="form()">
+  @switch (section()) {
+    @case ('indexation') {
+      <app-filter-checkbox-list
+        [options]="repositoryOptions()"
+        [value]="criteria().repositoryIds"
+        [hideLabel]="true"
+        searchFontSize="var(--vz-body-font-size)"
+        [showSelection]="true"
+        [removeLabel]="'page.institution.journalList.removeSelection' | transloco"
+        [label]="'page.institution.journalList.repositories' | transloco"
+        [searchLabel]="'page.institution.journalList.searchValues' | transloco"
+        [locale]="locale()"
+        (valueChange)="setSelection('repositoryIds', $event)"
+      />
+      @if (isRepositoryLoading()) {
+        <p class="text-muted">
+          {{ 'page.institution.journalList.loadingRepositories' | transloco }}
+        </p>
+      }
+      @if (hasRepositoryError()) {
+        <p class="text-danger" role="alert">
+          {{ 'page.institution.journalList.repositoriesError' | transloco }}
+        </p>
+        <button type="button" class="btn btn-link" (click)="loadRepositories()">
+          {{ 'page.institution.journalList.retryRepositories' | transloco }}
+        </button>
+      }
+    }
+    @case ('process') {
+      <fieldset>
+        <legend style="font-size: var(--vz-body-font-size)">
+          {{ 'page.institution.journalList.firstIssueYear' | transloco }}
+        </legend>
+        <div class="row g-2">
+          @for (field of ['firstIssueYearFrom', 'firstIssueYearTo']; track field) {
+            <div class="col-6">
+              <label [for]="field" class="form-label small">{{
+                (field === 'firstIssueYearFrom'
+                  ? 'page.institution.journalList.minimumLabel'
+                  : 'page.institution.journalList.maximumLabel'
+                ) | transloco
+              }}</label>
+              <input
+                [id]="field"
+                [formControlName]="field"
+                type="text"
+                inputmode="numeric"
+                class="form-control"
+                [attr.aria-invalid]="hasValidationError()"
+              />
+            </div>
+          }
+        </div>
+      </fieldset>
+      <app-filter-checkbox-list
+        class="d-block mt-3"
+        [options]="frequencyOptions()"
+        [plain]="true"
+        [sortAlphabetically]="false"
+        [value]="criteria().frequencyCodes"
+        [label]="'page.institution.journalList.frequency' | transloco"
+        [searchLabel]="'page.institution.journalList.searchValues' | transloco"
+        [locale]="locale()"
+        (valueChange)="setSelection('frequencyCodes', $event)"
+      />
+      <app-filter-checkbox-list
+        class="d-block mt-4"
+        [plain]="true"
+        [sortAlphabetically]="false"
+        [options]="reviewModelOptions()"
+        [value]="criteria().reviewModels"
+        [label]="'page.institution.journalList.reviewModels' | transloco"
+        [searchLabel]="'page.institution.journalList.searchValues' | transloco"
+        [locale]="locale()"
+        (valueChange)="setSelection('reviewModels', $event)"
+      />
+      <ng-content />
+      <label class="d-flex gap-2 mt-3">
+        <input type="checkbox" formControlName="aopOnly" class="form-check-input" />
+        <span
+          >{{ 'page.institution.journalList.aopOnly' | transloco }}
+          @if (featureCount('aopOnly') !== undefined) {
+            ({{ featureCount('aopOnly') }})
+          }
+        </span>
+      </label>
+      @if (hasValidationError()) {
+        <p class="text-danger mt-2" role="alert">
+          {{ 'page.institution.journalList.nonFeeValidationError' | transloco }}
+        </p>
+      }
+    }
+    @case ('standards') {
+      @for (feature of editorialFeatures; track feature) {
+        <label class="d-flex gap-2 mb-2">
+          <input type="checkbox" [formControlName]="feature" class="form-check-input" />
+          <span
+            >{{ 'page.institution.journalList.' + feature | transloco }}
+            @if (featureCount(feature) !== undefined) {
+              ({{ featureCount(feature) }})
+            }
+          </span>
+        </label>
+      }
+      <app-filter-checkbox-list
+        class="d-block mt-4"
+        [plain]="true"
+        [options]="licenseOptions()"
+        [value]="criteria().licenseCodes"
+        [label]="'page.institution.journalList.licenses' | transloco"
+        [searchLabel]="'page.institution.journalList.searchValues' | transloco"
+        [locale]="locale()"
+        (valueChange)="setSelection('licenseCodes', $event)"
+      />
+      <app-filter-checkbox-list
+        class="d-block mt-4"
+        [plain]="true"
+        [options]="accessOptions()"
+        [value]="criteria().accessModels"
+        [label]="'page.institution.journalList.accessModels' | transloco"
+        [searchLabel]="'page.institution.journalList.searchValues' | transloco"
+        [locale]="locale()"
+        (valueChange)="setSelection('accessModels', $event)"
+      />
+    }
+  }
+</div>

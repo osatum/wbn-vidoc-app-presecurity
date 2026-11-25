@@ -1,0 +1,77 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  h2:
+    console:
+      enabled: false
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/wbn}
+    driver-class-name: org.postgresql.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:wbn_app}
+    password: ${SPRING_DATASOURCE_PASSWORD:wbn_app}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: ${SPRING_FLYWAY_ENABLED:true}
+    baseline-on-migrate: false
+  sql:
+    init:
+      mode: never
+  elasticsearch:
+    uris: ${SPRING_ELASTICSEARCH_URIS:https://localhost:9200}
+    username: ${SPRING_ELASTICSEARCH_USERNAME:elastic}
+    password: ${SPRING_ELASTICSEARCH_PASSWORD:${ELASTIC_PASSWORD:change-me-local-elastic-password}}
+    connection-timeout: 5s
+    socket-timeout: 30s
+    restclient:
+      ssl:
+        bundle: elasticsearch
+  ssl:
+    bundle:
+      pem:
+        elasticsearch:
+          truststore:
+            certificate: ${SPRING_ELASTICSEARCH_SSL_CERTIFICATE:file:D:/docker-data/wbn/elasticsearch/certs/ca/ca.crt}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+app:
+  questionnaire:
+    detailed-section-enabled: ${APP_QUESTIONNAIRE_DETAILED_SECTION_ENABLED:true}
+  cover-path: http://localhost:8080/images/cover
+  cover-source: d:/docker-data/wbn/images/wbn-cover
+  json-source: d:/docker-data/wbn/wbn-json
+  json-dictionary: d:/docker-data/wbn/wbn-dictionary
+  wos-2022-path: d:/docker-data/wbn/updatesets/wos2022.xlsx
+  wos-2023-path: d:/docker-data/wbn/updatesets/wos2023.xlsx
+  scopus-2022-path: d:/docker-data/wbn/updatesets/scopus2022.xlsx
+  scopus-2023-path: d:/docker-data/wbn/updatesets/scopus2023.xlsx
+  wos-category-2024-path: d:/docker-data/wbn/updatesets/category-wos-2024.xlsx
+  scopus-category-2024-path: d:/docker-data/wbn/updatesets/category-scopus-2024.xlsx
+  not-indexed-2024: d:/docker-data/wbn/updatesets/not-indexed-2024.xlsx
+  not-indexed-2025: d:/docker-data/wbn/updatesets/not-indexed-2025.xlsx
+  database-indexed-2024: d:/docker-data/wbn/updatesets/databases-indexed-2024.xlsx
+  mnisw-2024: d:/docker-data/wbn/updatesets/mnisw-2024-import.xls
+  link-to-review-2024: d:/docker-data/wbn/updatesets/link_to_review_procedure-2024.xlsx
+  kind-2024: d:/docker-data/wbn/updatesets/kind-2024.xlsx
+  info-review-2024: d:/docker-data/wbn/updatesets/info_review_procedure-2024.xlsx
+  cooperation-2024: d:/docker-data/wbn/updatesets/2024-cooperation.xlsx
+  stability-2024: d:/docker-data/wbn/updatesets/2024-stability.xlsx
+  languages-2024: d:/docker-data/wbn/updatesets/2024-languages.xlsx
+  reviewers-2024: d:/docker-data/wbn/updatesets/2024_reviewers.xlsx
+  directors-2024: d:/docker-data/wbn/updatesets/2024_directors.xlsx
+  editorial-staff-2024: d:/docker-data/wbn/updatesets/2024-editorial-staff.xlsx
+  editorial-2024: d:/docker-data/wbn/updatesets/2024_editorial-address.xlsx
+  publisher-2024: d:/docker-data/wbn/updatesets/2024_publisher.xlsx
+  outpux-questionaris-xls: d:/docker-data/wbn/todownload/questionaris-2024-xls-pl.xlsx
+  outpux-questionaris-xls-en: d:/docker-data/wbn/todownload/questionaris-2024-xls-en.xlsx

@@ -1,0 +1,41 @@
+<footer>
+  <div class="d-flex justify-content-end align-items-center">
+    <div class="m-2">
+      <button
+        type="button"
+        (click)="previousPage.emit()"
+        [disabled]="!canGoPrevious()"
+        class="btn btn-primary btn-icon waves-effect waves-light"
+      >
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+    </div>
+    <div class="m-2">
+      <span>
+        Strona {{ page() + 1 }} z {{ totalPages() || 1 }} Rekordów: {{ totalElements() }}
+      </span>
+    </div>
+    <div class="m-2">
+      <button
+        type="button"
+        (click)="nextPage.emit()"
+        [disabled]="!canGoNext()"
+        class="btn btn-primary btn-icon waves-effect waves-light"
+      >
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+    </div>
+    <div class="m-2">Na stronę</div>
+    <div class="m-2">
+      <select
+        [ngModel]="size()"
+        (ngModelChange)="onPageSizeChange($event)"
+        class="form-control ng-pristine ng-valid ng-touched"
+      >
+        @for (option of effectivePageSizeOptions(); track option) {
+          <option [ngValue]="option">{{ option }}</option>
+        }
+      </select>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,35 @@
+@switch (section()) {
+  @case ('time') {
+    @if (review(); as review) {
+      {{
+        'decisionCard.preview.review'
+          | transloco: { duration: (review.dayKey | transloco: { value: review.days }) }
+      }}
+      @if (review.typical; as typical) {
+        ·
+        {{
+          'decisionCard.preview.typical'
+            | transloco: { duration: (typical.dayKey | transloco: { value: typical.range }) }
+        }}
+      }
+    } @else {
+      {{ 'decisionCard.noData' | transloco }}
+    }
+  }
+  @case ('costs') {
+    {{ feeCountKey() | transloco: { count: feeCount() } }}
+  }
+  @case ('process') {
+    @if (frequency(); as frequency) {
+      {{ frequency | transloco }}
+    }
+    @if (rejection(); as rejection) {
+      @if (frequency()) {
+        ·
+      }
+      {{ 'decisionCard.preview.rejection' | transloco: { value: rejection } }}
+    } @else if (!frequency()) {
+      {{ 'decisionCard.noData' | transloco }}
+    }
+  }
+}

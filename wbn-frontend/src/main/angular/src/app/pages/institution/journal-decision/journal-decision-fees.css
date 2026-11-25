@@ -1,0 +1,29 @@
+:host {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  min-width: 0;
+}
+.fee-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.fee-value {
+  color: var(--vz-emphasis-color);
+}
+.fee-variant-row {
+  display: block;
+}
+.fee-variants .fee-value {
+  flex: 1 1 12rem;
+}
+@media (max-width: 767.98px) {
+  :host {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 575.98px) {
+  :host {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

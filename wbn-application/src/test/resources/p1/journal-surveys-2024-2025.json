@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.1",
+  "journal": {
+    "id": 990001,
+    "countryCode": "DE",
+    "questionnaires": [
+      {
+        "year": 2025,
+        "rating": { "icv": 95.75, "status": "PUBLISHED" },
+        "survey": {
+          "evaluationYear": 2025,
+          "journal": {
+            "titles": [{ "title": "P1 Annual 2025", "titleType": "ORIGINAL", "active": true }],
+            "issns": [{ "issn": "9999-0002", "type": "E", "active": true }]
+          },
+          "publisher": {
+            "publisherInstitutions": [{ "institutionRole": "P", "institution": { "name": "Synthetic Publisher 2025" } }]
+          },
+          "supplementaryData": { "country": { "code": "DE" }, "scientificCategories": [{ "id": 9002 }], "paidArticle": "ALL_ARTICLES_PAID" },
+          "digitalization": {
+            "doiType": "NONE", "doiPrefix": "10.9999",
+            "editorialTools": ["MANUSCRIPT_SYSTEM"], "socialMedias": { "used": false },
+            "articlePublishedLicense": "CC_BY_NC",
+            "externalRepositories": { "general": [{ "id": 30, "name": "Database C" }] }
+          },
+          "publishingVersions": { "aop": false },
+          "standards": {
+            "avgManuscriptTimes": { "review": 45, "initialAssessment": 10, "publication": 90 },
+            "publicationFee": {
+              "feeType": "COUNTRY_SPECIFIC_FEE",
+              "feeDetails": [
+                { "description": "INTERNAL_AUTHORS", "minValue": 100, "maxValue": 120, "currencyCode": "PLN" },
+                { "description": "EXTERNAL_AUTHORS", "minValue": 200, "maxValue": 250, "currencyCode": "EUR" }
+              ],
+              "countrySpecificFeeSelection": {
+                "authorCountryCode": "PL",
+                "effectiveVariant": "EXTERNAL_AUTHORS",
+                "source": "JOURNAL_COUNTRY"
+              }
+            }
+          },
+          "stability": {
+            "firstIssueYear": 1970,
+            "articleLanguages": [
+              { "language": { "code": "de" }, "currentYear": 2025, "currentValue": 10 }
+            ],
+            "articlePublished": [
+              { "year": 2024, "receivedManuscriptCount": 80, "rejectedManuscriptCount": 10, "frequencyCode": "a" },
+              { "year": 2025, "receivedManuscriptCount": 100, "rejectedManuscriptCount": 25, "frequencyCode": "m" }
+            ]
+          },
+          "cooperation": {
+            "authorMetric": { "foreignAffiliationPercentage": 30, "externalAffiliationPercentage": 90 },
+            "reviewerMetric": { "foreignAffiliationPercentage": 40, "externalAffiliationPercentage": 80 }
+          }
+        }
+      },
+      {
+        "year": 2024,
+        "rating": { "icv": 80.25, "status": "PUBLISHED" },
+        "survey": {
+          "evaluationYear": 2024,
+          "journal": {
+            "titles": [
+              { "title": "P1 Annual 2024", "titleType": "ORIGINAL", "active": true },
+              { "title": "Inactive title", "titleType": "ENGLISH", "active": false }
+            ],
+            "issns": [
+              { "issn": "9999-0001", "type": "P", "active": true },
+              { "issn": "9999-0003", "type": "E", "active": false }
+            ]
+          },
+          "publisher": {
+            "publisherInstitutions": [
+              { "institutionRole": "P", "institution": { "name": "Synthetic Publisher 2024" } },
+              { "institutionRole": "P", "institution": { "name": "Synthetic Co-publisher 2024" } }
+            ]
+          },
+          "supplementaryData": { "country": { "code": "PL" }, "scientificCategories": [{ "id": 9001 }], "paidArticle": "FREE_ARTICLES" },
+          "digitalization": {
+            "doiType": "PART",
+            "editorialTools": ["EDITORIAL_SYSTEM", "NEWSLETTERS", "ANTI_PLAGIARISM_SYSTEM"],
+            "socialMedias": { "used": true }, "articlePublishedLicense": "CC_BY",
+            "externalRepositories": {
+              "general": [{ "id": 10, "name": "Database A" }, { "id": 20, "name": "Database B" }, { "id": 10, "name": "Database A" }],
+              "bibliographyLastYear": [30], "articlesLastYear": [40]
+            }
+          },
+          "publishingVersions": { "aop": true },
+          "standards": {
+            "avgManuscriptTimes": { "review": 30, "initialAssessment": 5, "publication": 60 },
+            "submissionFee": { "feeType": "NO_FEE", "feeDetails": [] },
+            "publicationFee": {
+              "feeType": "COUNTRY_SPECIFIC_FEE",
+              "feeDetails": [
+                { "description": "EXTERNAL_AUTHORS", "minValue": 100, "maxValue": 150, "currencyCode": "EUR" },
+                { "description": "INTERNAL_AUTHORS", "minValue": 40, "maxValue": 50, "currencyCode": "PLN" }
+              ],
+              "countrySpecificFeeSelection": {
+                "authorCountryCode": "PL",
+                "effectiveVariant": "EXTERNAL_AUTHORS",
+                "source": "JOURNAL_COUNTRY"
+              }
+            },
+            "openAccessFee": {
+              "feeType": "ONE_FEE",
+              "feeDetails": [
+                { "description": "FOR_ALL", "minValue": 0, "maxValue": 0, "currencyCode": "USD" }
+              ]
+            },
+            "rapidReview": {
+              "feeType": "VARIOUS_FEE",
+              "feeDetails": [
+                { "description": "STANDARD", "minValue": 400, "maxValue": 450, "currencyCode": "PLN" },
+                { "description": "EXPRESS", "minValue": 100, "maxValue": 120, "currencyCode": "EUR" }
+              ]
+            },
+            "apc": { "feeType": "NO_FEE", "feeDetails": [] }
+          },
+          "stability": {
+            "firstIssueYear": 1960,
+            "articleLanguages": [
+              { "language": { "code": "pl" }, "currentYear": 2024, "currentValue": 10 },
+              { "language": { "code": "en" }, "currentYear": 2024, "currentValue": 0, "previousYear": 2023, "previousValue": 5 },
+              { "language": { "code": "fr" }, "currentYear": 2025, "currentValue": 0, "previousYear": 2024, "previousValue": 3 }
+            ],
+            "articlePublished": [
+              { "year": 2023, "receivedManuscriptCount": 50, "rejectedManuscriptCount": 5 },
+              { "year": 2024, "receivedManuscriptCount": 38, "rejectedManuscriptCount": 19, "frequencyCode": "q" }
+            ]
+          },
+          "cooperation": {
+            "authorMetric": { "foreignAffiliationPercentage": 20, "externalAffiliationPercentage": 80 },
+            "reviewerMetric": { "foreignAffiliationPercentage": 25, "externalAffiliationPercentage": 75 }
+          }
+        }
+      }
+    ]
+  }
+}

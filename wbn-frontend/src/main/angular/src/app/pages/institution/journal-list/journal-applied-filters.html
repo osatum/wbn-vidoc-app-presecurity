@@ -1,0 +1,39 @@
+@if (chips().length || pendingChanges()) {
+  <section class="mb-3" [attr.aria-label]="'page.institution.journalList.chips.title' | transloco">
+    @if (chips().length) {
+      <div class="d-flex align-items-start justify-content-between flex-wrap gap-2">
+        <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
+          @for (entry of displayedChips(); track entry.chip.id) {
+            <li
+              class="badge bg-primary-subtle text-body d-inline-flex align-items-center gap-2 p-2 text-wrap text-start"
+              [attr.data-filter-id]="entry.chip.id"
+            >
+              <span>{{ entry.label }}</span>
+              <button
+                type="button"
+                class="btn-close flex-shrink-0"
+                (click)="remove.emit(entry.chip)"
+                [attr.aria-label]="
+                  'page.institution.journalList.chips.remove' | transloco: { filter: entry.label }
+                "
+              ></button>
+            </li>
+          }
+        </ul>
+        <button type="button" class="btn btn-link btn-sm p-0 ms-auto" (click)="clear.emit()">
+          {{ 'page.institution.journalList.clearFilters' | transloco }}
+        </button>
+      </div>
+    }
+    @if (pendingChanges()) {
+      <div
+        role="status"
+        aria-live="polite"
+        class="alert alert-info mb-0"
+        [class.mt-3]="chips().length > 0"
+      >
+        <span>{{ 'page.institution.journalList.chips.pendingChanges' | transloco }}</span>
+      </div>
+    }
+  </section>
+}

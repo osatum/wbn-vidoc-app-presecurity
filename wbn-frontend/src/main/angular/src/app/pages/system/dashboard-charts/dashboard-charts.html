@@ -1,0 +1,67 @@
+<section class="row dashboard-charts">
+  @if (isLoading()) {
+    <div>
+      <app-local-spinner
+        [height]="200"
+        [overlay]="false"
+        [text]="'page.system.dashboard-charts.loading' | transloco"
+      ></app-local-spinner>
+    </div>
+  }
+
+  @if (hasError()) {
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.dashboard-charts.load-error' | transloco"></app-aler-data>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (!isLoading() && !hasError()) {
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.dashboard-charts.daily-logins-title' | transloco }}</h4>
+        </div>
+        <div class="card-body">
+          <apx-chart
+            [series]="dailyLoginsChart().series"
+            [chart]="dailyLoginsChart().chart"
+            [colors]="dailyLoginsChart().colors"
+            [dataLabels]="dailyLoginsChart().dataLabels"
+            [grid]="dailyLoginsChart().grid"
+            [noData]="dailyLoginsChart().noData"
+            [plotOptions]="dailyLoginsChart().plotOptions"
+            [tooltip]="dailyLoginsChart().tooltip"
+            [xaxis]="dailyLoginsChart().xaxis"
+            [yaxis]="dailyLoginsChart().yaxis"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.dashboard-charts.top-institutions-title' | transloco }}</h4>
+        </div>
+        <div class="card-body">
+          <apx-chart
+            [series]="topInstitutionsChart().series"
+            [chart]="topInstitutionsChart().chart"
+            [colors]="topInstitutionsChart().colors"
+            [dataLabels]="topInstitutionsChart().dataLabels"
+            [grid]="topInstitutionsChart().grid"
+            [noData]="topInstitutionsChart().noData"
+            [plotOptions]="topInstitutionsChart().plotOptions"
+            [tooltip]="topInstitutionsChart().tooltip"
+            [xaxis]="topInstitutionsChart().xaxis"
+            [yaxis]="topInstitutionsChart().yaxis"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  }
+</section>

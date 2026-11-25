@@ -1,0 +1,59 @@
+<ng-content select="[surveyYearFilter]" />
+@for (field of textFields; track field) {
+  <div class="col-xxl-2 col-md-6">
+    <label [for]="field" class="visually-hidden">{{
+      'page.institution.journalList.' + field | transloco
+    }}</label>
+    <div [class.search-box]="field === 'journalTitle'">
+      <input
+        [id]="field"
+        type="text"
+        [formControl]="form().controls[field]"
+        class="form-control fs-5"
+        style="height: var(--journal-search-control-height)"
+        [placeholder]="'page.institution.journalList.' + field | transloco"
+      />
+      @if (field === 'journalTitle') {
+        <i class="ri-search-line search-icon" aria-hidden="true"></i>
+      }
+    </div>
+  </div>
+}
+@for (field of dictionaryFields; track field) {
+  <div class="col-xxl-2 col-md-6">
+    @let country = field === 'countryCodes';
+    @let label = 'page.institution.journalList.' + (country ? 'country' : 'language');
+    <app-multi-value-select
+      [attr.data-testid]="country ? 'journal-countries' : 'journal-languages'"
+      [searchable]="true"
+      [showSelection]="false"
+      [searchLabel]="
+        'page.institution.journalList.' + (country ? 'searchCountries' : 'searchLanguages')
+          | transloco
+      "
+      [clearLabel]="'common.clear' | transloco"
+      [emptyLabel]="
+        'page.institution.journalList.' + (country ? 'noCountriesFound' : 'noLanguagesFound')
+          | transloco
+      "
+      [options]="country ? countries() : languages()"
+      [value]="form().controls[field].value"
+      [label]="label | transloco"
+      [removeLabel]="'page.institution.journalList.removeSelection' | transloco"
+      [controlHeight]="'var(--journal-search-control-height)'"
+      (valueChange)="codesChange.emit({ field, codes: $event })"
+    />
+    @if (country ? countryLoading() : languageLoading()) {
+      <small class="text-muted" role="status">{{
+        'page.institution.journalList.' + (country ? 'loadingCountries' : 'loadingLanguages')
+          | transloco
+      }}</small>
+    }
+    @if (country ? countryError() : languageError()) {
+      <small class="text-danger" role="alert">{{
+        'page.institution.journalList.' + (country ? 'countriesLoadError' : 'languagesLoadError')
+          | transloco
+      }}</small>
+    }
+  </div>
+}

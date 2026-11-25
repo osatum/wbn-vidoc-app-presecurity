@@ -1,0 +1,8 @@
+.change-basic-data-card {
+  overflow: hidden;
+  border-top: 3px solid var(--vz-success);
+}
+
+.change-basic-data-intro {
+  background: rgba(var(--vz-success-rgb), 0.05);
+}

@@ -1,0 +1,249 @@
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-7">
+        <div class="card">
+          <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-4">
+              <h4 class="text-primary mb-2">{{ 'page.home.registration.title' | transloco }}</h4>
+              <p class="text-muted mb-0">{{ 'page.home.registration.description' | transloco }}</p>
+            </div>
+
+            @if (loading()) {
+              <app-local-spinner [overlay]="false" [text]="'page.home.registration.processing' | transloco"></app-local-spinner>
+            }
+
+            @if (errorMessage()) {
+              <div class="alert alert-danger" role="alert">
+                {{ errorMessage() }}
+                @if (existingAccountError()) {
+                  <a routerLink="/auth/login" class="alert-link ms-1">{{ 'page.home.registration.go-to-login' | transloco }}</a>
+                }
+              </div>
+            }
+
+            @if (success()) {
+              <div class="alert alert-success" role="alert">
+                {{ 'page.home.registration.success' | transloco }}
+              </div>
+              <div class="text-center">
+                <a routerLink="/auth/login" class="btn btn-primary">{{ 'page.home.registration.go-to-login' | transloco }}</a>
+              </div>
+            } @else {
+              @if (showInstitutionChoice() && institutions().length > 0) {
+                <div class="mb-4">
+                  <label class="form-label" for="institution">{{ 'page.home.registration.institution' | transloco }}</label>
+                  <select
+                    id="institution"
+                    class="form-select fs-5 text"
+                    [value]="selectedInstitutionId() ?? ''"
+                    (change)="onInstitutionSelection($event)"
+                    [disabled]="loading() || saving()">
+                    <option value="">{{ 'page.home.registration.choose-institution' | transloco }}</option>
+                    @for (institution of institutions(); track institution.id ?? $index) {
+                      @if (institution.id !== undefined) {
+                        <option [value]="institution.id">{{ institution.name }}</option>
+                      }
+                    }
+                  </select>
+                </div>
+              }
+
+              @if (selectedInstitution()) {
+                <div class="alert alert-info" role="alert">
+                  {{ 'page.home.registration.selected-institution-prefix' | transloco }}
+                  <strong>{{ selectedInstitution()?.name ?? ('page.home.registration.selected-institution-fallback' | transloco) }}</strong>.
+                </div>
+              }
+
+              @if (showRegistrationForm()) {
+                <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="firstName">{{ 'page.home.registration.first-name' | transloco }}</label>
+                      <input
+                        id="firstName"
+                        type="text"
+                        class="form-control"
+                        formControlName="firstName"
+                        [ngClass]="{'is-invalid': isInvalid('firstName')}"
+                        autocomplete="given-name">
+                      @if (isInvalid('firstName')) {
+                        <div class="invalid-feedback">
+                          @if (registrationForm.controls.firstName.errors?.['required']) {
+                            <div>{{ 'page.home.registration.validation.first-name.required' | transloco }}</div>
+                          }
+                          @if (registrationForm.controls.firstName.errors?.['maxlength']) {
+                            <div>{{ 'page.home.registration.validation.first-name.maxlength' | transloco }}</div>
+                          }
+                          @if (registrationForm.controls.firstName.errors?.['backend']) {
+                            <div>{{ fieldError('firstName') }}</div>
+                          }
+                        </div>
+                      }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label" for="lastName">{{ 'page.home.registration.last-name' | transloco }}</label>
+                      <input
+                        id="lastName"
+                        type="text"
+                        class="form-control"
+                        formControlName="lastName"
+                        [ngClass]="{'is-invalid': isInvalid('lastName')}"
+                        autocomplete="family-name">
+                      @if (isInvalid('lastName')) {
+                        <div class="invalid-feedback">
+                          @if (registrationForm.controls.lastName.errors?.['required']) {
+                            <div>{{ 'page.home.registration.validation.last-name.required' | transloco }}</div>
+                          }
+                          @if (registrationForm.controls.lastName.errors?.['maxlength']) {
+                            <div>{{ 'page.home.registration.validation.last-name.maxlength' | transloco }}</div>
+                          }
+                          @if (registrationForm.controls.lastName.errors?.['backend']) {
+                            <div>{{ fieldError('lastName') }}</div>
+                          }
+                        </div>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="email">{{ 'page.home.registration.email' | transloco }}</label>
+                    <input
+                      id="email"
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      [ngClass]="{'is-invalid': isInvalid('email')}"
+                      autocomplete="email">
+                    @if (isInvalid('email')) {
+                      <div class="invalid-feedback">
+                        @if (registrationForm.controls.email.errors?.['required']) {
+                          <div>{{ 'page.home.registration.validation.email.required' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.email.errors?.['email']) {
+                          <div>{{ 'page.home.registration.validation.email.email' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.email.errors?.['maxlength']) {
+                          <div>{{ 'page.home.registration.validation.email.maxlength' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.email.errors?.['backend']) {
+                          <div>{{ fieldError('email') }}</div>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="orcid">{{ 'page.home.registration.orcid' | transloco }}</label>
+                    <input
+                      id="orcid"
+                      type="text"
+                      class="form-control"
+                      formControlName="orcid"
+                      [ngClass]="{'is-invalid': isInvalid('orcid')}"
+                      placeholder="0000-0000-0000-0000"
+                      autocomplete="off">
+                    @if (isInvalid('orcid')) {
+                      <div class="invalid-feedback">
+                        @if (registrationForm.controls.orcid.errors?.['pattern']) {
+                          <div>{{ 'page.home.registration.validation.orcid.pattern' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.orcid.errors?.['maxlength']) {
+                          <div>{{ 'page.home.registration.validation.orcid.maxlength' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.orcid.errors?.['backend']) {
+                          <div>{{ fieldError('orcid') }}</div>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="password">{{ 'page.home.registration.password' | transloco }}</label>
+                    <input
+                      id="password"
+                      type="password"
+                      class="form-control"
+                      formControlName="password"
+                      [ngClass]="{'is-invalid': isInvalid('password')}"
+                      autocomplete="new-password">
+                    @if (isInvalid('password')) {
+                      <div class="invalid-feedback">
+                        @if (registrationForm.controls.password.errors?.['required']) {
+                          <div>{{ 'page.home.registration.validation.password.required' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.password.errors?.['minlength']) {
+                          <div>{{ 'page.home.registration.validation.password.minlength' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.password.errors?.['maxlength']) {
+                          <div>{{ 'page.home.registration.validation.password.maxlength' | transloco }}</div>
+                        }
+                        @if (registrationForm.controls.password.errors?.['backend']) {
+                          <div>{{ fieldError('password') }}</div>
+                        }
+                      </div>
+                    }
+                  </div>
+
+                  <div class="form-check mb-3">
+                    <input
+                      id="termsAndPrivacyPolicyAccepted"
+                      type="checkbox"
+                      class="form-check-input"
+                      formControlName="termsAndPrivacyPolicyAccepted"
+                      [ngClass]="{'is-invalid': isInvalid('termsAndPrivacyPolicyAccepted')}">
+                    <label class="form-check-label" for="termsAndPrivacyPolicyAccepted">
+                      {{ 'page.home.registration.terms.prefix' | transloco }}
+                      <a target="_blank" class="link-secondary text-decoration-underline link-underline-opacity-25 link-underline-opacity-100-hover" href="/assets/doc/2026_ICI-JML_Regulamin_PL.pdf">{{ 'page.home.registration.terms.terms-link' | transloco }}</a>
+                      {{ 'page.home.registration.terms.middle' | transloco }}
+                      <a target="_blank" class="link-secondary text-decoration-underline link-underline-opacity-25 link-underline-opacity-100-hover" href="/assets/doc/2026_ICI-JML_Polityka-prywatnosci_PL.pdf">{{ 'page.home.registration.terms.privacy-policy-link' | transloco }}</a>
+                      {{ 'page.home.registration.terms.suffix' | transloco }}
+                    </label>
+                    @if (isInvalid('termsAndPrivacyPolicyAccepted')) {
+                      <div class="invalid-feedback">
+                        {{ 'page.home.registration.validation.terms.required' | transloco }}
+                      </div>
+                    }
+                  </div>
+
+                  <div class="form-check mb-4">
+                    <input
+                      id="personalDataProcessingAcknowledged"
+                      type="checkbox"
+                      class="form-check-input"
+                      formControlName="personalDataProcessingAcknowledged"
+                      [ngClass]="{'is-invalid': isInvalid('personalDataProcessingAcknowledged')}">
+                    <label class="form-check-label" for="personalDataProcessingAcknowledged">
+                      {{ 'page.home.registration.personal-data.prefix' | transloco }}
+                      <a target="_blank" class="link-secondary text-decoration-underline link-underline-opacity-25 link-underline-opacity-100-hover" href="/assets/doc/2026_ICI-JML_Regulamin_PL.pdf">{{ 'page.home.registration.terms.terms-link' | transloco }}</a>
+                      {{ 'page.home.registration.personal-data.middle' | transloco }}
+                      <a target="_blank" class="link-secondary text-decoration-underline link-underline-opacity-25 link-underline-opacity-100-hover" href="/assets/doc/2026_ICI-JML_Polityka-prywatnosci_PL.pdf">{{ 'page.home.registration.terms.privacy-policy-link' | transloco }}</a>.
+                    </label>
+                    @if (isInvalid('personalDataProcessingAcknowledged')) {
+                      <div class="invalid-feedback">
+                        {{ 'page.home.registration.validation.personal-data.required' | transloco }}
+                      </div>
+                    }
+                  </div>
+
+                  <button type="submit" class="btn btn-success fs-5 w-100" [disabled]="!canSubmit()">
+                    @if (saving()) {
+                      <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+                    }
+                    {{ 'page.home.registration.submit' | transloco }}
+                  </button>
+                </form>
+              }
+            }
+          </div>
+        </div>
+
+        <div class="mt-4 text-center">
+          <a routerLink="/" class="fw-semibold text-primary">{{ 'page.home.registration.back-home' | transloco }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.journal-pagination {
+  --journal-pagination-control-size: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 1rem;
+}
+
+.journal-pagination-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.journal-pagination-size,
+.journal-pagination-jump {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.journal-pagination-size .form-select {
+  width: 5rem;
+  flex-shrink: 0;
+  padding: 0.25rem 2rem 0.25rem 0.5rem;
+  background-position: right 0.5rem center;
+}
+
+.journal-pagination-navigation {
+  flex: 1 1 max-content;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.journal-pagination-pages {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.journal-pagination .form-select,
+.journal-pagination .form-control,
+.journal-pagination .btn,
+.journal-pagination .page-link {
+  height: var(--journal-pagination-control-size);
+  font-size: inherit;
+  line-height: 1.25;
+}
+
+.journal-pagination .form-control,
+.journal-pagination .btn,
+.journal-pagination .page-link {
+  padding: 0.25rem 0.5rem;
+}
+
+.journal-pagination-pages .page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--journal-pagination-control-size);
+  margin: 0;
+  border-radius: var(--vz-border-radius, 0.375rem);
+}
+
+.journal-pagination-jump {
+  flex-wrap: wrap;
+  margin-inline-start: auto;
+}
+
+.journal-pagination-jump label {
+  margin: 0;
+}
+
+.journal-pagination-jump .form-control {
+  width: 5rem;
+  min-width: 0;
+}
+
+.journal-pagination-jump .btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.journal-pagination-summary {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--vz-border-color);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+@container (max-width: 30rem) {
+  .journal-pagination-size,
+  .journal-pagination-jump {
+    width: 100%;
+  }
+
+  .journal-pagination-size {
+    justify-content: space-between;
+  }
+
+  .journal-pagination-navigation {
+    flex-basis: 100%;
+  }
+
+  .journal-pagination-jump label {
+    flex-basis: 100%;
+  }
+
+  .journal-pagination-jump .form-control {
+    flex: 1;
+    width: 0;
+  }
+}

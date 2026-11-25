@@ -1,0 +1,15 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.user-data-deletion-request.title' | transloco }}</h4>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.user-data-deletion-request.description' | transloco }}</p>
+      </div>
+      <app-user-data-deletion-request-list
+        [emptyMessage]="'page.system.user-data-deletion-request.empty' | transloco"
+      />
+    </div>
+  </div>
+</section>
