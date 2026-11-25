@@ -1,0 +1,412 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header  d-flex align-items-center justify-content-between">
+
+        <h4 class="card-title mb-0 flex-grow-1">
+          {{ institution()?.name || ('page.system.institution-details.fallback-title' | transloco) }}
+        </h4>
+        <a type="submit" class="btn btn-info btn-label " routerLink="../">
+          <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+          {{ 'page.system.common.back' | transloco }}
+        </a>
+        @if (institutionId(); as institutionId) {
+          <a class="btn btn-primary  btn-label  ms-1" [routerLink]="['/system/admin/institutions', institutionId, 'edit']">
+            <i class="ri-edit-line label-icon align-middle fs-16 me-2"></i>
+            {{ 'page.system.common.edit' | transloco }}
+          </a>
+        }
+        @if (institution(); as institution) {
+          @if (institution.state) {
+            <button
+              type="button"
+              [class]="stateActionButtonClass(institution.state)"
+              [disabled]="isStateChangePending()"
+              (click)="changeState(institution)"
+            >
+              <i [class]="stateActionIcon(institution.state) + ' label-icon align-middle fs-16 me-2'"></i>
+              {{ stateActionLabelKey(institution.state) | transloco }}
+            </button>
+          }
+          <button
+            type="button"
+            class="btn btn-danger btn-label ms-1"
+            [disabled]="isDeletionActionPending()"
+            (click)="openDeleteModal(deleteInstitutionModal)"
+          >
+            <i class="ri-delete-bin-line label-icon align-middle fs-16 me-2"></i>
+            {{ 'page.system.institution-details.delete-institution.button' | transloco }}
+          </button>
+        }
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.institution-details.description' | transloco }}</p>
+      </div>
+      @if (hasError()) {
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.institution-details.load-error' | transloco"></app-aler-data>
+        </div>
+      }
+      @if (isLoading()) {
+
+        <div >
+          <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.common.loading-data' | transloco"></app-local-spinner>
+        </div>
+      }
+      @if (!isLoading() && !hasError()) {
+        @if (institution(); as institution) {
+          <div class="card-body">
+            <h6 class="card-title mb-3">{{ 'page.system.institution-details.basic-data' | transloco }}</h6>
+            <section class="row">
+              <div class="col-xxl-4 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.name' | transloco }}</dt>
+                  <dd>{{ institution.name || '-' }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-2 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.type' | transloco }}</dt>
+                  <dd>{{ institutionTypeLabelKey() | transloco }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-2 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.auth-mode-label' | transloco }}</dt>
+                  <dd>{{ authModeLabelKey() | transloco }}</dd>
+                </dl>
+              </div>
+              @if (institution.institutionType === 'RESEARCH_UNIT') {
+                <div class="col-lg-6 mb-3">
+                  <app-operating-profile-setting [value]="institution.operatingProfile ?? null" />
+                </div>
+              }
+              @if (institution.state) {
+                <div class="col-xxl-2 col-lg-6">
+                  <dl>
+                    <dt>{{ 'page.system.common.state' | transloco }}</dt>
+                    <dd>
+                      <span [class]="stateBadgeClass(institution.state)">
+                        {{ stateLabelKey(institution.state) | transloco }}
+                      </span>
+                    </dd>
+                  </dl>
+                </div>
+              }
+              <div class="col-xxl-2 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.registration' | transloco }}</dt>
+                  <dd>{{ booleanLabelKey(institution.allowRegistration) | transloco }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-2 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.allow-other-ip' | transloco }}</dt>
+                  <dd>{{ booleanLabelKey(institution.allowOtherIp) | transloco }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-2 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.allow-other-email-domain' | transloco }}</dt>
+                  <dd>{{ booleanLabelKey(institution.allowOtherEmailDomain) | transloco }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-2 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.auto-activation' | transloco }}</dt>
+                  <dd>{{ booleanLabelKey(institution.autoActivateNewAccounts) | transloco }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-12 col-lg-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.contact-data' | transloco }}</dt>
+                  <dd>{{ institution.contactData || '-' }}</dd>
+                </dl>
+              </div>
+
+            </section>
+            <h6 class="card-title mb-3">{{ 'page.system.institution-details.institution-description' | transloco }}</h6>
+            <section class="details-section mb-3">
+              <div class="row">
+                <div class="col-12">
+                  <p>{{ institution.description || ('page.system.institution-details.no-description' | transloco) }}</p>
+                </div>
+              </div>
+            </section>
+
+            @if (institution.createdAt || institution.createdBy || institution.editedAt || institution.editedBy) {
+              <h6 class="card-title mb-3">{{ 'page.system.common.audit' | transloco }}</h6>
+              <section class="row mb-3">
+                @if (institution.createdAt || institution.createdBy) {
+                  <div class="col-xxl-6 col-lg-6">
+                    <dl>
+                      <dt>{{ 'page.system.common.created' | transloco }}</dt>
+                      @if (institution.createdAt) {
+                        <dd class="mb-1">
+                          {{ 'page.system.common.created-at' | transloco }}:
+                          {{ institution.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}
+                        </dd>
+                      }
+                      @if (institution.createdBy) {
+                        <dd>
+                          {{ 'page.system.common.created-by' | transloco }}:
+                          {{ institution.createdBy }}
+                        </dd>
+                      }
+                    </dl>
+                  </div>
+                }
+                @if (institution.editedAt || institution.editedBy) {
+                  <div class="col-xxl-6 col-lg-6">
+                    <dl>
+                      <dt>{{ 'page.system.common.edited' | transloco }}</dt>
+                      @if (institution.editedAt) {
+                        <dd class="mb-1">
+                          {{ 'page.system.common.edited-at' | transloco }}:
+                          {{ institution.editedAt | date: 'yyyy-MM-dd HH:mm:ss' }}
+                        </dd>
+                      }
+                      @if (institution.editedBy) {
+                        <dd>
+                          {{ 'page.system.common.edited-by' | transloco }}:
+                          {{ institution.editedBy }}
+                        </dd>
+                      }
+                    </dl>
+                  </div>
+                }
+              </section>
+            }
+
+            <h6 class="card-title mb-3">{{ 'page.system.institution-details.ip-rules' | transloco }}</h6>
+            <table class="table table-borderless table-nowrap table-striped">
+              <thead class="table-light">
+              <tr>
+                <th>{{ 'page.system.institution-details.type' | transloco }}</th>
+                <th>{{ 'page.system.institution-details.value' | transloco }}</th>
+                <th>{{ 'page.system.institution-details.range' | transloco }}</th>
+                <th>{{ 'page.system.institution-details.priority' | transloco }}</th>
+              </tr>
+              </thead>
+              @if (ipRules().length) {
+                <tbody>
+                  @for (rule of ipRules(); track trackByIpRule($index, rule)) {
+                    <tr>
+                      <td>
+                        {{ ipAddressFamilyLabel(rule.addressFamily) }}
+                        @if (rule.ruleType; as ruleType) {
+                          <span> ({{ ipRuleTypeLabelKey(ruleType) | transloco }})</span>
+                        }
+                      </td>
+                      <td>{{ rule.displayValue || rule.ruleRaw || '-' }}</td>
+                      <td>{{ rule.displayRange || '-' }}</td>
+                      <td>{{ rule.priority ?? '-' }}</td>
+                    </tr>
+                  }
+                </tbody>
+
+              } @else {
+                <tbody>
+                <tr>
+                  <td colspan="4">{{ 'page.system.institution-details.no-ip-rules' | transloco }}</td>
+                </tr>
+                </tbody>
+              }
+            </table>
+
+            <h6 class="card-title mb-3">{{ 'page.system.institution-details.email-domains' | transloco }}</h6>
+            <table class="table table-borderless table-nowrap table-striped">
+              <thead class="table-light">
+              <tr>
+                <th>{{ 'page.system.institution-details.domain' | transloco }}</th>
+                <th>{{ 'page.system.institution-details.value' | transloco }}</th>
+                <th>{{ 'page.system.institution-details.range' | transloco }}</th>
+                <th>{{ 'page.system.institution-details.priority' | transloco }}</th>
+              </tr>
+              </thead>
+              @if (emailDomains().length) {
+                <tbody>
+                  @for (domain of emailDomains(); track trackByEmailDomain($index, domain)) {
+                    <tr>
+                      <td>{{ domain.domain || '-' }}</td>
+                    </tr>
+                  }
+                </tbody>
+
+              } @else {
+                <tbody>
+                <tr>
+                  <td colspan="4">{{ 'page.system.institution-details.no-email-domains' | transloco }}</td>
+                </tr>
+                </tbody>
+              }
+            </table>
+
+          </div>
+        }
+      }
+    </div>
+
+  </div>
+</section>
+
+@if (!isLoading() && !hasError()) {
+  @if (institution(); as institution) {
+
+    <div class="row">
+      <div class="col-xxl-12">
+        <div class="card">
+          <div class="card-header">
+
+            <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.institution-details.related-title' | transloco }}</h4>
+          </div>
+          <div class="card-body">
+            <ul ngbNav #Arrow="ngbNav" [activeId]="1" class="nav nav-pills arrow-navtabs nav-success bg-light mb-3">
+              <li [ngbNavItem]="1">
+                <a ngbNavLink>
+                  <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                  <span class="d-sm-block">{{ 'page.system.institution-details.users-tab' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+
+                  <section class="row">
+
+                    <div class="col-xl-12">
+                      <div class="card border-0 shadow-none">
+                        <div class="card-body border-0 clearfix">
+                          @if (institutionId(); as institutionId) {
+
+                            <a class="btn btn-primary btn-label float-end" [routerLink]="['/system/admin/institutions', institutionId, 'users', 'create']">
+                              <i class="ri-add-line label-icon align-middle fs-16 me-2"></i>
+                              {{ 'page.system.institution-details.add-user' | transloco }}
+                            </a>
+                          }
+                          <p class="text-muted">{{ 'page.system.institution-details.users-description' | transloco }}</p>
+                        </div>
+                        <app-institution-membership-list
+                          [institutionId]="institutionId()"
+                          [emptyMessage]="'page.system.institution-details.users-empty' | transloco"
+                          [errorMessage]="'page.system.institution-details.users-load-error' | transloco"
+                        />
+                      </div>
+
+                    </div>
+                  </section>
+
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="2">
+                <a ngbNavLink>
+                  <span class="d-block d-sm-none"></span>
+                  <span class="d-sm-block">{{ 'page.system.institution-details.sessions-tab' | transloco }}</span>
+                </a>
+                <ng-template ngbNavContent>
+
+
+                  <section class="row">
+
+                    <div class="col-xl-12">
+                      <div class="card border-0 shadow-none">
+                        <div class="card-body">
+                          <p class="text-muted">{{ 'page.system.institution-details.sessions-description' | transloco }}</p>
+                        </div>
+                        <app-login-session-list
+                          [institutionId]="institutionId()"
+                          [showHeader]="false"
+                          [showStatusFilters]="true"
+                          [emptyMessage]="'page.system.institution-details.sessions-empty' | transloco"
+                        />
+                      </div>
+                    </div>
+                  </section>
+
+
+                </ng-template>
+              </li>
+
+            </ul>
+            <div class="tab-content text-muted">
+              <div [ngbNavOutlet]="Arrow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  }
+}
+
+<ng-template #deleteInstitutionModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{ 'page.system.institution-details.delete-institution.modal-title' | transloco }}
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      [disabled]="isDeletePending()"
+      (click)="modal.dismiss('cancel')"
+      [attr.aria-label]="'page.system.institution-details.delete-institution.cancel' | transloco"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p class="text-danger fw-semibold">
+      {{ 'page.system.institution-details.delete-institution.warning' | transloco }}
+    </p>
+    <p>
+      {{ 'page.system.institution-details.delete-institution.impact' | transloco }}
+    </p>
+    @if (deletionConfirmation(); as confirmation) {
+      <p class="mb-2">
+        {{ 'page.system.institution-details.delete-institution.confirmation-instruction' | transloco }}
+      </p>
+      <div class="alert alert-warning text-center fw-semibold mb-3" role="status">
+        {{ confirmation.confirmationCode }}
+      </div>
+      <label class="form-label" for="institution-deletion-confirmation-code">
+        {{ 'page.system.institution-details.delete-institution.code-label' | transloco }}
+      </label>
+      <input
+        id="institution-deletion-confirmation-code"
+        type="text"
+        class="form-control text-uppercase"
+        autocomplete="off"
+        inputmode="text"
+        maxlength="8"
+        [value]="deletionConfirmationCode()"
+        [disabled]="isDeletePending()"
+        (input)="onDeletionConfirmationCodeInput($event)"
+        [attr.placeholder]="'page.system.institution-details.delete-institution.code-placeholder' | transloco"
+      />
+      @if (deletionConfirmationCode() && !deletionConfirmationCodeMatches()) {
+        <div class="invalid-feedback d-block">
+          {{ 'page.system.institution-details.delete-institution.code-mismatch' | transloco }}
+        </div>
+      }
+    }
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      [disabled]="isDeletePending()"
+      (click)="modal.dismiss('cancel')"
+    >
+      {{ 'page.system.institution-details.delete-institution.cancel' | transloco }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      [disabled]="!deletionConfirmationCodeMatches() || isDeletePending()"
+      (click)="deleteInstitution(modal)"
+    >
+      @if (isDeletePending()) {
+        <span
+          class="spinner-border spinner-border-sm me-1"
+          aria-hidden="true"
+        ></span>
+      }
+      {{ 'page.system.institution-details.delete-institution.confirm' | transloco }}
+    </button>
+  </div>
+</ng-template>

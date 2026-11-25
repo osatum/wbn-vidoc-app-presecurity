@@ -1,0 +1,25 @@
+.journal-disclosure-accordion {
+  --vz-accordion-border-width: 0;
+  --vz-accordion-bg: transparent;
+  --vz-accordion-active-bg: transparent;
+  --vz-accordion-btn-color: var(--vz-heading-color);
+  --vz-accordion-active-color: var(--vz-heading-color);
+}
+.journal-disclosure-accordion .accordion-button {
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+.journal-disclosure-accordion .accordion-button::after {
+  position: static;
+  order: -1;
+  margin: 0;
+}
+.journal-disclosure-accordion .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+.journal-disclosure-accordion .accordion-body {
+  padding: 0.75rem 0 0;
+  color: var(--vz-body-color);
+}

@@ -1,0 +1,275 @@
+@if (journal(); as journal) {
+  <ul
+    ngbNav
+    #Arrow="ngbNav"
+    [activeId]="activeTab()"
+    (activeIdChange)="activeTab.set($event)"
+    class="nav nav-pills arrow-navtabs nav-primary bg-light mb-3"
+  >
+    <li [ngbNavItem]="1">
+      <a ngbNavLink data-testid="journal-info-tab-1">
+        <span class="d-sm-block">{{
+          'page.institution.journalDetails.descriptionTab' | transloco
+        }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="journal-description">
+          {{ description() }}
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <a ngbNavLink data-testid="journal-info-tab-2">
+        <span class="d-sm-block">{{
+          'page.institution.journalDetails.detailsTab' | transloco
+        }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="row description-custom mb-3">
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.originalTitle' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">{{ formatText(journal.titleOriginal) }}</dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.englishTitle' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">{{ formatText(journal.titleEnglish) }}</dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.shortTitle' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">{{ formatText(journal.titleShort) }}</dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.originCountry' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            {{ journalNameService.getCountryName(journal.country ?? undefined) }}
+          </dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.journalKind' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            {{ journalNameService.getJournalDictionaryItem(journal.kind) }}
+          </dd>
+        </div>
+        <div class="row description-custom">
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.printedVersion' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">{{ formatBoolean(journal.printedVersion) }}</dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.electronicVersion' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">{{ formatBoolean(journal.electronicVersion) }}</dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.fullContentAccess' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8">
+            @if (journal.paidArticle) {
+              {{ journalNameService.getJournalDictionaryItem(journal.paidArticle.paidType) }}
+              @if (journal.paidArticle.value != null) {
+                ({{ journal.paidArticle.value }}
+                @if (journal.paidArticle.currencyCode) {
+                  {{ journal.paidArticle.currencyCode }}
+                }
+                )
+              }
+            } @else {
+              -
+            }
+          </dd>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3">
+      <a ngbNavLink data-testid="journal-info-tab-3">
+        <span class="d-sm-block">{{
+          'page.institution.journalDetails.scientificProfileTab' | transloco
+        }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="border rounded overflow-hidden mb-3">
+          <div class="row g-0 bg-light header-custom d-none d-md-flex">
+            <div class="col-md-3 p-2 border-end"></div>
+            <div class="col-md-4 p-2 border-end">
+              {{ 'page.institution.journalDetails.mainCategory' | transloco }}
+            </div>
+            <div class="col-md-5 p-2">
+              {{ 'page.institution.journalDetails.otherCategories' | transloco }}
+            </div>
+          </div>
+
+          <div class="row g-0 border-top bg-light-subtle">
+            <div class="col-12 col-md-3 p-2 border-end">
+              <span class="d-md-none header-custom me-1">
+                {{ 'page.institution.journalDetails.list' | transloco }}:
+              </span>
+              ICI JML
+            </div>
+            <div class="col-12 col-md-4 p-2 border-end">
+              <span class="d-md-none header-custom me-1">
+                {{ 'page.institution.journalDetails.mainCategory' | transloco }}:
+              </span>
+              {{ journalNameService.getCategoryName(journal.scientificCategory ?? undefined) }}
+            </div>
+            <div class="col-12 col-md-5 p-2">
+              <span class="d-md-none header-custom me-1">
+                {{ 'page.institution.journalDetails.otherCategories' | transloco }}:
+              </span>
+              @if (scientificCategories().length) {
+                {{ scientificCategoriesNames() }}
+              } @else {
+                -
+              }
+            </div>
+          </div>
+
+          <div class="row g-0 border-top bg-light-subtle">
+            <div class="col-12 col-md-3 p-2 border-end">
+              <span class="d-md-none header-custom me-1">
+                {{ 'page.institution.journalDetails.list' | transloco }}:
+              </span>
+              Web of Science
+            </div>
+            <div class="col-12 col-md-4 p-2 border-end">
+              <span class="d-md-none header-custom me-1">
+                {{ 'page.institution.journalDetails.mainCategory' | transloco }}:
+              </span>
+              {{ journalNameService.getCategoryName(journal.trCategory ?? undefined) }}
+            </div>
+            <div class="col-12 col-md-5 p-2">
+              <span class="d-md-none header-custom me-1">
+                {{ 'page.institution.journalDetails.otherCategories' | transloco }}:
+              </span>
+              @if (trCategories().length) {
+                {{ trCategoriesNames() }}
+              } @else {
+                -
+              }
+            </div>
+
+            <div class="row g-0 border-top bg-light-subtle">
+              <div class="col-12 col-md-3 p-2 border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.journalDetails.list' | transloco }}:
+                </span>
+                Scimago
+              </div>
+              <div class="col-12 col-md-4 p-2 border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.journalDetails.mainCategory' | transloco }}:
+                </span>
+                {{ journalNameService.getCategoryName(journal.ajscCategory ?? undefined) }}
+              </div>
+              <div class="col-12 col-md-5 p-2">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.journalDetails.otherCategories' | transloco }}:
+                </span>
+                @if (ajscCategories().length) {
+                  {{ ajscCategoriesNames() }}
+                } @else {
+                  -
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="4">
+      <a ngbNavLink data-testid="journal-info-tab-4">
+        <span class="d-sm-block">{{
+          'page.institution.journalDetails.editorialTab' | transloco
+        }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <dl class="row mb-3 description-custom">
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.editorInChief' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            @if (journal.editorInChiefs?.length) {
+              @for (person of journal.editorInChiefs; track person) {
+                <app-person-data [person]="person"></app-person-data>
+              }
+            } @else {
+              -
+            }
+          </dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.deputyEditorInChief' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            @if (journal.deputyEditorInChiefs?.length) {
+              @for (person of journal.deputyEditorInChiefs; track person) {
+                <app-person-data [person]="person"></app-person-data>
+              }
+            } @else {
+              -
+            }
+          </dd>
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.editorialSecretary' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            @if (journal.editorialSecretaries?.length) {
+              @for (person of journal.editorialSecretaries; track person) {
+                <app-person-data [person]="person"></app-person-data>
+              }
+            } @else {
+              -
+            }
+          </dd>
+        </dl>
+        <dl class="row description-custom">
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.editorialAddress' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            @if (journal.editors?.length) {
+              @for (editor of journal.editors; track editor) {
+                <app-institution-data [institution]="editor"></app-institution-data>
+              }
+            } @else {
+              -
+            }
+          </dd>
+        </dl>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="5">
+      <a ngbNavLink data-testid="journal-info-tab-5">
+        <span class="d-sm-block">{{
+          'page.institution.journalDetails.publisherTab' | transloco
+        }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <dl class="row description-custom">
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.publisher' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            @if (publishers()?.length) {
+              @for (publisher of publishers(); track publisher) {
+                <app-institution-data [institution]="publisher"></app-institution-data>
+              }
+            } @else {
+              -
+            }
+          </dd>
+        </dl>
+        <dl class="row description-custom">
+          <dt class="col-5 col-sm-4">
+            {{ 'page.institution.journalDetails.affiliatedAt' | transloco }}:
+          </dt>
+          <dd class="col-7 col-sm-8 text-muted">
+            {{ journalNameService.formatText(journal.affiliationName) }}
+          </dd>
+        </dl>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div class="tab-content text-muted">
+    <div [ngbNavOutlet]="Arrow"></div>
+  </div>
+}

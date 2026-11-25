@@ -1,0 +1,35 @@
+.template-editor {
+  min-height: 15rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  resize: vertical;
+}
+
+.template-editor-sm {
+  min-height: 10rem;
+}
+
+.placeholder-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.placeholder-row code {
+  padding: 0.35rem 0.5rem;
+  color: var(--vz-body-color);
+  background: var(--vz-light);
+  border: 1px solid var(--vz-border-color);
+  border-radius: 0.25rem;
+}
+
+.template-preview {
+  min-height: 8rem;
+  padding: 1rem;
+  background: var(--vz-light);
+  border: 1px dashed var(--vz-border-color);
+  border-radius: 0.25rem;
+}
+
+.template-preview-body {
+  overflow-wrap: anywhere;
+}

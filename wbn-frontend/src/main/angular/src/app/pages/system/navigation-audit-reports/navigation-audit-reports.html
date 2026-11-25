@@ -1,0 +1,83 @@
+<div class="card mb-4" aria-labelledby="navigation-reports-title">
+  <header class="card-header">
+    <h4 id="navigation-reports-title" class="card-title mb-0">
+      {{ 'page.system.navigation-audit-reports.title' | transloco }}
+    </h4>
+  </header>
+  <div class="card-body">
+    <p class="text-muted">{{ 'page.system.navigation-audit-reports.description' | transloco }}</p>
+    <form [formGroup]="form" (ngSubmit)="generate()" novalidate [attr.aria-busy]="loading()">
+      <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <label for="report-date-from" class="form-label">{{
+            'page.system.navigation-audit-reports.date-from' | transloco
+          }}</label>
+          <input
+            id="report-date-from"
+            class="form-control"
+            type="date"
+            formControlName="dateFrom"
+            required
+            [attr.aria-invalid]="form.controls.dateFrom.touched && form.controls.dateFrom.invalid"
+          />
+        </div>
+        <div class="col-12 col-md-4">
+          <label for="report-date-to" class="form-label">{{
+            'page.system.navigation-audit-reports.date-to' | transloco
+          }}</label>
+          <input
+            id="report-date-to"
+            class="form-control"
+            type="date"
+            formControlName="dateTo"
+            required
+            [attr.aria-invalid]="form.controls.dateTo.touched && form.controls.dateTo.invalid"
+          />
+        </div>
+        <div class="col-12 col-md-4">
+          <label for="report-type" class="form-label">{{
+            'page.system.navigation-audit-reports.type' | transloco
+          }}</label>
+          <select id="report-type" class="form-select" formControlName="reportType" required>
+            <option value="VISITS">
+              {{ 'page.system.navigation-audit-reports.visits' | transloco }}
+            </option>
+            <option value="PAGE_VIEWS">
+              {{ 'page.system.navigation-audit-reports.page-views' | transloco }}
+            </option>
+            <option value="FILE_DOWNLOADS">
+              {{ 'page.system.navigation-audit-reports.file-downloads' | transloco }}
+            </option>
+            <option value="SERVICE_ENTRIES">
+              {{ 'page.system.navigation-audit-reports.service-entries' | transloco }}
+            </option>
+          </select>
+        </div>
+      </div>
+      @if (form.touched && form.invalid) {
+        <p class="text-danger mt-3 mb-0" role="alert">
+          {{
+            'page.system.navigation-audit-reports.' +
+              (form.hasError('dateRange') ? 'date-range-error' : 'required-error') | transloco
+          }}
+        </p>
+      }
+      @if (error(); as message) {
+        <p class="text-danger mt-3 mb-0" role="alert">
+          {{ 'page.system.navigation-audit-reports.' + message | transloco }}
+        </p>
+      }
+      @if (completed()) {
+        <p class="text-success mt-3 mb-0" role="status">
+          {{ 'page.system.navigation-audit-reports.completed' | transloco }}
+        </p>
+      }
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="loading()">
+        {{
+          'page.system.navigation-audit-reports.' + (loading() ? 'generating' : 'generate')
+            | transloco
+        }}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div
+  class="local-spinner"
+  [class.local-spinner--overlay]="overlay()"
+  [style.height.px]="height()"
+>
+  <div class="local-spinner__content">
+    <div class="loader"></div>
+    @if (text()) {
+      <div class="local-spinner__text">{{ text() }}</div>
+    }
+  </div>
+</div>

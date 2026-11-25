@@ -1,0 +1,98 @@
+@if (cooperation) {
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.cooperationSection.title' | transloco }}</h5>
+  <table class="table table-bordered table-header-custom">
+    <thead>
+    <tr>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.role' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.uniqueResearchers' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.externalResearchersShare' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.foreignResearchersShare' | transloco }}</th>
+    </tr>
+    </thead>
+    <tbody>
+      @if (cooperation.authorMetric !== undefined) {
+        <tr>
+          <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.authors' | transloco }}</th>
+          <td>{{ journalNameService.formatText(cooperation.authorMetric.unique) }}</td>
+          <td>{{ journalNameService.formatText(cooperation.authorMetric.externalAffiliationPercentage) }}</td>
+          <td>{{ journalNameService.formatText(cooperation.authorMetric.foreignAffiliationPercentage) }}</td>
+        </tr>
+      }
+      @if (cooperation.reviewerMetric !== undefined) {
+        <tr>
+          <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.reviewers' | transloco }}</th>
+          <td>{{ journalNameService.formatText(cooperation.reviewerMetric.unique) }}</td>
+          <td>{{ journalNameService.formatText(cooperation.reviewerMetric.externalAffiliationPercentage) }}</td>
+          <td>{{ journalNameService.formatText(cooperation.reviewerMetric.foreignAffiliationPercentage) }}</td>
+        </tr>
+      }
+      @if (cooperation.directorsMetric !== undefined) {
+        <tr>
+          <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.directors' | transloco }}</th>
+          <td>{{ journalNameService.formatText(cooperation.directorsMetric.unique) }}</td>
+          <td>{{ journalNameService.formatText(cooperation.directorsMetric.externalAffiliationPercentage) }}</td>
+          <td>{{ journalNameService.formatText(cooperation.directorsMetric.foreignAffiliationPercentage) }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.cooperationSection.reviewersInYear' | transloco: { year: year } }}</h5>
+
+  <table class="table table-bordered  table-header-custom">
+    <thead>
+    <tr>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.fullName' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.affiliation' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.country' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.email' | transloco }}</th>
+    </tr>
+    </thead>
+    <tbody>
+      @if (cooperation.reviewersList !== undefined && cooperation.reviewersList.length > 0) {
+        @for (reviewer of cooperation.reviewersList; track reviewer) {
+          <tr>
+            <td>{{ reviewer.fullName }}</td>
+            <td>{{ reviewer.affiliation }}</td>
+            <td>{{ journalNameService.getCountryName(reviewer.country) }}</td>
+            <td>{{ reviewer.email }}</td>
+          </tr>
+        }
+      } @else {
+        <tr>
+          <td colspan="10">-</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.cooperationSection.directorsInYear' | transloco: { year: year } }}</h5>
+
+  <table class="table table-bordered table-header-custom">
+    <thead>
+    <tr>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.fullName' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.affiliation' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.country' | transloco }}</th>
+      <th scope="col">{{ 'page.institution.questionnaire.cooperationSection.email' | transloco }}</th>
+    </tr>
+    </thead>
+    <tbody>
+      @if (cooperation.directorsList !== undefined && cooperation.directorsList.length > 0) {
+        @for (reviewer of cooperation.directorsList; track reviewer) {
+          <tr>
+            <td>{{ reviewer.fullName }}</td>
+            <td>{{ reviewer.affiliation }}</td>
+            <td>{{ journalNameService.getCountryName(reviewer.country) }}</td>
+            <td>{{ reviewer.email }}</td>
+          </tr>
+        }
+      } @else {
+        <tr>
+          <td colspan="10">-</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+}

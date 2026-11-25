@@ -1,0 +1,16 @@
+<section class="row">
+  <div class="col-xxl-12">
+    <div class="card">
+      <header class="card-header">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.active-session.title' | transloco }}</h4>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.active-session.description' | transloco }}</p>
+      </div>
+      <app-login-session-list
+        [activeOnly]="true"
+        [emptyMessage]="'page.system.active-session.empty' | transloco"
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,223 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header d-flex align-items-center justify-content-between">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.user-create.title' | transloco }}</h4>
+        <a type="submit" class="btn btn-info btn-label"
+           [routerLink]="['/system/admin/institutions', institutionId()]">
+          <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+          {{ 'page.system.common.back' | transloco }}
+        </a>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.user-create.description' | transloco }}</p>
+      </div>
+      @if (isLoading()) {
+        <div >
+          <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.common.loading-data' | transloco"></app-local-spinner>
+        </div>
+      } @else if (hasError()) {
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.user-create.institution-load-error' | transloco"></app-aler-data>
+        </div>
+      } @else {
+        @if (institution(); as institution) {
+          <div class="card-body border-bottom  bg-light">
+            <h6 class="card-title mb-3">{{ 'page.system.user-create.institution' | transloco }}</h6>
+            <div class="row">
+              <div class="col-xxl-6">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.name' | transloco }}</dt>
+                  <dd>{{ institution.name || '-' }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-3">
+                <dl>
+                  <dt>{{ 'page.system.institution-details.type' | transloco }}</dt>
+                  <dd>{{ institutionTypeLabelKey() | transloco }}</dd>
+                </dl>
+              </div>
+              <div class="col-xxl-3">
+                <dl>
+                  <dt>{{ 'page.system.user-create.assigned-role' | transloco }}</dt>
+                  <dd>{{ assignedRoleLabelKey() | transloco }}</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+          <form [formGroup]="form" (ngSubmit)="save()" class="user-create-form">
+            <div class="card-body">
+              @if (errorMessage()) {
+                <div class="alert border-0 alert-danger" role="alert">
+                  <p role="alert" class="mb-0">{{ errorMessage() }}</p>
+                </div>
+              }
+
+              @if (fieldErrorEntries().length) {
+                <ul class="text-danger">
+                  @for (error of fieldErrorEntries(); track error[0]) {
+                    <li>{{ error[0] }}: {{ error[1] }}</li>
+                  }
+                </ul>
+              }
+
+              @if (isConfirmationMode() && existingUser(); as user) {
+                <div class="alert alert-warning mb-3" role="alert">
+                  @if (modeTitleKey(); as titleKey) {
+                    <h6 class="alert-heading">{{ titleKey | transloco }}</h6>
+                  }
+                  @if (modeMessageKey(); as messageKey) {
+                    <p class="mb-2">{{ messageKey | transloco }}</p>
+                  }
+                  <p class="mb-1">{{ user.email || '-' }}</p>
+                  <p class="mb-0">{{ user.firstName || '-' }} {{ user.lastName || '-' }}</p>
+                  @if (visibleMemberships().length) {
+                    <div class="table-responsive mt-3 mb-3">
+                      <table class="table table-warning table-striped mb-0">
+                        <thead>
+                        <tr>
+                          <th>{{ 'page.system.user-create.institution' | transloco }}</th>
+                          <th>{{ 'page.system.institution-details.type' | transloco }}</th>
+                          <th>{{ 'page.system.user-details.role' | transloco }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          @for (membership of visibleMemberships(); track membership.id ?? $index) {
+                            <tr>
+                              <td>{{ membership.institutionName || '-' }}</td>
+                              <td>{{ institutionTypeLabelFor(membership.institutionType) | transloco }}</td>
+                              <td>{{ roleLabelKey(membership.role) | transloco }}</td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+                  } @else if (!isRoleChangeMode()) {
+                    <p class="mb-0 mt-2">{{ 'page.system.user-create.no-memberships' | transloco }}</p>
+                  }
+                </div>
+              }
+
+              <div class="row g-3">
+                <div class="col-xxl-6 col-md-6">
+                  <label class="form-label" for="email">{{ 'page.system.user-create.email' | transloco }}</label>
+                  <input id="email" type="email" formControlName="email" class="form-control"
+                         [placeholder]="'page.system.user-create.email-placeholder' | transloco"
+                         aria-describedby="emailHelp"
+                         [class.is-invalid]="form.controls.email.touched && form.controls.email.invalid" />
+                  @if (validationError('email'); as message) {
+                    <div class="text-danger small mt-1">{{ message }}</div>
+                  }
+                  <div id="emailHelp" class="form-text">{{ 'page.system.user-create.email-help' | transloco }}</div>
+                </div>
+
+                <div class="col-xxl-6 col-md-6">
+                  <label class="form-label" for="role">{{ 'page.system.user-create.role' | transloco }}</label>
+                  <select id="role" formControlName="role" class="form-select"
+                          [class.is-invalid]="form.controls.role.touched && form.controls.role.invalid">
+                    @for (role of roleOptions(); track role.value) {
+                      <option [value]="role.value">{{ role.labelKey | transloco }}</option>
+                    }
+                  </select>
+                  @if (validationError('role'); as message) {
+                    <div class="text-danger small mt-1">{{ message }}</div>
+                  }
+                  <div class="form-text">{{ 'page.system.user-create.role-help' | transloco }}</div>
+                </div>
+
+                @if (isEditMode()) {
+                <div class="col-xxl-6 col-md-6">
+                  <label class="form-label" for="password">{{ 'page.system.user-create.password' | transloco }}</label>
+                  <input id="password" type="password" formControlName="password" class="form-control"
+                         [class.is-invalid]="form.controls.password.touched && form.controls.password.invalid"
+                         autocomplete="new-password"
+                         [placeholder]="'page.system.user-create.password-placeholder' | transloco"
+                         aria-describedby="passwordHelp" />
+                  @if (validationError('password'); as message) {
+                    <div class="text-danger small mt-1">{{ message }}</div>
+                  }
+                  <div id="passwordHelp" class="form-text">{{ 'page.system.user-create.password-help' | transloco }}</div>
+                </div>
+
+                <div class="col-xxl-6 col-md-6">
+                  <label class="form-label" for="firstName">{{ 'page.system.user-create.first-name' | transloco }}</label>
+                  <input id="firstName" type="text" formControlName="firstName" class="form-control"
+                         [placeholder]="'page.system.user-create.first-name-placeholder' | transloco"
+                         aria-describedby="firstNameHelp"
+                         [class.is-invalid]="form.controls.firstName.touched && form.controls.firstName.invalid" />
+                  @if (validationError('firstName'); as message) {
+                    <div class="text-danger small mt-1">{{ message }}</div>
+                  }
+                  <div id="firstNameHelp" class="form-text">{{ 'page.system.user-create.first-name-help' | transloco }}</div>
+                </div>
+
+                <div class="col-xxl-6 col-md-6">
+                  <label class="form-label" for="lastName">{{ 'page.system.user-create.last-name' | transloco }}</label>
+                  <input id="lastName" type="text" formControlName="lastName" class="form-control"
+                         [placeholder]="'page.system.user-create.last-name-placeholder' | transloco"
+                         aria-describedby="lastNameHelp"
+                         [class.is-invalid]="form.controls.lastName.touched && form.controls.lastName.invalid" />
+                  @if (validationError('lastName'); as message) {
+                    <div class="text-danger small mt-1">{{ message }}</div>
+                  }
+                  <div id="lastNameHelp" class="form-text">{{ 'page.system.user-create.last-name-help' | transloco }}</div>
+                </div>
+
+                <div class="col-xxl-6 col-md-6">
+                  <label class="form-label" for="orcid">{{ 'page.system.user-create.orcid' | transloco }}</label>
+                  <input id="orcid" type="text" formControlName="orcid" class="form-control"
+                         [placeholder]="'page.system.user-create.orcid-placeholder' | transloco"
+                         aria-describedby="orcidHelp"
+                         [class.is-invalid]="form.controls.orcid.touched && form.controls.orcid.invalid" />
+                  @if (validationError('orcid'); as message) {
+                    <div class="text-danger small mt-1">{{ message }}</div>
+                  }
+                  <div id="orcidHelp" class="form-text">{{ 'page.system.user-create.orcid-help' | transloco }}</div>
+                </div>
+                }
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <div class="d-flex flex-wrap gap-2 mb-3 mb-lg-0">
+                @if (mode() === 'confirmExistingUserAssignment' || mode() === 'confirmInstitutionAssignment') {
+                  <button type="button" class="btn btn-success btn-label me-2" [disabled]="isSaving()"
+                          (click)="confirmAssignment()">
+                    <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                    {{ (isSaving() ? 'page.system.user-create.attaching' : 'page.system.user-create.confirm-assignment') | transloco }}
+                  </button>
+                }
+                @if (mode() === 'alreadyAssignedRole') {
+                  <button type="button" class="btn btn-success btn-label me-2" [disabled]="isSaving()"
+                          (click)="saveRoleChange()">
+                    <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                    {{ (isSaving() ? 'page.system.common.saving' : 'page.system.common.save') | transloco }}
+                  </button>
+                }
+                @if (isEditMode()) {
+                  <button type="submit" class="btn btn-success btn-label me-2" [disabled]="isSaving()">
+                    <i class="ri-save-line label-icon align-middle fs-16 me-2"></i>
+                    {{ (isSaving() ? 'page.system.common.saving' : 'page.system.common.save') | transloco }}
+                  </button>
+                }
+                @if (isConfirmationMode()) {
+                  <button type="button" class="btn btn-info btn-label me-2" [disabled]="isSaving()"
+                          (click)="changeData()">
+                    <i class="ri-edit-line label-icon align-middle fs-16 me-2"></i>
+                    {{ 'page.system.user-create.change-data' | transloco }}
+                  </button>
+                }
+                <a type="submit" class="btn btn-warning btn-label"
+                   [routerLink]="['/system/admin/institutions', institutionId()]">
+                  <i class="ri-close-line label-icon align-middle fs-16 me-2"></i>
+                  {{ 'page.system.common.cancel' | transloco }}
+                </a>
+              </div>
+            </div>
+          </form>
+        }
+      }
+    </div>
+  </div>
+</section>

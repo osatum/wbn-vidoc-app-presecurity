@@ -1,0 +1,94 @@
+@if (searchable()) {
+  <div
+    class="multi-value-search"
+    (keydown.escape)="isOpen.set(false); focusControl(); $event.stopPropagation()"
+  >
+    <button
+      #selection
+      type="button"
+      class="form-select text-start multi-value-toggle fs-5"
+      [style.height]="controlHeight()"
+      [class.text-muted]="value().length === 0"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-controls]="panelId"
+      (click)="isOpen.set(!isOpen())"
+    >
+      {{ label() }}
+      @if (value().length > 0) {
+        ({{ value().length }})
+      }
+    </button>
+    @if (isOpen()) {
+      <div [id]="panelId" class="multi-value-panel border rounded shadow-sm">
+        <div
+          class="d-flex align-items-center justify-content-between gap-2 px-3 py-2 border-bottom"
+        >
+          <strong>{{ label() }}</strong>
+          <button type="button" class="btn btn-sm btn-link p-0" (click)="valueChange.emit([])">
+            {{ clearLabel() }}
+          </button>
+        </div>
+        <div class="p-2 border-bottom">
+          <input
+            #searchInput
+            type="search"
+            class="form-control"
+            [value]="search()"
+            [attr.aria-label]="searchLabel()"
+            [placeholder]="searchLabel()"
+            (input)="search.set(searchInput.value)"
+            (keydown.enter)="$event.preventDefault(); $event.stopPropagation()"
+          />
+        </div>
+        <div class="multi-value-options">
+          @for (option of filteredOptions(); track option.code) {
+            <label class="multi-value-option form-check mb-0">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                [checked]="isSelected(option.code)"
+                (change)="toggle(option.code)"
+              />
+              <span class="form-check-label fs-5">
+                {{ option.label + (option.count === undefined ? '' : ' (' + option.count + ')') }}
+              </span>
+            </label>
+          } @empty {
+            <div class="px-3 py-2 text-muted" role="status">{{ emptyLabel() }}</div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <select
+    #selection
+    class="form-select fs-5"
+    [style.height]="controlHeight()"
+    [attr.aria-label]="label()"
+    (change)="select($event)"
+  >
+    <option value="">{{ label() }}</option>
+    @for (option of availableOptions(); track option.code) {
+      <option [value]="option.code">
+        {{ option.label + (option.count === undefined ? '' : ' (' + option.count + ')') }}
+      </option>
+    }
+  </select>
+}
+@if (showSelection() && selectedOptions().length > 0) {
+  <ul class="list-unstyled d-flex flex-wrap gap-1 mb-0 mt-2" [attr.aria-label]="label()">
+    @for (option of selectedOptions(); track option.code) {
+      <li>
+        <button
+          type="button"
+          class="btn btn-sm btn-soft-primary"
+          [attr.aria-label]="removeLabel() + ': ' + option.label"
+          (click)="remove(option.code); focusControl()"
+        >
+          {{ option.label }} <span aria-hidden="true">×</span>
+        </button>
+      </li>
+    }
+  </ul>
+}

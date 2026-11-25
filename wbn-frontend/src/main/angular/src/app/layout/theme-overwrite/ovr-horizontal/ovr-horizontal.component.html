@@ -1,0 +1,20 @@
+<div id="layout-wrapper">
+    <!-- Top Bar -->
+    <app-ovr-topbar (mobileMenuButtonClicked)="onToggleMobileMenu()"></app-ovr-topbar>
+    <!-- Side Bar -->
+    <!-- <app-sidebar></app-sidebar> -->
+    <app-ovr-horizontal-topbar></app-ovr-horizontal-topbar>
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- Main Content -->
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <!-- Footer -->
+        <app-ovr-footer></app-ovr-footer>
+    </div>
+  </div>
+  <!-- Right Side Bar -->
+  <app-ovr-rightsidebar  (settingsButtonClicked)="onSettingsButtonClicked()"></app-ovr-rightsidebar>
+

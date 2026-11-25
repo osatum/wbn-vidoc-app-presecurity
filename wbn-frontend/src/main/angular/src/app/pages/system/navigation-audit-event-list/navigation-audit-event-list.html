@@ -1,0 +1,205 @@
+@if (hasError()) {
+  <div class="card-body">
+    <app-aler-data [message]="'page.system.navigation-audit-event-list.load-error' | transloco"></app-aler-data>
+    <button class="btn btn-outline-primary" type="button" (click)="retry()">
+      {{ 'page.system.navigation-audit-event-list.retry' | transloco }}
+    </button>
+  </div>
+}
+@if (isLoading()) {
+  <div >
+    <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.common.loading-list' | transloco"></app-local-spinner>
+  </div>
+}
+@if (!isLoading() && !hasError()) {
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filters">
+    <div class="card-body border border-dashed border-end-0 border-start-0 bg-light">
+      <div class="row g-3">
+        <div class="col-xxl-1 col-sm-6">
+          <input
+            type="date"
+            id="navigation-audit-occurred-from"
+            formControlName="occurredFrom"
+            class="form-control ng-pristine ng-valid ng-touched"
+            [title]="'page.system.navigation-audit-event-list.occurred-from' | transloco"
+          />
+        </div>
+
+        <div class="col-xxl-1 col-sm-6">
+          <input
+            type="date"
+            id="navigation-audit-occurred-to"
+            formControlName="occurredTo"
+            class="form-control ng-pristine ng-valid ng-touched"
+            [title]="'page.system.navigation-audit-event-list.occurred-to' | transloco"
+          />
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="text"
+              id="navigation-audit-institution"
+              formControlName="institution"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.navigation-audit-event-list.institution-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="text"
+              id="navigation-audit-user"
+              formControlName="user"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.navigation-audit-event-list.user-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <select formControlName="pageKey" class="form-control ng-pristine ng-valid ng-touched">
+            <option value="">{{ 'page.system.navigation-audit-event-list.page-placeholder' | transloco }}</option>
+            @for (page of pages; track page.value) {
+              <option [value]="page.value">{{ page.labelKey | transloco }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <select formControlName="eventType" class="form-control ng-pristine ng-valid ng-touched">
+            <option value="">{{ 'page.system.navigation-audit-event-list.event-type-placeholder' | transloco }}</option>
+            @for (eventType of eventTypes; track eventType.value) {
+              <option [value]="eventType.value">{{ eventType.labelKey | transloco }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="text"
+              id="navigation-audit-journal-id"
+              formControlName="journalId"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.navigation-audit-event-list.journal-id-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <button class="btn btn-primary w-100" type="submit">
+            <i class="ri-equalizer-fill mx-1 align-bottom"></i>
+            {{ 'page.system.common.filter' | transloco }}
+          </button>
+        </div>
+        <div class="col-xxl-2 col-sm-6">
+          <button class="btn btn-danger w-100" type="button" (click)="resetFilters()">
+            <i class="ri-filter-off-line mx-1 align-bottom"></i>
+            {{ 'page.system.common.clear' | transloco }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="card-body pt-0">
+    @for (event of items(); track trackByNavigationAuditEvent($index, event); let index = $index) {
+      <div class="row border border-dashed border-start-0 border-end-0 pt-3" [class.bg-light-subtle]="index % 2 === 1">
+        <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+          <span class="badge bg-light text-body">
+            {{ eventTypeLabelKey(event.eventType) | transloco }}
+          </span>
+          <span class="badge ms-1" [ngClass]="resultBadgeClass(event.success)">
+            {{ resultLabelKey(event.success) | transloco }}
+          </span>
+          <p class="text-muted mb-0 mt-2">
+            {{ event.occurredAt ? (event.occurredAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}
+          </p>
+        </div>
+
+        <div class="col-xxl-3 col-sm-12 mb-0 mb-sm-3">
+          <h6 class="mb-1">{{ userName(event) }}</h6>
+          <p class="text-muted mb-0">{{ event.userEmail || '-' }}</p>
+          <p class="text-muted mb-0">
+            {{ event.institutionName || '-' }}
+            @if (event.institutionId) {
+              <span>#{{ event.institutionId }}</span>
+            }
+          </p>
+        </div>
+
+        <div class="col-xxl-3 col-sm-12 mb-0 mb-sm-3">
+          <h6 class="mb-1">{{ pageLabelKey(event.pageKey) | transloco }}</h6>
+          <p class="text-muted mb-0 text-truncate" [title]="event.routePath || ''">
+            {{ 'page.system.navigation-audit-event-list.route' | transloco }}: {{ event.routePath || '-' }}
+          </p>
+          <p class="text-muted mb-0">
+            {{ 'page.system.navigation-audit-event-list.resource' | transloco }}:
+            {{ event.resourceType || '-' }} {{ event.resourceId || '' }}
+          </p>
+        </div>
+
+        <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+          @if (event.eventType === 'FILE_DOWNLOAD') {
+            <p class="mb-1">{{ downloadActionLabelKey(event.action) | transloco }}</p>
+            <p class="text-muted mb-0 text-truncate" [title]="event.target || ''">
+              {{ 'page.system.navigation-audit-event-list.file' | transloco }}: {{ event.target || '-' }}
+            </p>
+          } @else if (event.eventType === 'JOURNAL_DECISION_ACTION') {
+            <p class="mb-1">{{ event.action }} — {{ decisionActionLabelKey(event.action) | transloco }}</p>
+          } @else {
+            <p class="mb-1">{{ event.action || event.target || '-' }}</p>
+          }
+          <p class="text-muted mb-0">
+            {{ 'page.system.navigation-audit-event-list.duration' | transloco }}: {{ event.durationMs ?? '-' }} ms
+          </p>
+          <p class="text-muted mb-0">
+            {{ 'page.system.navigation-audit-event-list.status-code' | transloco }}: {{ event.statusCode ?? '-' }}
+          </p>
+        </div>
+
+        <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+          <p class="mb-1">{{ event.ipAddress || '-' }}</p>
+          <p class="text-muted mb-0">
+            {{ 'page.system.navigation-audit-event-list.session' | transloco }}: {{ event.loginSessionId ?? '-' }}
+          </p>
+          <p class="text-muted mb-0 text-truncate" [title]="event.viewId || ''">
+            {{ 'page.system.navigation-audit-event-list.view' | transloco }}: {{ event.viewId || '-' }}
+          </p>
+        </div>
+        @if (event.propertiesJson) {
+          <div class="col-12 mb-3">
+            <details>
+              <summary>{{ (event.eventType === 'JOURNAL_DECISION_ACTION' ? 'decisionCard.audit.context' : 'page.system.navigation-audit-event-list.applied-criteria') | transloco }}</summary>
+              <pre class="journal-audit-properties mb-0 mt-2" tabindex="0">{{ event.propertiesJson }}</pre>
+            </details>
+          </div>
+        }
+      </div>
+    } @empty {
+      <div style="margin-left: -16px; margin-right: -16px;" class="row p-3 bg-light-subtle">
+        <div class="col-xxl-12">{{ emptyMessage() }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="card-body pt-0">
+    <app-list-paging
+      [page]="page()"
+      [totalPages]="totalPages()"
+      [totalElements]="totalElements()"
+      [size]="size()"
+      [canGoPrevious]="canGoPrevious()"
+      [canGoNext]="canGoNext()"
+      (previousPage)="previousPage()"
+      (nextPage)="nextPage()"
+      (pageSizeChange)="changePageSizeValue($event)"
+    ></app-list-paging>
+  </div>
+}

@@ -1,0 +1,146 @@
+@if (standards) {
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.standards' | transloco }}</h5>
+  <div class="row mb-4 description-custom">
+    <dt class="col-5 col-lg-3 ">{{ 'page.institution.questionnaire.standardsSection.reviewProcedure' | transloco }}:</dt>
+    <dd class="col-7 col-lg-9 text-muted">
+      @if(standards.linkToReviewProcedure){
+        <a  class="text-break"  href="{{ standards.linkToReviewProcedure }}" target="_blank">{{ journalNameService.formatText(standards.linkToReviewProcedure) }}</a>
+      } @else {
+        {{ "-" }}
+      }
+    </dd>
+    <dt class="col-5 col-lg-3 ">{{ 'page.institution.questionnaire.standardsSection.reviewModel' | transloco }}:</dt>
+    <dd class="col-7 col-lg-9 text-muted">
+      @if (standards.infoReviewProcedure) {
+        @if (standards.infoReviewProcedure.doubleBlindReview) {
+          <div>
+            @if (standards.infoReviewProcedure.doubleBlindReview.confirm) {
+              {{ 'page.institution.questionnaire.standardsSection.doubleBlind' | transloco }}
+              @if (standards.infoReviewProcedure.doubleBlindReview.value) {
+                ({{ standards.infoReviewProcedure.doubleBlindReview.value }} %)
+              }
+            }
+          </div>
+        }
+        @if (standards.infoReviewProcedure.singleBlindReview) {
+          <div>
+            @if (standards.infoReviewProcedure.singleBlindReview.confirm) {
+              {{ 'page.institution.questionnaire.standardsSection.singleBlind' | transloco }}
+              @if (standards.infoReviewProcedure.singleBlindReview.value) {
+                ({{ standards.infoReviewProcedure.singleBlindReview.value }} %)
+              }
+            }
+          </div>
+        }
+        @if (standards.infoReviewProcedure.openPeerReview) {
+          <div>
+            @if (standards.infoReviewProcedure.openPeerReview.confirm) {
+              {{ 'page.institution.questionnaire.standardsSection.openPeer' | transloco }}
+              @if (standards.infoReviewProcedure.openPeerReview.value) {
+                ({{ standards.infoReviewProcedure.openPeerReview.value }} %)
+              }
+            }
+          </div>
+        }
+        @if (standards.infoReviewProcedure.none) {
+          {{ "-" }}
+        }
+      }
+    </dd>
+
+    @if (year === 2024 || year === 2025) {
+      <dt class="col-5 col-lg-3">{{ 'page.institution.questionnaire.standardsSection.internationalPolicies' | transloco }}:</dt>
+      <dd class="col-7 col-lg-9 text-muted" data-testid="international-policies">
+        @if (linkFor2025(year, standards.internationalPoliciesAdopted, standards.internationalPoliciesWww); as url) {
+          <a class="text-break" [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a>
+        } @else if (year === 2025 && standards.internationalPoliciesAdopted === true) {
+          {{ journalNameService.formatBoolean(true) }}
+        } @else {
+          -
+        }
+      </dd>
+    }
+
+  </div>
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.standardsSection.appliedReviewStandards' | transloco }}</h5>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered table-header-custom">
+        <tbody>
+        <tr appQuestionnaireTableRow data-testid="reviewers-list-rule" [description]="'page.institution.questionnaire.standardsSection.reviewersListPublished' | transloco">
+            <ng-container descriptionDetails>
+              @if (linkFor2025(year, isPublishedReviewersList(), standards.publishedReviewersListWww); as url) {
+                <div><a class="text-break" [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a></div>
+              }
+            </ng-container>
+            @let publishedReviewersList = (isPublishedReviewersList());
+            @if (publishedReviewersList) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{journalNameService.formatBoolean(publishedReviewersList) }}
+        </tr>
+        <tr  appQuestionnaireTableRow [description]="'page.institution.questionnaire.standardsSection.minTwoReviewers' | transloco">
+            @let min2Reviewers = (isMin2Reviewers());
+            @if (min2Reviewers) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{journalNameService.formatBoolean(min2Reviewers) }}
+        </tr>
+        <tr appQuestionnaireTableRow data-testid="public-form-rule" [description]="'page.institution.questionnaire.standardsSection.publicReviewForm' | transloco">
+            <ng-container descriptionDetails>
+              @if (linkFor2025(year, isPublicForm(), standards.publicFormWww); as url) {
+                <div><a class="text-break" [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a></div>
+              }
+            </ng-container>
+            @let publicForm = (isPublicForm());
+            @if (publicForm) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{journalNameService.formatBoolean(publicForm) }}
+        </tr>
+        <tr appQuestionnaireTableRow data-testid="public-criteria-rule" [description]="'page.institution.questionnaire.standardsSection.publicCriteria' | transloco">
+            <ng-container descriptionDetails>
+              @if (linkFor2025(year, isPublicCriteria(), standards.publicCriteriaWww); as url) {
+                <div><a class="text-break" [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a></div>
+              }
+            </ng-container>
+            @let publicCriteria = (isPublicCriteria());
+            @if (publicCriteria) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{journalNameService.formatBoolean(publicCriteria) }}
+        </tr>
+        <tr  appQuestionnaireTableRow [description]="'page.institution.questionnaire.standardsSection.reviewerConflictStatement' | transloco">
+            @let reviewerStatement = (isReviewerStatement());
+            @if (reviewerStatement) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{journalNameService.formatBoolean(reviewerStatement) }}
+        </tr>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.standardsSection.writtenReview' | transloco">
+            @let prepareReview = (isPrepareReview());
+            @if (prepareReview) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{journalNameService.formatBoolean(prepareReview) }}
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+}

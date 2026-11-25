@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-between align-items-start gap-2">
+  <p class="text-muted mb-0">{{ label() }}</p>
+  <p class="fw-semibold text-body-emphasis text-nowrap mb-0" data-testid="decision-own-share">
+    {{ formatted() ?? ('decisionCard.noData' | transloco) }}
+  </p>
+</div>
+@if (chart(); as chart) {
+  <svg
+    height="24"
+    role="img"
+    [attr.aria-label]="
+      'decisionCard.international.chart'
+        | transloco: { own: formatted(), median: chart.formattedMedian }
+    "
+  >
+    <line x1="0%" y1="12" x2="100%" y2="12" class="share-axis" />
+    <line
+      [attr.x1]="chart.median + '%'"
+      y1="6"
+      [attr.x2]="chart.median + '%'"
+      y2="18"
+      class="share-median"
+      data-testid="decision-median-line"
+    />
+    <circle
+      [attr.cx]="chart.point + '%'"
+      cy="12"
+      r="4"
+      class="share-own"
+      data-testid="decision-share-dot"
+    />
+  </svg>
+  <div class="share-axis-labels text-muted">
+    <span class="text-nowrap">0–100%</span>
+    <span class="ms-auto text-end" data-testid="decision-share-median">
+      {{ 'decisionCard.international.median' | transloco: { value: chart.formattedMedian } }}
+    </span>
+  </div>
+}

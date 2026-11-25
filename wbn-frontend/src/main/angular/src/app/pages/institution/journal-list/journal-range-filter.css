@@ -1,0 +1,51 @@
+app-journal-range-filter {
+  display: block;
+  min-width: 0;
+}
+
+app-journal-range-filter .journal-range {
+  min-width: 0;
+}
+app-journal-range-filter .journal-range-slider {
+  height: 6px;
+  margin: 1.25rem 10px 0.75rem;
+}
+app-journal-range-filter .journal-range-slider .noUi-handle {
+  width: 18px;
+  height: 18px;
+  top: -7px;
+  right: -9px;
+  border-radius: 50%;
+  background: var(--vz-primary);
+  border: 2px solid var(--vz-input-bg-custom, #fff);
+  box-shadow: none;
+  cursor: grab;
+}
+app-journal-range-filter .journal-range-slider .noUi-handle::before,
+app-journal-range-filter .journal-range-slider .noUi-handle::after {
+  display: none;
+}
+app-journal-range-filter .journal-range-slider .noUi-connect {
+  background: var(--vz-primary);
+}
+app-journal-range-filter .journal-range-slider .noUi-tooltip {
+  display: none;
+}
+app-journal-range-filter .journal-range-slider .noUi-handle:focus-visible {
+  outline: 2px solid var(--vz-primary);
+  outline-offset: 3px;
+}
+app-journal-range-filter .journal-range-slider .noUi-handle:focus-visible .noUi-tooltip,
+app-journal-range-filter .journal-range-slider .noUi-active .noUi-tooltip {
+  display: block;
+}
+app-journal-range-filter .journal-range-scale {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+app-journal-range-filter .journal-range-disabled {
+  opacity: 0.6;
+}

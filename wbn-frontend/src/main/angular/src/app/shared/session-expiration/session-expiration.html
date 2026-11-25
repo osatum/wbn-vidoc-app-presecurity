@@ -1,0 +1,49 @@
+@if (hasToken()) {
+  <section class="session-countdown" [ngClass]="statusClass()">
+    <div class="session-countdown-time">
+
+      @if (!isCondensed) {
+        <div><i class="ri-time-line"></i> {{ 'layout.session.remaining-validity' | transloco }}</div>
+      }
+      <div>{{ sessionDisplayTime() }}</div>
+    </div>
+
+    <div class="session-countdown-progress">
+      <span [style.width.%]="progressPercent()"></span>
+    </div>
+    @if (!isCondensed) {
+
+      <button
+        type="button"
+        class="btn btn-link btn-sm session-countdown-toggle"
+        [attr.aria-expanded]="detailsVisible()"
+        aria-controls="sessionCountdownDetails"
+        (click)="toggleDetails()"
+      >
+        <span>{{ (detailsVisible() ? 'layout.session.less' : 'layout.session.more') | transloco }}</span>
+        @if (detailsVisible()) {
+          <i class="ri-arrow-up-s-line"></i>
+        } @else {
+          <i class="ri-arrow-down-s-line"></i>
+        }
+      </button>
+
+      <div id="sessionCountdownDetails" class="collapse" [class.show]="detailsVisible()">
+        <div class="session-countdown-metric">
+          <span>{{ 'layout.session.inactivity' | transloco }}</span>
+          <strong>{{ activityDisplayTime() }}</strong>
+        </div>
+
+        <div class="session-countdown-metric">
+          <span>{{ 'layout.session.refresh-in' | transloco }}</span>
+          <strong>{{ refreshDisplayTime() }}</strong>
+        </div>
+
+        <div class="session-countdown-meta">
+          <span>{{ 'layout.session.token-validity' | transloco }}</span>
+          <strong>{{ tokenValidityDisplayTime() }}</strong>
+        </div>
+      </div>
+    }
+  </section>
+}

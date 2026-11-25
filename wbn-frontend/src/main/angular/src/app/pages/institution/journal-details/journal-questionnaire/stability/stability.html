@@ -1,0 +1,113 @@
+@if (stability) {
+
+  <div class="mb-4">
+    <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.stabilitySection.publicationsByYear' | transloco }}</h5>
+    <div class="row">
+      <div class="col-12">
+
+        <!-- Bordered Tables -->
+        <table class="table table-bordered table-header-custom">
+          <thead>
+          <tr>
+            <th scope="col">{{ 'page.institution.questionnaire.year' | transloco }}</th>
+            @for (item of articlesByYear; track item) {
+              <th scope="col">{{ item.year }}</th>
+            }
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th
+              scope="row">{{ 'page.institution.questionnaire.stabilitySection.publicationCount' | transloco }}
+            </th>
+            @for (item of articlesByYear; track item) {
+              <td>{{ journalNameService.formatText(item.amount) }}</td>
+            }
+          </tr>
+          <tr>
+            <th
+              scope="row">{{ 'page.institution.questionnaire.stabilitySection.scientificArticleCount' | transloco }}
+            </th>
+            @for (item of articlesByYear; track item) {
+              <td>{{ journalNameService.formatText(item.scientificAmount) }}</td>
+            }
+          </tr>
+          <tr>
+            <th
+              scope="row">{{ 'page.institution.questionnaire.stabilitySection.receivedManuscripts' | transloco }}
+            </th>
+            @for (item of articlesByYear; track item) {
+              <td>{{ journalNameService.formatText(item.receivedManuscriptCount) }}</td>
+            }
+          </tr>
+          <tr>
+            <th
+              scope="row">{{ 'page.institution.questionnaire.stabilitySection.rejectedManuscripts' | transloco }}
+            </th>
+            @for (item of articlesByYear; track item) {
+              <td>{{ journalNameService.formatText(item.rejectedManuscriptCount) }}</td>
+            }
+          </tr>
+          <tr>
+            <th
+              scope="row">{{ 'page.institution.questionnaire.stabilitySection.publishedIssues' | transloco }}</th>
+            @for (item of articlesByYear; track item) {
+              <td>{{ journalNameService.formatText(item.publishedIssuesAmount) }}</td>
+            }
+          </tr>
+          <tr>
+            <th
+              scope="row">{{ 'page.institution.questionnaire.stabilitySection.frequency' | transloco }}
+            </th>
+            @for (item of articlesByYear; track item) {
+              <td>{{ journalNameService.getJournalDictionaryItem(item.frequencyCode) }}</td>
+            }
+          </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+    </div>
+    <h5  class="header-item-custom  mb-3"> {{ 'page.institution.questionnaire.stabilitySection.otherInformation' | transloco }}</h5>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered table-header-custom">
+          <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">2023</th>
+            <th scope="col">2024</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (item of stability.articleLanguages; track item) {
+
+              <tr>
+                <td class="description">{{ 'page.institution.questionnaire.stabilitySection.articlesInLanguage' | transloco: { language: journalNameService.getLanguageName(item.language) } }}</td>
+                <td>{{ journalNameService.formatText(item.previousValue) }}</td>
+                <td>{{ journalNameService.formatText(item.currentValue) }}</td>
+              </tr>
+            }
+          <tr>
+            <td class="description">{{ 'page.institution.questionnaire.stabilitySection.englishTitleAndAbstract' | transloco }}</td>
+            <td>-</td>
+            <td>{{ journalNameService.formatPercent(stability.englishTitleAndAbstractInAllArticlesPercentage) }}</td>
+          </tr>
+          <tr>
+            <td class="description">{{ 'page.institution.questionnaire.stabilitySection.combinedIssue' | transloco }}</td>
+            <td>{{ journalNameService.formatBoolean(stability.concatenateNumber) }}</td>
+            <td>{{ journalNameService.formatBoolean(stability.concatenateNumber) }}</td>
+          </tr>
+          <tr>
+            <td class="description">{{ 'page.institution.questionnaire.stabilitySection.publishingDelay' | transloco }}</td>
+            <td>{{ journalNameService.formatBoolean(stability.publishingBreak) }}</td>
+            <td>{{ journalNameService.formatBoolean(stability.publishingBreak) }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+}

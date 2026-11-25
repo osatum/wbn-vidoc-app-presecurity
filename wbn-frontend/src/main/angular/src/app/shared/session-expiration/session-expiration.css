@@ -1,0 +1,122 @@
+.session-countdown {
+  border: 0;
+  border-radius: 6px;
+  margin: 0 0 12px;
+  padding: 0px 20px;
+}
+
+.session-countdown-header {
+  align-items: center;
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  gap: 6px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.session-countdown-meta {
+  align-items: center;
+  display: flex;
+  font-size: 0.72rem;
+  gap: 6px;
+  justify-content: space-between;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+
+.session-countdown-time {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between !important;
+  font-size: 0.72rem;
+  gap: 2px;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+
+.session-countdown-time strong {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.session-countdown-label {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+
+.session-countdown-metric {
+  align-items: center;
+  display: flex;
+  font-size: 0.75rem;
+  gap: 6px;
+  justify-content: space-between;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+
+.session-countdown-metric strong,
+.session-countdown-meta strong {
+  font-size: 0.8rem;
+}
+
+.session-countdown-progress {
+  background: rgba(128, 128, 128, 0.2);
+  border-radius: 999px;
+  height: 4px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.session-countdown-progress span {
+  background: currentColor;
+  display: block;
+  height: 100%;
+  transition: width 0.2s ease;
+}
+
+.session-countdown-toggle {
+  align-items: center;
+  color: currentColor;
+  display: flex;
+  font-size: 0.75rem;
+  gap: 2px;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-top: 6px;
+  padding-left: 0;
+  padding-right: 0;
+  text-decoration: none;
+}
+
+.session-countdown-toggle:hover,
+.session-countdown-toggle:focus {
+  color: currentColor;
+
+}
+
+.session-countdown-toggle i {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.session-countdown-ok {
+  color: var(--vz-vertical-menu-item-color);
+}
+
+.session-countdown-warning {
+  --vz-text-opacity: 1;
+  color: rgba(var(--vz-warning-rgb), var(--vz-text-opacity)) !important;
+}
+
+.session-countdown-danger {
+  --vz-text-opacity: 1;
+  color: rgba(var(--vz-danger-rgb), var(--vz-text-opacity)) !important;
+}
+
+@media (max-width: 1029.98px) {
+  .session-countdown {
+    display: none;
+  }
+}

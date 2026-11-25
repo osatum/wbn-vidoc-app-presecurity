@@ -1,0 +1,54 @@
+<div [formGroup]="form()">
+  <p class="text-muted small mb-3">
+    {{ 'page.institution.journalList.feeExplanation' | transloco }}
+  </p>
+  @for (filter of filters; track filter.category) {
+    <fieldset class="journal-fee-filter">
+      <legend class="journal-fee-title">
+        {{ 'page.institution.journalList.feeFilterLabels.' + filter.category | transloco }}
+      </legend>
+      <div class="journal-fee-controls">
+        <label class="journal-fee-free">
+          <span class="form-label small">
+            {{ 'page.institution.journalList.noFee' | transloco }}
+            @if (counts()?.featureCounts?.[filter.flag] != null) {
+              ({{ counts()?.featureCounts?.[filter.flag] }})
+            }
+          </span>
+          <input type="checkbox" class="form-check-input" [formControlName]="filter.flag" />
+        </label>
+        <div class="journal-fee-limit">
+          <label [for]="filter.maximum" class="form-label small">{{
+            'page.institution.journalList.feeLimitPln' | transloco
+          }}</label>
+          <div class="input-group">
+            <input
+              [id]="filter.maximum"
+              [formControlName]="filter.maximum"
+              class="form-control"
+              type="text"
+              inputmode="decimal"
+              [attr.aria-invalid]="hasValidationError()"
+              [attr.aria-describedby]="filter.maximum + '-currency'"
+            />
+            <span class="input-group-text" [id]="filter.maximum + '-currency'">PLN</span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  }
+  <label class="d-flex gap-2">
+    <input type="checkbox" class="form-check-input" formControlName="otherFeesFreeOnly" />
+    <span
+      >{{ 'page.institution.journalList.otherFeesFreeOnly' | transloco }}
+      @if (counts()?.featureCounts?.['otherFeesFreeOnly'] != null) {
+        ({{ counts()?.featureCounts?.['otherFeesFreeOnly'] }})
+      }
+    </span>
+  </label>
+  @if (hasValidationError()) {
+    <p class="text-danger mt-2" role="alert">
+      {{ 'page.institution.journalList.feeValidationError' | transloco }}
+    </p>
+  }
+</div>

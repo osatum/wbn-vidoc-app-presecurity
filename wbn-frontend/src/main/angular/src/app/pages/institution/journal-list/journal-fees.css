@@ -1,0 +1,44 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.journal-result-terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.journal-result-term {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.journal-result-term > i {
+  flex-shrink: 0;
+  font-size: 1em;
+  line-height: inherit;
+  color: var(--vz-body-color);
+}
+
+.journal-result-term > div {
+  min-width: 0;
+}
+
+.journal-result-term > div > span {
+  margin-inline-end: 0.4rem;
+  color: var(--vz-secondary-color);
+}
+
+.journal-result-term-value {
+  display: inline;
+  margin: 0;
+}
+
+.journal-result-term-value + .journal-result-term-value {
+  display: block;
+}

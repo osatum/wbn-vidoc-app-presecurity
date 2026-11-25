@@ -1,0 +1,100 @@
+<section class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <header class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.email-template-details.title' | transloco }}</h4>
+        <div class="d-flex flex-wrap gap-2">
+          <a type="button" class="btn btn-info btn-label" routerLink="/system/admin/email-templates">
+            <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+            {{ 'page.system.common.back' | transloco }}
+          </a>
+          <a type="button" class="btn btn-primary btn-label" [routerLink]="editUrl()">
+            <i class="ri-edit-line label-icon align-middle fs-16 me-2"></i>
+            {{ 'page.system.common.edit' | transloco }}
+          </a>
+        </div>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.email-template-details.description' | transloco }}</p>
+      </div>
+
+        @if (isLoading()) {
+          <div >
+            <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.email-template-details.loading' | transloco"></app-local-spinner>
+          </div>
+      } @else if (hasError()) {
+        <div class="card-body">
+          <app-aler-data [message]="'page.system.email-template-details.load-error' | transloco"></app-aler-data>
+        </div>
+      } @else if (template(); as template) {
+        <div class="card-body border-top bg-light">
+          <div class="row g-3">
+            <div class="col-12 col-lg-4">
+              <dt>{{ 'page.system.email-template-list.name' | transloco }}</dt>
+              <dd>{{ template.name || '-' }}</dd>
+            </div>
+            <div class="col-12 col-lg-4">
+              <dt>{{ 'page.system.email-template-details.template-type' | transloco }}</dt>
+              <dd>{{ emailTypeLabelKey(template.emailType) | transloco }}</dd>
+            </div>
+            <div class="col-12 col-lg-2">
+              <dt>{{ 'page.system.email-template-list.language' | transloco }}</dt>
+              <dd>{{ template.language || '-' }}</dd>
+            </div>
+            <div class="col-12 col-lg-2">
+              <dt>{{ 'page.system.common.state' | transloco }}</dt>
+              <dd>
+                <span [class]="stateBadgeClass(template.state)">
+                  {{ stateLabelKey(template.state) | transloco }}
+                </span>
+              </dd>
+            </div>
+            <div class="col-12">
+              <dt>{{ 'page.system.email-template-list.subject' | transloco }}</dt>
+              <dd class="text-break">{{ template.subject || '-' }}</dd>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h5 class="mb-3">{{ 'page.system.email-template-details.html-preview' | transloco }}</h5>
+          <div class="template-preview">
+            <h6 class="mb-3">{{ template.subject || '-' }}</h6>
+            <div class="template-preview-body" [innerHTML]="template.htmlBody || ''"></div>
+          </div>
+        </div>
+
+        <div class="card-body border-top">
+          <h5 class="mb-3">{{ 'page.system.email-template-details.text-body' | transloco }}</h5>
+          @if (template.textBody) {
+            <pre class="template-text-body">{{ template.textBody }}</pre>
+          } @else {
+            <p class="text-muted mb-0">{{ 'page.system.email-template-details.no-text-body' | transloco }}</p>
+          }
+        </div>
+
+        <div class="card-body border-top">
+          <h5 class="mb-3">{{ 'page.system.common.audit' | transloco }}</h5>
+          <div class="row g-3">
+            <div class="col-12 col-md-3">
+              <dt>{{ 'page.system.common.created-at' | transloco }}</dt>
+              <dd>{{ template.createdAt ? (template.createdAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}</dd>
+            </div>
+            <div class="col-12 col-md-3">
+              <dt>{{ 'page.system.common.created-by' | transloco }}</dt>
+              <dd>{{ template.createdBy || '-' }}</dd>
+            </div>
+            <div class="col-12 col-md-3">
+              <dt>{{ 'page.system.common.edited-at' | transloco }}</dt>
+              <dd>{{ template.editedAt ? (template.editedAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}</dd>
+            </div>
+            <div class="col-12 col-md-3">
+              <dt>{{ 'page.system.common.edited-by' | transloco }}</dt>
+              <dd>{{ template.editedBy || '-' }}</dd>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

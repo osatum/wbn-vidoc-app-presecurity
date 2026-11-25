@@ -1,0 +1,203 @@
+<article
+  class="journal-result-card"
+  [attr.aria-labelledby]="'journal-result-title-' + journal().id"
+>
+  <div class="journal-result-cover">
+    <app-safe-image
+      [src]="journal().cover"
+      alt=""
+      [width]="120"
+      [height]="176"
+      [priority]="priority()"
+      sizes="(max-width: 479px) 30vw, (max-width: 991px) 18vw, 10vw"
+      objectFit="contain"
+    />
+  </div>
+  <div class="journal-result-content">
+    <div class="journal-result-overview">
+      <div class="journal-result-description">
+        <h3
+          class="journal-result-title card-title fs-4 fw-semibold"
+          [id]="'journal-result-title-' + journal().id"
+        >
+          <a
+            data-testid="journal-result-title"
+            [routerLink]="detailsRoute()"
+            [state]="detailsState()"
+            (click)="detailsClick.emit($event)"
+            (auxclick)="detailsClick.emit($event)"
+            >{{ journal().title }}</a
+          >
+        </h3>
+        <div class="journal-result-metadata description-custom">
+          @if (journal().pissn || journal().eissn) {
+            <dl class="journal-result-identifiers d-flex align-items-center gap-2 mb-3 flex-wrap">
+              @if (journal().pissn) {
+                <div class="journal-result-issn">
+                  <dt class="visually-hidden">pISSN:</dt>
+                  <dd>
+                    <i class="ri-book-open-line me-1" aria-hidden="true"></i>
+                    {{ journal().pissn }} (pISSN)
+                    @if (journal().eissn) {
+                      <span class="journal-result-separator ms-2" aria-hidden="true">|</span>
+                    }
+                  </dd>
+                </div>
+              }
+              @if (journal().eissn) {
+                <div class="journal-result-issn">
+                  <dt class="visually-hidden">eISSN:</dt>
+                  <dd>
+                    <i class="ri-global-line me-1" aria-hidden="true"></i>
+                    {{ journal().eissn }} (eISSN)
+                  </dd>
+                </div>
+              }
+            </dl>
+          }
+          @if (publishers().length) {
+            <dl class="mb-2" data-testid="journal-result-publishers">
+              <div class="journal-result-publisher">
+                <dt>{{ 'page.institution.journalList.publisherLabel' | transloco }}</dt>
+                <dd>
+                  <i class="ri-bank-line me-1" aria-hidden="true"></i>
+                  {{ publishers().join('; ') }}
+                </dd>
+              </div>
+            </dl>
+          }
+          @if (country() || languages().length) {
+            <dl class="journal-result-location d-flex align-items-center gap-2 mb-3 flex-wrap">
+              @if (country()) {
+                <div>
+                  <dt>
+                    <i class="ri-flag-line me-1 text-body" aria-hidden="true"></i>
+                    {{ 'page.institution.journalList.countryLabel' | transloco }}
+                  </dt>
+                  <dd>
+                    {{ country() }}
+                    @if (languages().length) {
+                      <span class="journal-result-separator ms-2" aria-hidden="true">|</span>
+                    }
+                  </dd>
+                </div>
+              }
+              @if (languages().length) {
+                <div>
+                  <dt>
+                    <i class="ri-translate-2 me-1 text-body" aria-hidden="true"></i>
+                    {{ 'page.institution.journalList.languagesLabel' | transloco }}
+                  </dt>
+                  <dd data-testid="journal-result-languages">{{ languages().join(', ') }}</dd>
+                </div>
+              }
+            </dl>
+          }
+          <div data-testid="journal-result-deposits">
+            @if (issuesUrl(); as url) {
+              <a
+                class="link-primary text-decoration-underline"
+                [href]="url"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="'common.depositedPublicationsNewTab' | transloco"
+                data-testid="journal-publications-link"
+                (click)="issuesClick.emit($event)"
+                (auxclick)="issuesClick.emit($event)"
+                >{{ 'page.institution.journalList.depositedPublications' | transloco }}:
+                <span>{{ journal().numberOfPublications ?? '–' }}</span></a
+              >
+            } @else {
+              {{ 'page.institution.journalList.depositedPublications' | transloco }}:
+              {{ journal().numberOfPublications ?? '–' }}
+            }
+          </div>
+        </div>
+      </div>
+      <div class="journal-result-ratings">
+        <dl
+          class="journal-result-mnisw card shadow-none border-0 border-opacity-50"
+          [class.bg-info-subtle]="journal().lastMniswPoints != null"
+          [class.text-primary]="journal().lastMniswPoints != null"
+          [class.bg-light]="journal().lastMniswPoints == null"
+          [class.text-dark]="journal().lastMniswPoints == null"
+          [class.journal-result-outside]="journal().lastMniswPoints == null"
+        >
+          <dt>{{ 'page.institution.journalList.mniswResultLabel' | transloco }}:</dt>
+          <dd>
+            @if (journal().lastMniswPoints != null) {
+              {{ journal().lastMniswPoints }}
+              {{ 'page.institution.journalList.pointsUnit' | transloco }}
+            } @else {
+              {{ 'page.institution.journalList.outsideMniswList' | transloco }}
+            }
+          </dd>
+        </dl>
+        <dl class="journal-result-icv-column">
+          @for (rating of icvRatings(); track rating.period) {
+            <div
+              class="journal-result-icv card shadow-none border-0 border-opacity-50"
+              [attr.data-testid]="'journal-result-icv-' + rating.period"
+              [class.bg-success-subtle]="rating.status === 'INDEXED'"
+              [class.text-body]="rating.status !== 'NOT_INDEXED'"
+              [class.bg-danger-subtle]="rating.status === 'NOT_INDEXED'"
+              [class.text-danger]="rating.status === 'NOT_INDEXED'"
+              [class.bg-dark-subtle]="rating.status === 'NOT_EVALUATED'"
+              [class.border-dark-subtle]="rating.status === 'NOT_EVALUATED'"
+            >
+              <dt>ICV {{ rating.year ?? '–' }}:</dt>
+              <dd>
+                @switch (rating.status) {
+                  @case ('INDEXED') {
+                    {{ rating.points }}
+                  }
+                  @case ('NOT_INDEXED') {
+                    <abbr
+                      tabindex="0"
+                      class="text-decoration-none"
+                      [ngbTooltip]="'page.institution.journalList.notIndexedTooltip' | transloco"
+                      [attr.aria-label]="
+                        'page.institution.journalList.notIndexedTooltip' | transloco
+                      "
+                      triggers="hover focus"
+                      >N/I</abbr
+                    >
+                  }
+                  @default {
+                    <abbr
+                      tabindex="0"
+                      class="text-decoration-none"
+                      [ngbTooltip]="'page.institution.journalList.notEvaluatedTooltip' | transloco"
+                      [attr.aria-label]="
+                        'page.institution.journalList.notEvaluatedTooltip' | transloco
+                      "
+                      triggers="hover focus"
+                      >N/E</abbr
+                    >
+                  }
+                }
+              </dd>
+            </div>
+          }
+        </dl>
+      </div>
+    </div>
+    <div class="journal-result-footer">
+      <app-journal-fees [fees]="journal().fees" [publicationDays]="journal().publicationDays" />
+      <a
+        data-testid="journal-result-details"
+        class="text-decoration-underline journal-result-details"
+        [routerLink]="detailsRoute()"
+        [state]="detailsState()"
+        [attr.aria-label]="
+          'page.institution.journalList.viewCardFor' | transloco: { title: journal().title }
+        "
+        (click)="detailsClick.emit($event)"
+        (auxclick)="detailsClick.emit($event)"
+      >
+        {{ 'page.institution.journalList.viewCard' | transloco }}
+        <i class="ri-arrow-right-line" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,101 @@
+<div class="row justify-content-center" *transloco="let t">
+  <div class="col-md-8 col-lg-6 col-xl-5">
+    <div class="card mt-4">
+      <div class="card-body p-4">
+        <div class="text-center mt-2">
+          <h5 class="text-primary">{{ t('page.auth.login.title') }}</h5>
+          <div class="mb-3"><img src="assets/images/ici-ms-small.png" height="35" width="184" /></div>
+          @let institution = (getInstitution());
+          @if (institution) {
+            <div class="alert alert-info">
+              <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                  <i class="ri-information-line fs-16"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <div class="text-muted">{{ t('page.auth.login.institutionContext') }}<br/> <strong>{{ institution.name }}</strong>.</div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        @if (hasError()) {
+          <div class="alert alert-danger border-0" role="alert">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div class="mt-2">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label" for="email">{{ t('page.auth.login.email') }}</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                [placeholder]="t('page.auth.login.emailPlaceholder')">
+              @if (submitted && f['email'].errors) {
+                <div class="invalid-feedback">
+                  @if(f['email'].errors['required']){
+                    <div>{{ t('page.auth.login.validation.emailRequired') }}</div>
+                  }
+                  @if(f['email'].errors['email']){
+                    <div>{{ t('page.auth.login.validation.emailInvalid') }}</div>
+                  }
+                  @if(f['email'].errors['backend']){
+                    <div>{{ fieldError('email') }}</div>
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <div class="float-end">
+                <a routerLink="/auth/password-reset" class="text-muted">{{ t('page.auth.login.forgotPassword') }}</a>
+              </div>
+              <label class="form-label" for="password-input">{{ t('page.auth.login.password') }}</label>
+              <div class="position-relative auth-pass-inputgroup mb-3">
+                <input
+                  [type]="fieldTextType ? 'text' : 'password'"
+                  class="form-control pe-5"
+                  [placeholder]="t('page.auth.login.passwordPlaceholder')"
+                  id="password-input"
+                  formControlName="password"
+                  [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted" type="button" id="password-addon">
+                  <i class="mdi align-middle" [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                </button>
+                @if (submitted && f['password'].errors) {
+                  <div class="invalid-feedback">
+                    @if(f['password'].errors['required']){
+                      <span>{{ t('page.auth.login.validation.passwordRequired') }}</span>
+                    }
+                    @if(f['password'].errors['backend']){
+                      <span>{{ fieldError('password') }}</span>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <button class="btn btn-success w-100 fs-5" type="submit" [disabled]="isLoading()">
+                @if (isLoading()) {
+                  <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+                }
+                {{ t('page.auth.login.submit') }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 text-center">
+      <p class="mb-0"><a routerLink="/" class="fw-semibold text-primary">{{ t('page.auth.login.backHome') }}</a></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+:host :is(a, button):focus-visible {
+  /* Motyw usuwa outline przez !important; przywracamy go wyłącznie przy użyciu klawiatury. */
+  outline: 2px solid var(--vz-body-color) !important;
+  outline-offset: 3px;
+}
+
+:host .btn-link {
+  --vz-btn-color: var(--decision-accent-color, var(--vz-body-color));
+  --vz-btn-hover-color: var(--vz-body-color);
+  --vz-btn-active-color: var(--vz-body-color);
+}

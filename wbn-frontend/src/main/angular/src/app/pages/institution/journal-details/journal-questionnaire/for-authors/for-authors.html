@@ -1,0 +1,246 @@
+@if (standards) {
+  <div>
+    <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.authors.guidelines' | transloco }}</h5>
+    <app-questionnaire-description-item class="mb-4 description-custom"
+                                        [label]="'page.institution.questionnaire.authors.instruction' | transloco">
+      @if (journalNameService.isEmptyValue(standards.instructionLink)) {
+        {{ "-" }}
+      } @else {
+        <a  class="text-break"  href="{{ standards.instructionLink }}" target="_blank">{{ journalNameService.formatText(standards.instructionLink) }}</a>
+      }
+    </app-questionnaire-description-item>
+    <div class="row">
+      <div class="col-12 mb-4">
+        <table class="table table-bordered table-header-custom">
+          <thead>
+          <tr>
+            <th scope="col" colspan="2">{{ 'page.institution.questionnaire.authors.instructionContains' | transloco }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.articleStructure' | transloco">
+            @let articleStructure = (isArticleStructure());
+            @if (articleStructure) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{ journalNameService.formatBoolean(articleStructure) }}
+          </tr>
+          <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.literatureInstruction' | transloco">
+            @let literatureInstruction = (isLiteratureInstruction());
+            @if (literatureInstruction) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{ journalNameService.formatBoolean(literatureInstruction) }}
+          </tr>
+          @if (year === 2024 || year === 2025) {
+            <tr appQuestionnaireTableRow data-testid="ai-usage-instructions" [description]="'page.institution.questionnaire.authors.aiUsageInstructions' | transloco">
+              @let aiUsageInstructions = isAiUsageInstructions();
+              @if (aiUsageInstructions !== undefined) {
+                <i class="me-1" [class.ri-checkbox-circle-fill]="aiUsageInstructions" [class.ri-indeterminate-circle-fill]="!aiUsageInstructions"></i>
+              }
+              {{ journalNameService.formatBoolean(aiUsageInstructions) }}
+            </tr>
+          }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-12 mb-3">
+        <table class="table table-bordered table-header-custom">
+          <thead>
+          <tr>
+            <th scope="col" colspan="2">{{ 'page.institution.questionnaire.authors.requiredStatements' | transloco }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.originalKind' | transloco">
+            @let originalKind = (isOriginalKind());
+            @if (originalKind) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{ journalNameService.formatBoolean(originalKind) }}
+          </tr>
+          <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.authorContribution' | transloco">
+            @let authorContribution = (isAuthorContribution());
+            @if (authorContribution) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{ journalNameService.formatBoolean(authorContribution) }}
+          </tr>
+          <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.financeSource' | transloco">
+            @let financeSource = (isFinanceSource());
+            @if (financeSource) {
+              <i class="ri-checkbox-circle-fill me-1"></i>
+            } @else {
+              <i class=" ri-indeterminate-circle-fill me-1"></i>
+            }
+            {{ journalNameService.formatBoolean(financeSource) }}
+          </tr>
+          @if (year === 2024 || year === 2025) {
+            <tr appQuestionnaireTableRow data-testid="ai-usage-scope" [description]="'page.institution.questionnaire.authors.aiUsageScope' | transloco">
+              @let aiUsageScope = isAiUsageScope();
+              @if (aiUsageScope !== undefined) {
+                <i class="me-1" [class.ri-checkbox-circle-fill]="aiUsageScope" [class.ri-indeterminate-circle-fill]="!aiUsageScope"></i>
+              }
+              {{ journalNameService.formatBoolean(aiUsageScope) }}
+            </tr>
+          }
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+}
+@if (digitalization) {
+  <div class="row mb-4 description-custom">
+    <app-questionnaire-description-item [label]="'page.institution.questionnaire.authors.orcidRequired' | transloco">
+      {{ journalNameService.formatBoolean(digitalization.orcidRequired) }}
+    </app-questionnaire-description-item>
+    <app-questionnaire-description-item [label]="'page.institution.questionnaire.authors.citationStyles' | transloco">
+      @if (journalNameService.isEmptyValue(digitalization.citationsStyle)) {
+        {{ "-" }}
+      } @else {
+        @for (item of digitalization.citationsStyle; track item) {
+          <div>{{ journalNameService.getJournalDictionaryItem(item) }}</div>
+        }
+      }
+    </app-questionnaire-description-item>
+  </div>
+}
+@if (standards) {
+  <h5 class="header-item-custom mb-4">{{ 'page.institution.questionnaire.authors.manuscriptProcessingTime' | transloco }}</h5>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <table class="table table-bordered table-header-custom">
+        <thead>
+        <tr>
+          <th scope="col">{{ 'page.institution.questionnaire.authors.type' | transloco }}</th>
+          <th scope="col">{{ 'page.institution.questionnaire.authors.averageDays' | transloco }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.initialAssessment' | transloco">
+          {{ journalNameService.formatText(standards.avgManuscriptTimes?.initialAssessment) }}
+        </tr>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.review' | transloco">
+          {{ journalNameService.formatText(standards.avgManuscriptTimes?.review) }}
+        </tr>
+        <tr appQuestionnaireTableRow [description]="'page.institution.questionnaire.authors.publication' | transloco">
+          {{ journalNameService.formatText(standards.avgManuscriptTimes?.publication) }}
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="row mb-3 description-custom">
+    <app-questionnaire-description-item [label]="'page.institution.questionnaire.authors.onlineProcessingTime' | transloco">
+      @if (standards.manuscriptProcessingTimePublished) {
+        <a  class="text-break"  href="{{standards.manuscriptProcessingTimeUrl}}" target="_blank">{{ journalNameService.formatText(standards.manuscriptProcessingTimeUrl) }}</a>
+      } @else {
+        {{ 'page.institution.questionnaire.authors.notProvided' | transloco }}
+      }
+    </app-questionnaire-description-item>
+  </div>
+  <h5 class="header-item-custom mb-4">{{ 'page.institution.questionnaire.authors.publicationFees' | transloco }}</h5>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <table class="table table-bordered table-header-custom">
+        <thead>
+        <tr>
+          <th scope="col">{{ 'page.institution.questionnaire.authors.feeType' | transloco }}</th>
+          <th scope="col">{{ 'page.institution.questionnaire.authors.minAmount' | transloco }}</th>
+          <th scope="col">{{ 'page.institution.questionnaire.authors.maxAmount' | transloco }}</th>
+          <th scope="col">{{ 'page.institution.questionnaire.authors.currency' | transloco }}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @for (feeGroup of authorFeeGroups; track feeGroup.titleKey) {
+          @if (feeGroup.fee; as fee) {
+            @if (isFeeExist(fee)) {
+              @if (isNoFee(fee)) {
+                <tr>
+                  <th scope="col w-50">{{ feeGroup.titleKey | transloco }}</th>
+                  <td colspan="3">{{ journalNameService.getJournalDictionaryItem(fee.feeType) }}</td>
+                </tr>
+              } @else {
+                <tr>
+                  <th scope="col w-50">{{ feeGroup.titleKey | transloco }}</th>
+                  <td colspan="3">{{ journalNameService.getJournalDictionaryItem(fee.feeType) }}</td>
+                </tr>
+                @if (journalNameService.hasCollectionItems(fee.feeDetails)) {
+                  @for (item of fee.feeDetails; track item) {
+                    <tr>
+                      <td class="col w-50">{{ journalNameService.getAuthorsFeeDetailDescription(item.description) }}</td>
+                      <td>{{ item.minValue }}</td>
+                      <td>{{ item.maxValue }}</td>
+                      <td>{{ item.currencyCode }}</td>
+                    </tr>
+                  }
+                }
+                @if (feeSelectionStatusKey(fee); as statusKey) {
+                  <tr class="table-light" data-testid="fee-selection">
+                    <th scope="row">{{ statusKey | transloco }}</th>
+                    @if (fee.feeSelectionStatus === 'RESOLVED' && fee.selectedFeeDetail; as selected) {
+                      <td>{{ selected.minValue }}</td>
+                      <td>{{ selected.maxValue }}</td>
+                      <td>{{ selected.currencyCode }}</td>
+                    } @else {
+                      <td colspan="3">—</td>
+                    }
+                  </tr>
+                  @if (fee.feeSelectionStatus === 'RESOLVED' && fee.countrySpecificFeeSelection?.source; as source) {
+                    <tr>
+                      <td colspan="4" class="small text-body-secondary">
+                        {{ 'page.institution.questionnaire.authors.feeSelection.source.' + source | transloco }}
+                      </td>
+                    </tr>
+                  }
+                }
+              }
+
+            } @else {
+              <tr>
+                <th scope="col w-50">{{ feeGroup.titleKey | transloco }}</th>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            }
+
+
+          } @else {
+            <tr>
+              <th scope="col w-50">{{ feeGroup.titleKey | transloco }}</th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          }
+        }
+
+        </tbody>
+      </table>
+    </div>
+    <app-questionnaire-description-item class="mb-3 description-custom"
+                                        [label]="'page.institution.questionnaire.authors.onlinePublicationFees' | transloco">
+      @if (standards.manuscriptProcessingCostPublished) {
+        <a  class="text-break"  href="{{standards.manuscriptProcessingCostUrl}}" target="_blank">{{ journalNameService.formatText(standards.manuscriptProcessingCostUrl) }}</a>
+      } @else {
+        {{ 'page.institution.questionnaire.authors.notProvided' | transloco }}
+      }
+
+    </app-questionnaire-description-item>
+
+  </div>
+}

@@ -1,0 +1,177 @@
+<p class="text-muted">{{ 'page.system.navigation-audit-visit-list.description' | transloco }}</p>
+<form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="border rounded bg-light p-3 mb-3">
+  <div class="row g-3">
+    <div class="col-lg-2 col-sm-6">
+      <label for="visit-date-from" class="form-label">{{
+        'page.system.navigation-audit-visit-list.date-from' | transloco
+      }}</label>
+      <input id="visit-date-from" type="date" class="form-control" formControlName="dateFrom" />
+    </div>
+    <div class="col-lg-2 col-sm-6">
+      <label for="visit-date-to" class="form-label">{{
+        'page.system.navigation-audit-visit-list.date-to' | transloco
+      }}</label>
+      <input id="visit-date-to" type="date" class="form-control" formControlName="dateTo" />
+    </div>
+    <div class="col-lg-2 col-sm-6">
+      <label for="visit-institution" class="form-label">{{
+        'page.system.navigation-audit-visit-list.institution' | transloco
+      }}</label>
+      <input
+        id="visit-institution"
+        class="form-control"
+        formControlName="institution"
+        maxlength="200"
+      />
+    </div>
+    <div class="col-lg-2 col-sm-6">
+      <label for="visit-user" class="form-label">{{
+        'page.system.navigation-audit-visit-list.user' | transloco
+      }}</label>
+      <input id="visit-user" class="form-control" formControlName="user" maxlength="200" />
+    </div>
+    <div class="col-lg-2 col-sm-6">
+      <label for="visit-status" class="form-label">{{
+        'page.system.navigation-audit-visit-list.status' | transloco
+      }}</label>
+      <select id="visit-status" class="form-select" formControlName="status">
+        <option value="">{{ 'page.system.navigation-audit-visit-list.all' | transloco }}</option>
+        <option value="OPEN">
+          {{ 'page.system.navigation-audit-visit-list.open' | transloco }}
+        </option>
+        <option value="CLOSED">
+          {{ 'page.system.navigation-audit-visit-list.closed' | transloco }}
+        </option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-sm-6">
+      <label for="visit-reason" class="form-label">{{
+        'page.system.navigation-audit-visit-list.end-reason' | transloco
+      }}</label>
+      <select id="visit-reason" class="form-select" formControlName="endReason">
+        <option value="">{{ 'page.system.navigation-audit-visit-list.all' | transloco }}</option>
+        @for (reason of reasons; track reason) {
+          <option [value]="reason">{{ reasonLabel(reason) }}</option>
+        }
+      </select>
+    </div>
+    <div class="col-12 d-flex flex-wrap gap-2">
+      <button class="btn btn-primary" type="submit" [disabled]="isLoading()">
+        {{ 'page.system.common.filter' | transloco }}
+      </button>
+      <button class="btn btn-light" type="button" (click)="resetFilters()" [disabled]="isLoading()">
+        {{ 'page.system.common.clear' | transloco }}
+      </button>
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        (click)="refresh()"
+        [disabled]="isLoading()"
+      >
+        {{ 'page.system.navigation-audit-visit-list.refresh' | transloco }}
+      </button>
+    </div>
+  </div>
+  @if (filterForm.invalid && filterForm.touched) {
+    <p class="text-danger mt-2 mb-0" role="alert">
+      {{ 'page.system.navigation-audit-visit-list.validation-error' | transloco }}
+    </p>
+  }
+</form>
+@if (hasError()) {
+  <div class="alert alert-danger" role="alert">
+    {{ 'page.system.navigation-audit-visit-list.load-error' | transloco }}
+  </div>
+}
+@if (isLoading()) {
+  <app-local-spinner
+    [height]="200"
+    [overlay]="false"
+    [text]="'page.system.common.loading-list' | transloco"
+  />
+}
+@if (!isLoading() && !hasError()) {
+  <p class="small text-muted">
+    {{ 'page.system.navigation-audit-visit-list.time-zone' | transloco }}: {{ timeZone() }}
+  </p>
+  <div class="table-responsive">
+    <table class="table table-striped align-middle">
+      <caption class="visually-hidden">
+        {{
+          'page.system.navigation-audit-visit-list.title' | transloco
+        }}
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">
+            {{ 'page.system.navigation-audit-visit-list.institution' | transloco }}
+          </th>
+          <th scope="col">{{ 'page.system.navigation-audit-visit-list.user' | transloco }}</th>
+          <th scope="col">
+            {{ 'page.system.navigation-audit-visit-list.started-at' | transloco }}
+          </th>
+          <th scope="col">
+            {{ 'page.system.navigation-audit-visit-list.last-activity-at' | transloco }}
+          </th>
+          <th scope="col">{{ 'page.system.navigation-audit-visit-list.duration' | transloco }}</th>
+          <th scope="col">{{ 'page.system.navigation-audit-visit-list.ended-at' | transloco }}</th>
+          <th scope="col">{{ 'page.system.navigation-audit-visit-list.status' | transloco }}</th>
+          <th scope="col">
+            {{ 'page.system.navigation-audit-visit-list.end-reason' | transloco }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (visit of items(); track visit.id) {
+          <tr>
+            <td>
+              {{ visit.institutionName || '—' }}
+              @if (visit.institutionId) {
+                <span class="text-muted">#{{ visit.institutionId }}</span>
+              }
+            </td>
+            <td>
+              {{ userLabel(visit) }}
+              @if (visit.userId && visit.userEmail) {
+                <div class="text-muted small">{{ visit.userEmail }}</div>
+              }
+            </td>
+            <td class="text-nowrap">{{ formatTimestamp(visit.startedAt) }}</td>
+            <td class="text-nowrap">{{ formatTimestamp(visit.lastActivityAt) }}</td>
+            <td class="text-nowrap">{{ formatDuration(visit.durationSeconds) }}</td>
+            <td class="text-nowrap">{{ formatTimestamp(visit.endedAt) }}</td>
+            <td>
+              <span
+                class="badge"
+                [class.bg-success-subtle]="visit.status === 'OPEN'"
+                [class.text-success]="visit.status === 'OPEN'"
+                [class.bg-secondary-subtle]="visit.status !== 'OPEN'"
+                [class.text-secondary]="visit.status !== 'OPEN'"
+                >{{
+                  'page.system.navigation-audit-visit-list.' +
+                    (visit.status === 'OPEN' ? 'open' : 'closed') | transloco
+                }}</span
+              >
+            </td>
+            <td>{{ reasonLabel(visit.endReason) }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8">{{ 'page.system.navigation-audit-visit-list.empty' | transloco }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <app-list-paging
+    [page]="page()"
+    [totalPages]="totalPages()"
+    [totalElements]="totalElements()"
+    [size]="size()"
+    [canGoPrevious]="canGoPrevious()"
+    [canGoNext]="canGoNext()"
+    (previousPage)="previousPage()"
+    (nextPage)="nextPage()"
+    (pageSizeChange)="changePageSizeValue($event)"
+  />
+}

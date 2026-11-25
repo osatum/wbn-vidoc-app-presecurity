@@ -1,0 +1,80 @@
+:host {
+  display: block;
+  min-width: 0;
+  container-type: inline-size;
+}
+.summary-tiles {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+  border-block: 1px solid var(--vz-border-color);
+  min-height: 104px;
+}
+.summary-tile {
+  min-width: 0;
+  padding: 11px 16px 13px;
+  overflow-wrap: anywhere;
+}
+.summary-tile + .summary-tile {
+  border-inline-start: 1px solid var(--vz-border-color);
+}
+.summary-fee + .summary-fee {
+  margin-top: 0.75rem;
+}
+.summary-label {
+  margin: 0;
+  color: inherit;
+  /* Globalne style h2 ustawiają rozmiar z !important. */
+  font-size: 0.8125rem !important;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.summary-rates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 20px;
+  margin-top: 3px;
+}
+.summary-rates > div {
+  min-width: 0;
+  max-width: 100%;
+}
+.summary-value {
+  margin: 2px 0 4px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.summary-fees .summary-value,
+.summary-publication .summary-value,
+.summary-process .summary-value {
+  color: var(--vz-emphasis-color);
+}
+.summary-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.summary-status {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+@container (max-width: 470px) {
+  .summary-tiles {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .summary-tile {
+    padding-block: 7px;
+  }
+  .summary-tile + .summary-tile {
+    border-inline-start: 0;
+    border-top: 1px solid var(--vz-border-color);
+  }
+  .summary-publication .summary-value,
+  .summary-publication .summary-note {
+    display: inline-block;
+    margin-inline-end: 9px;
+  }
+}

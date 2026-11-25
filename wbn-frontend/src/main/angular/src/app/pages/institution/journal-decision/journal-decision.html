@@ -1,0 +1,352 @@
+<ng-template #returnLink>
+  <a
+    class="btn btn-primary btn-label text-nowrap"
+    routerLink="/institution/user/journals"
+    [state]="returnState()"
+    [attr.aria-label]="'decisionCard.back' | transloco"
+    data-testid="decision-return"
+  >
+    <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2" aria-hidden="true"></i>
+    {{ 'common.back' | transloco }}
+  </a>
+</ng-template>
+@if (state().status === 'error') {
+  <nav class="mb-3" [attr.aria-label]="'decisionCard.navigation' | transloco">
+    <ng-container [ngTemplateOutlet]="returnLink" />
+  </nav>
+}
+@if (state().status === 'loading') {
+  <app-local-spinner [height]="200" [overlay]="false" />
+} @else if (state().status === 'error') {
+  <div class="alert alert-danger" role="alert">
+    {{ 'decisionCard.loadError' | transloco }}
+    <button class="btn btn-primary ms-2" type="button" (click)="retry()">
+      {{ 'decisionCard.retry' | transloco }}
+    </button>
+  </div>
+} @else if (data(); as card) {
+  <div
+    class="decision-layout"
+    [class.decision-limited]="!annualAvailable() && card.mnisw == null"
+  >
+    <section class="card decision-identity" aria-labelledby="decision-title">
+      <header class="card-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="decision-heading flex-grow-1">
+          <h1 class="card-title mb-0 fs-4 fw-semibold" id="decision-title">{{ title() }}</h1>
+        </div>
+        <nav
+          class="d-flex flex-wrap gap-2"
+          [attr.aria-label]="'decisionCard.navigation' | transloco"
+        >
+          <ng-container [ngTemplateOutlet]="returnLink" />
+          <a
+            class="btn btn-primary text-nowrap"
+            [routerLink]="['/institution/user/journals', card.identity.id]"
+            [state]="detailsState()"
+            data-testid="decision-full-data"
+            (click)="recordAction('E07')"
+            (auxclick)="recordAuxiliaryLink($event, 'E07')"
+          >
+            {{ 'decisionCard.fullData' | transloco }}
+          </a>
+        </nav>
+      </header>
+      <div class="card-body">
+        <div class="d-flex flex-wrap align-items-start gap-3">
+          <app-safe-image
+            class="decision-cover mt-1 mb-3"
+            [src]="card.identity.cover"
+            [alt]="title()"
+            [width]="150"
+            [height]="187"
+            objectFit="contain"
+            sizes="(max-width: 575.98px) 40vw, 15vw"
+            [priority]="true"
+          />
+          <div class="decision-identification">
+            <dl class="row description-custom mb-0">
+              <dt class="col-4">{{ 'decisionCard.englishTitle' | transloco }}</dt>
+              <dd class="col-8">
+                {{ card.identity.titleEnglish || '—' }}
+              </dd>
+              <dt class="col-4">ISSN</dt>
+              <dd class="col-8" data-testid="decision-issn">
+                @if (card.identity.pissn) {
+                  <span class="d-inline-block text-nowrap">
+                    <i class="ri-book-open-line me-1" aria-hidden="true"></i>
+                    {{ card.identity.pissn }} (pISSN)
+                  </span>
+                }
+                @if (card.identity.pissn && card.identity.eissn) {
+                  <span class="mx-1" aria-hidden="true">|</span>
+                }
+                @if (card.identity.eissn) {
+                  <span class="d-inline-block text-nowrap">
+                    <i class="ri-global-line me-1" aria-hidden="true"></i>
+                    {{ card.identity.eissn }} (eISSN)
+                  </span>
+                }
+                @if (!card.identity.pissn && !card.identity.eissn) {
+                  —
+                }
+              </dd>
+              <dt class="col-4">
+                {{ 'page.institution.journalDetails.website' | transloco }}
+              </dt>
+              <dd class="col-8">
+                @if (card.identity.website) {
+                  <i class="ri-link-m me-1" aria-hidden="true"></i>
+                  <a
+                    class="text-break"
+                    [href]="card.identity.website"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="decision-website"
+                    (click)="recordAction('E13')"
+                    (auxclick)="recordAuxiliaryLink($event, 'E13')"
+                    >{{ card.identity.website }}</a
+                  >
+                } @else {
+                  —
+                }
+              </dd>
+              <dt class="col-4">{{ 'decisionCard.publisher' | transloco }}</dt>
+              <dd class="col-8">
+                @if (card.identity.publishers?.length) {
+                  <i class="ri-bank-line me-1" aria-hidden="true"></i>
+                  {{ card.identity.publishers?.join(', ') }}
+                } @else {
+                  —
+                }
+              </dd>
+              <dt class="col-4">{{ 'decisionCard.country' | transloco }}</dt>
+              <dd class="col-8">
+                @if (countryName(); as country) {
+                  <i class="ri-flag-line me-1" aria-hidden="true"></i> {{ country }}
+                } @else {
+                  —
+                }
+              </dd>
+              <dt class="col-4">{{ 'decisionCard.languages' | transloco }}</dt>
+              <dd class="col-8">
+                @if (languageNames(); as languages) {
+                  <i class="ri-translate-2 me-1" aria-hidden="true"></i> {{ languages }}
+                } @else {
+                  —
+                }
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div
+        class="card-body border-0 border-dashed border-top d-flex flex-column flex-sm-row align-items-sm-center gap-2"
+        data-testid="decision-deposit"
+      >
+        <div class="decision-deposit-values d-flex flex-wrap row-gap-1">
+          <span>
+            @if (issuesUrl(); as url) {
+              <a
+                class="link-primary text-decoration-underline"
+                [href]="url"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="'common.depositedPublicationsNewTab' | transloco"
+                data-testid="decision-publications-link"
+                (click)="recordAction('E14')"
+                (auxclick)="recordAuxiliaryLink($event, 'E14')"
+                >{{ 'decisionCard.publications' | transloco }}:
+                <span>{{ formatNumber(card.identity.cardinality?.numberOfPublications) }}</span></a
+              >
+            } @else {
+              <span class="text-muted">{{ 'decisionCard.publications' | transloco }}:</span>
+              {{ formatNumber(card.identity.cardinality?.numberOfPublications) }}
+            }
+          </span>
+          @for (item of depositFields; track item.field) {
+            <span>
+              <span class="mx-1" aria-hidden="true">|</span>
+              <span class="text-muted">{{ 'decisionCard.' + item.label | transloco }}:</span>
+              {{ card.identity.cardinality?.[item.field] ?? '—'
+              }}{{ card.identity.cardinality?.[item.field] != null ? '%' : '' }}
+            </span>
+          }
+        </div>
+        @if (issuesUrl(); as url) {
+          <a
+            class="btn btn-sm btn-primary text-nowrap flex-shrink-0 ms-auto"
+            [href]="url"
+            target="_blank"
+            rel="noopener noreferrer"
+            [attr.aria-label]="'decisionCard.issuesNewTab' | transloco"
+            data-testid="decision-issues"
+            (click)="recordAction('E14')"
+            (auxclick)="recordAuxiliaryLink($event, 'E14')"
+          >
+            {{ 'decisionCard.issues' | transloco }}
+          </a>
+        } @else {
+          <button
+            class="btn btn-sm btn-primary text-nowrap flex-shrink-0 ms-auto"
+            type="button"
+            disabled
+            [attr.aria-label]="'decisionCard.issuesUnavailable' | transloco"
+            data-testid="decision-issues-unavailable"
+          >
+            {{ 'decisionCard.issues' | transloco }}
+          </button>
+        }
+      </div>
+      <app-journal-decision-summary [card]="card" />
+      <section class="card-body" aria-labelledby="decision-description-toggle">
+        <div
+          ngbAccordion
+          class="accordion-flush lefticon-accordion custom-accordionwithicon journal-disclosure-accordion"
+          [destroyOnHide]="false"
+        >
+          <div
+            ngbAccordionItem="decision-description"
+            [collapsed]="!descriptionOpen()"
+            (show)="setDescriptionOpen(true)"
+            (hide)="setDescriptionOpen(false)"
+          >
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton type="button" data-testid="decision-description-toggle">
+                <span class="small fw-normal">{{
+                  'decisionCard.moreAboutJournal' | transloco
+                }}</span>
+              </button>
+            </h2>
+            <div ngbAccordionCollapse data-testid="decision-description">
+              <div ngbAccordionBody>
+                <ng-template>
+                  <p class="decision-description mb-0">{{
+                    description() || ('decisionCard.noData' | transloco)
+                  }}</p>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+    @if (annualAvailable() || card.mnisw != null) {
+      <aside class="decision-reference" [attr.aria-label]="'decisionCard.reference' | transloco">
+        <app-journal-decision-reference [card]="card" (expanded)="recordAction($event)" />
+      </aside>
+    }
+    <section
+      class="card decision-context"
+      aria-labelledby="decision-context-title"
+      data-testid="decision-context"
+    >
+      <header class="card-header">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <h2 id="decision-context-title" class="card-title fs-4 mb-0">
+            {{ 'decisionCard.open' | transloco }}
+          </h2>
+          <div class="decision-year-picker d-flex align-items-center gap-3 ms-auto">
+            <span id="decision-year-label" class="fw-medium text-muted flex-shrink-0">{{
+              'decisionCard.yearLabel' | transloco
+            }}</span>
+            <div class="decision-years">
+              <div class="btn-group" role="group" aria-labelledby="decision-year-label">
+                @for (year of selectableSurveyYears(); track year) {
+                  <button
+                    type="button"
+                    class="btn"
+                    [class.btn-primary]="year === card.surveyYear"
+                    [class.btn-outline-primary]="year !== card.surveyYear"
+                    [attr.aria-pressed]="year === card.surveyYear"
+                    [attr.data-survey-year]="year"
+                    (click)="selectSurveyYear(year)"
+                  >
+                    {{ year }}
+                  </button>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        @if (annualAvailable() && card.benchmarksVisible && benchmarkDiscipline(); as discipline) {
+          <p class="text-muted small mt-2 mb-0" data-testid="decision-benchmark-discipline">
+            {{ 'decisionCard.benchmarkDiscipline' | transloco: { discipline } }}
+          </p>
+        }
+      </header>
+      @if (annualAvailable()) {
+        <div class="card-body">
+          <div
+            ngbAccordion
+            class="accordion-border-box decision-sections"
+            [closeOthers]="false"
+            [destroyOnHide]="false"
+          >
+            @for (key of sections; track key) {
+              <section
+                [ngbAccordionItem]="'decision-section-' + key"
+                [class]="'decision-' + key"
+                [attr.data-decision-section]="key"
+                [collapsed]="!openSections().has(key)"
+                (show)="setSectionOpen(key, true)"
+                (hide)="setSectionOpen(key, false)"
+              >
+                <h3 ngbAccordionHeader>
+                  <button
+                    ngbAccordionButton
+                    class="decision-section-toggle bg-light"
+                    type="button"
+                    [class.text-primary]="openSections().has(key)"
+                  >
+                    <span
+                      class="decision-section-title"
+                      [class.text-primary]="openSections().has(key)"
+                      >{{ 'decisionCard.sections.' + key | transloco }}</span
+                    >
+                    @if (key === 'time' || key === 'costs' || key === 'process') {
+                      <app-journal-decision-section-preview
+                        class="decision-section-preview"
+                        [class.text-primary]="openSections().has(key)"
+                        [card]="card"
+                        [section]="key"
+                        [attr.data-testid]="'decision-preview-' + key"
+                      />
+                    }
+                  </button>
+                </h3>
+                <div ngbAccordionCollapse>
+                  <div ngbAccordionBody>
+                    <ng-template>
+                      @if (key === 'time') {
+                        <app-journal-decision-times [card]="card" />
+                      } @else if (key === 'costs') {
+                        <app-journal-decision-fees [card]="card" />
+                      } @else if (key === 'process') {
+                        <app-journal-decision-process [card]="card" />
+                      } @else if (key === 'international') {
+                        <app-journal-decision-international [card]="card" />
+                      } @else if (key === 'standards') {
+                        <app-journal-decision-standards [card]="card" />
+                      }
+                    </ng-template>
+                  </div>
+                </div>
+              </section>
+            }
+          </div>
+        </div>
+      } @else {
+        <section
+          class="card-body"
+          role="status"
+          aria-labelledby="decision-status-title"
+          data-testid="decision-annual-status"
+        >
+          <h2 class="card-title fs-4 mb-0" id="decision-status-title">
+            {{ 'decisionCard.status.' + card.annualStatus | transloco: { year: card.surveyYear } }}
+          </h2>
+        </section>
+      }
+    </section>
+  </div>
+}

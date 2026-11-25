@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  min-width: 0;
+  padding-block: 0.625rem;
+}
+:host(:not(:first-child)) {
+  border-top: 1px solid var(--vz-tertiary-bg);
+}
+svg {
+  display: block;
+  width: calc(100% - 8px);
+  margin-inline: 4px;
+  overflow: visible;
+}
+.share-axis {
+  stroke: var(--vz-tertiary-bg);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.share-median {
+  stroke: color-mix(in srgb, var(--vz-purple) 80%, var(--vz-body-color));
+  stroke-width: 1.5;
+  stroke-dasharray: 1 3;
+  stroke-linecap: round;
+}
+.share-own {
+  fill: var(--vz-primary-text-emphasis);
+}
+.share-axis-labels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+}

@@ -1,0 +1,10 @@
+package com.osatum.wbn.domain.model.notification;
+
+public enum EmailType {
+    ACCOUNT_ACTIVATION_LINK,
+    ACCOUNT_ACTIVATED,
+    ACCOUNT_WAITING_FOR_CONFIRMATION,
+    ACTIVATION_LINK_REGENERATED,
+    PASSWORD_RESET_LINK,
+    USER_DATA_DELETION_CONFIRMATION
+}

@@ -1,0 +1,60 @@
+<fieldset>
+  <legend
+    [class.fs-6]="!plain()"
+    [class.visually-hidden]="hideLabel()"
+    [style.font-size]="plain() ? 'var(--vz-body-font-size)' : null"
+  >
+    {{ label() }}
+  </legend>
+  @if (!plain()) {
+    <input
+      #searchInput
+      type="search"
+      class="form-control mb-2"
+      [style.font-size]="searchFontSize()"
+      [value]="search()"
+      [attr.aria-label]="searchLabel()"
+      [placeholder]="searchLabel()"
+      (input)="search.set(searchInput.value)"
+      (keydown.enter)="$event.preventDefault(); $event.stopPropagation()"
+    />
+  }
+  @if (showSelection() && selectedOptions().length > 0) {
+    <ul class="list-unstyled d-flex flex-wrap gap-1 mb-2" [attr.aria-label]="label()">
+      @for (option of selectedOptions(); track option.code) {
+        <li class="mw-100">
+          <button
+            type="button"
+            class="btn btn-sm btn-soft-primary text-start text-wrap text-break"
+            [attr.aria-label]="removeLabel() + ': ' + option.label"
+            (click)="toggle(option.code)"
+          >
+            {{ option.label }} <span aria-hidden="true">×</span>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+  <div
+    [class]="plain() ? '' : 'overflow-auto border rounded p-2'"
+    [style.max-height]="plain() ? null : '14rem'"
+    [attr.aria-label]="label()"
+  >
+    @for (option of filteredOptions(); track option.code) {
+      <label class="d-flex align-items-start gap-2 mb-1">
+        <input
+          type="checkbox"
+          class="form-check-input flex-shrink-0"
+          [checked]="value().includes(option.code)"
+          (change)="toggle(option.code)"
+        />
+        <span
+          >{{ option.label }}
+          @if (option.count !== undefined) {
+            ({{ option.count }})
+          }
+        </span>
+      </label>
+    }
+  </div>
+</fieldset>

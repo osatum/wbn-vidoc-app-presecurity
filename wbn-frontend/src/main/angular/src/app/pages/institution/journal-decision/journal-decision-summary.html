@@ -1,0 +1,77 @@
+<div class="summary-tiles bg-light" data-testid="decision-summary">
+  <article class="summary-tile summary-fees" data-testid="decision-summary-fees">
+    @for (fee of fees().entries; track fee.category) {
+      <div class="summary-fee" [attr.data-summary-fee-category]="fee.category">
+        <h2 class="summary-label text-muted">
+          {{ 'decisionCard.summary.feeCategories.' + fee.category | transloco }}
+        </h2>
+        @if (fee.presentation.state === 'variants') {
+          <div class="summary-rates">
+            @for (variant of fee.presentation.variants; track variant.variant) {
+              <div [attr.data-summary-fee-variant]="variant.variant">
+                <p class="summary-value" [class.summary-status]="variant.amount == null">
+                  {{ variant.amount ?? ('decisionCard.fees.values.noFee' | transloco) }}
+                </p>
+                <p class="summary-note text-muted">
+                  {{
+                    (variant.variant === 'INTERNAL_AUTHORS'
+                      ? 'decisionCard.summary.domesticAuthors'
+                      : 'decisionCard.summary.foreignAuthors'
+                    ) | transloco
+                  }}
+                </p>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="summary-value" [class.summary-status]="fee.presentation.state !== 'amount'">
+            {{
+              fee.presentation.state === 'amount'
+                ? fee.presentation.amount
+                : ('decisionCard.fees.values.' + fee.presentation.state | transloco)
+            }}
+          </p>
+        }
+      </div>
+    } @empty {
+      <h2 class="summary-label text-muted">{{ 'decisionCard.summary.fees' | transloco }}</h2>
+      <p class="summary-value summary-status">
+        {{
+          (fees().unavailable
+            ? 'decisionCard.fees.values.unavailable'
+            : 'decisionCard.summary.noFees'
+          ) | transloco
+        }}
+      </p>
+    }
+    @if (fees().entries.length && fees().unavailable) {
+      <p class="summary-note text-muted mt-2">
+        {{ 'decisionCard.summary.incompleteFees' | transloco }}
+      </p>
+    }
+  </article>
+  <article class="summary-tile summary-publication" data-testid="decision-summary-publication">
+    <h2 class="summary-label text-muted">{{ 'decisionCard.time.publication' | transloco }}</h2>
+    <p class="summary-value" [class.summary-status]="publication().days == null">
+      {{
+        publication().days == null
+          ? ('decisionCard.noData' | transloco)
+          : (publication().dayKey | transloco: { value: publication().days })
+      }}
+    </p>
+    @if (publication().typical; as range) {
+      <p class="summary-note text-muted" data-testid="decision-summary-typical-time">
+        {{
+          'decisionCard.summary.typicalTime'
+            | transloco: { duration: (publication().typicalDayKey! | transloco: { value: range }) }
+        }}
+      </p>
+    }
+  </article>
+  <article class="summary-tile summary-process" data-testid="decision-summary-process">
+    <h2 class="summary-label text-muted">{{ 'decisionCard.summary.process' | transloco }}</h2>
+    <p class="summary-value summary-status">
+      <app-journal-decision-section-preview [card]="card()" section="process" />
+    </p>
+  </article>
+</div>

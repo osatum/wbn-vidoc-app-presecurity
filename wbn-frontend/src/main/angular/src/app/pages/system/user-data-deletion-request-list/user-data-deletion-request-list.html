@@ -1,0 +1,191 @@
+@if (hasError()) {
+  <div class="card-body">
+    <app-aler-data [message]="'page.system.user-data-deletion-request-list.load-error' | transloco"></app-aler-data>
+  </div>
+}
+@if (isLoading()) {
+  <div >
+    <app-local-spinner [height]="300" [overlay]="false" [text]="'page.system.common.loading-list' | transloco"></app-local-spinner>
+  </div>
+}
+
+@if (!isLoading() && !hasError()) {
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filters">
+    <div class="card-body border border-dashed border-end-0 border-start-0 bg-light">
+      <div class="row g-3">
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="text"
+              id="user-data-deletion-name"
+              formControlName="name"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.user-data-deletion-request-list.name-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="email"
+              id="user-data-deletion-email"
+              formControlName="email"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.user-data-deletion-request-list.email-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="text"
+              id="user-data-deletion-institution"
+              formControlName="institutionName"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.user-data-deletion-request-list.institution-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="text"
+              id="user-data-deletion-ip"
+              formControlName="ipAddress"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.user-data-deletion-request-list.ip-address-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <div class="search-box">
+            <input
+              type="text"
+              id="user-data-deletion-user-agent"
+              formControlName="userAgent"
+              class="form-control ng-pristine ng-valid ng-touched"
+              [placeholder]="'page.system.user-data-deletion-request-list.user-agent-placeholder' | transloco"
+            />
+            <i class="ri-search-line search-icon"></i>
+          </div>
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <select formControlName="status" class="form-control ng-pristine ng-valid ng-touched">
+            <option value="">{{ 'page.system.user-data-deletion-request-list.status-placeholder' | transloco }}</option>
+            @for (status of statuses; track status.value) {
+              <option [value]="status.value">{{ status.labelKey | transloco }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-xxl-1 col-sm-6">
+          <input
+            type="date"
+            id="user-data-deletion-requested-from"
+            formControlName="requestedFrom"
+            class="form-control ng-pristine ng-valid ng-touched"
+            [title]="'page.system.user-data-deletion-request-list.requested-from' | transloco"
+          />
+        </div>
+
+        <div class="col-xxl-1 col-sm-6">
+          <input
+            type="date"
+            id="user-data-deletion-requested-to"
+            formControlName="requestedTo"
+            class="form-control ng-pristine ng-valid ng-touched"
+            [title]="'page.system.user-data-deletion-request-list.requested-to' | transloco"
+          />
+        </div>
+
+        <div class="col-xxl-2 col-sm-6">
+          <button class="btn btn-primary w-100" type="submit">
+            <i class="ri-equalizer-fill mx-1 align-bottom"></i>
+            {{ 'page.system.common.filter' | transloco }}
+          </button>
+        </div>
+        <div class="col-xxl-2 col-sm-6">
+          <button class="btn btn-danger w-100" type="button" (click)="resetFilters()">
+            <i class="ri-filter-off-line mx-1 align-bottom"></i>
+            {{ 'page.system.common.clear' | transloco }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="card-body pt-0">
+    @for (request of items(); track trackByUserDataDeletionRequest($index, request); let index = $index) {
+      <div class="row border border-dashed border-start-0 border-end-0 pt-3" [class.bg-light-subtle]="index % 2 === 1">
+        <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+          <span class="badge bg-light text-body">{{ statusLabelKey(request.status) | transloco }}</span>
+          <p class="text-muted mb-0 mt-2">
+            {{ request.requestedAt ? (request.requestedAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}
+          </p>
+        </div>
+
+        <div class="col-xxl-3 col-sm-12 mb-0 mb-sm-3">
+          <h6 class="mb-1">{{ request.email || '-' }}</h6>
+          <p class="text-muted mb-0">{{ userName(request) }}</p>
+          <p class="text-muted mb-0">{{ request.institutionName || '-' }}</p>
+        </div>
+
+        <div class="col-xxl-3 col-sm-12 mb-0 mb-sm-3">
+          <p class="mb-1">
+            {{ 'page.system.user-data-deletion-request-list.expires-at' | transloco }}:
+            {{ request.expiresAt ? (request.expiresAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}
+          </p>
+          <p class="text-muted mb-0">
+            {{ 'page.system.user-data-deletion-request-list.completed-at' | transloco }}:
+            {{ request.completedAt ? (request.completedAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}
+          </p>
+        </div>
+
+        <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+          {{ request.ipAddress || '-' }}
+          <p class="text-muted mb-0">
+            <span [title]="request.userAgent || ''">{{ request.browser || '-' }} / {{ request.operatingSystem || '-' }}</span>
+          </p>
+        </div>
+
+        <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+          <p class="mb-1">
+            {{ 'page.system.user-data-deletion-request-list.email-log' | transloco }}: {{ request.emailMessageLogId || '-' }}
+          </p>
+          @if (request.errorMessage) {
+            <span class="text-danger" [title]="request.errorMessage">{{ 'page.system.user-data-deletion-request-list.error' | transloco }}</span>
+          } @else {
+            <span class="text-muted">{{ 'page.system.user-data-deletion-request-list.no-error' | transloco }}</span>
+          }
+        </div>
+      </div>
+    } @empty {
+      <div style="margin-left: -16px; margin-right: -16px;" class="row p-3 bg-light-subtle">
+        <div class="col-xxl-12">{{ emptyMessage() }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="card-body pt-0">
+    <app-list-paging
+      [page]="page()"
+      [totalPages]="totalPages()"
+      [totalElements]="totalElements()"
+      [size]="size()"
+      [canGoPrevious]="canGoPrevious()"
+      [canGoNext]="canGoNext()"
+      (previousPage)="previousPage()"
+      (nextPage)="nextPage()"
+      (pageSizeChange)="changePageSizeValue($event)"
+    ></app-list-paging>
+  </div>
+}

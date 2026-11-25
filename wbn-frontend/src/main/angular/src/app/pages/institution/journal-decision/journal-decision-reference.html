@@ -1,0 +1,200 @@
+<section
+  class="card"
+  data-testid="decision-mnisw"
+  [class.bg-light-subtle]="card().mnisw?.listed !== true"
+  [attr.aria-label]="'decisionCard.mnisw' | transloco: { year: card().mnisw?.year ?? '—' }"
+>
+  <div class="card-body">
+    <h2 class="fs-4 text-secondary">{{ 'decisionCard.summary.mnisw' | transloco }}</h2>
+    @if (card().mnisw?.listed === false) {
+      <p class="fs-3 fw-semibold mb-0" data-testid="decision-mnisw-unlisted">
+        {{ 'decisionCard.unlisted' | transloco }}
+      </p>
+    } @else if (card().mnisw?.listed === true) {
+      <p class="fs-3 fw-semibold mb-0 text-primary-emphasis" data-testid="decision-mnisw-points">
+        MNiSW {{ card().mnisw?.year }}:
+        {{
+          card().mnisw?.points == null
+            ? ('decisionCard.noData' | transloco)
+            : ('decisionCard.points' | transloco: { points: formatNumber(card().mnisw?.points) })
+        }}
+      </p>
+    } @else {
+      <p class="fs-3 fw-semibold mb-0">{{ 'decisionCard.noData' | transloco }}</p>
+    }
+    @if (card().mnisw?.listed === true) {
+      <div
+        ngbAccordion
+        class="accordion-flush lefticon-accordion custom-accordionwithicon journal-disclosure-accordion mt-2"
+        [destroyOnHide]="false"
+      >
+        <div
+          ngbAccordionItem="decision-mnisw-disciplines"
+          [collapsed]="!mniswOpen()"
+          (show)="mniswOpen.set(true)"
+          (hide)="mniswOpen.set(false)"
+        >
+          <h3 ngbAccordionHeader>
+            <button ngbAccordionButton type="button" data-testid="decision-mnisw-toggle">
+              <span class="small fw-normal">{{ 'decisionCard.mniswDisciplines' | transloco }}</span>
+            </button>
+          </h3>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ng-template>
+                <div data-testid="decision-mnisw-disciplines">
+                  @if (mniswDisciplines().length) {
+                    <ul class="list-unstyled mb-0">
+                      @for (discipline of mniswDisciplines(); track $index) {
+                        <li class="bg-light rounded p-2">{{ discipline }}</li>
+                      }
+                    </ul>
+                  } @else {
+                    <p class="bg-light rounded p-2 mb-0">{{ 'decisionCard.noData' | transloco }}</p>
+                  }
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+@if (annualAvailable()) {
+  <section app-journal-icv-card class="card" data-testid="decision-icv"
+    [year]="card().surveyYear" [value]="card().icv" [history]="card().icvHistory"
+    [comparisonSource]="card()" [historyOpen]="historyOpen()" (historyOpenChange)="setHistoryOpen($event)">
+  </section>
+  <section class="card" data-testid="decision-indexing">
+    <header class="card-header">
+      <h2 class="card-title mb-0 fs-4">{{ 'decisionCard.indexing' | transloco }}</h2>
+    </header>
+    <div class="card-body">
+      @let list = indexing();
+      <div id="decision-indexing-list">
+        <ul class="mb-0 list-unstyled">
+          @for (label of list.initial; track $index) {
+            <li class="bg-light rounded p-2">{{ label }}</li>
+          }
+        </ul>
+        @if (!list.initial.length) {
+          <p class="text-muted mb-0 bg-light rounded p-2">
+            {{ 'decisionCard.noData' | transloco }}
+          </p>
+        }
+        @if (list.moreCount > 0) {
+          <div
+            ngbAccordion
+            class="accordion-flush lefticon-accordion custom-accordionwithicon journal-disclosure-accordion decision-indexing-more"
+            [destroyOnHide]="true"
+          >
+            <div
+              ngbAccordionItem="decision-indexing-more"
+              [collapsed]="!list.expanded"
+              (show)="setListOpen('indexing', true)"
+              (hide)="setListOpen('indexing', false)"
+            >
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  <ng-template>
+                    <ul class="mb-0 list-unstyled">
+                      @for (label of list.additional; track $index) {
+                        <li class="bg-light rounded p-2">{{ label }}</li>
+                      }
+                    </ul>
+                  </ng-template>
+                </div>
+              </div>
+              @if (list.partial) {
+                <p class="small text-muted mt-2 mb-0">
+                  {{ 'decisionCard.partialData' | transloco }}
+                </p>
+              }
+              <h3 ngbAccordionHeader>
+                <button ngbAccordionButton type="button" data-testid="decision-indexing-toggle">
+                  <span class="small fw-normal">{{
+                    list.expanded
+                      ? ('decisionCard.less' | transloco)
+                      : ('decisionCard.moreCount' | transloco: { count: list.moreCount })
+                  }}</span>
+                </button>
+              </h3>
+            </div>
+          </div>
+        } @else if (list.partial) {
+          <p class="small text-muted mt-2 mb-0">{{ 'decisionCard.partialData' | transloco }}</p>
+        }
+      </div>
+    </div>
+  </section>
+}
+@if (annualAvailable()) {
+  <section class="card" data-testid="decision-scientific-profile">
+    <header class="card-header">
+      <h2 class="card-title mb-0 fs-4">
+        {{ 'decisionCard.scientificProfile' | transloco }}
+      </h2>
+    </header>
+    <div class="card-body">
+      @if (annualAvailable()) {
+        <div class="mb-3" data-testid="decision-main-group">
+          <h3 class="profile-label text-muted">
+            {{
+              (card().benchmarksVisible ? 'decisionCard.mainGroup' : 'decisionCard.mainDiscipline')
+                | transloco
+            }}
+          </h3>
+          <p class="bg-light rounded p-2 mb-0">
+            {{ mainGroup() || ('decisionCard.noData' | transloco) }}
+          </p>
+        </div>
+      }
+      @if (annualAvailable()) {
+        @for (list of categories(); track list.key) {
+          <div class="mt-3" [attr.data-testid]="'decision-' + list.key">
+            <h3 class="profile-label text-muted">
+              {{ 'decisionCard.categories.' + list.key | transloco }}
+            </h3>
+            <ng-container
+              [ngTemplateOutlet]="referenceList"
+              [ngTemplateOutletContext]="{ $implicit: list }"
+            />
+          </div>
+        }
+      }
+    </div>
+  </section>
+}
+
+<ng-template #referenceList let-list>
+  <ul class="mb-0 list-unstyled" [id]="'decision-' + list.key + '-list'">
+    @for (label of list.visible; track $index) {
+      <li class="bg-light rounded p-2">{{ label }}</li>
+    }
+  </ul>
+  @if (!list.visible.length) {
+    <p class="text-muted mb-0 bg-light rounded p-2">
+      {{ 'decisionCard.noData' | transloco }}
+    </p>
+  }
+  @if (list.partial) {
+    <p class="small text-muted mt-2 mb-0">{{ 'decisionCard.partialData' | transloco }}</p>
+  }
+  @if (list.moreCount > 0) {
+    <button
+      class="btn btn-link btn-sm text-decoration-none px-0 mt-1"
+      type="button"
+      [attr.aria-expanded]="list.expanded"
+      [attr.aria-controls]="'decision-' + list.key + '-list'"
+      (click)="toggleList(list.key)"
+      [attr.data-testid]="'decision-' + list.key + '-toggle'"
+    >
+      {{
+        list.expanded
+          ? ('decisionCard.less' | transloco)
+          : ('decisionCard.moreCount' | transloco: { count: list.moreCount })
+      }}
+    </button>
+  }
+</ng-template>

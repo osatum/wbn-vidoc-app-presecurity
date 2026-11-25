@@ -1,0 +1,52 @@
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.status-metric {
+  min-height: 86px;
+  padding: 1rem;
+  border: 1px solid var(--vz-border-color);
+  border-radius: 6px;
+  background: var(--vz-card-bg);
+}
+
+.status-metric span,
+.status-metric strong {
+  display: block;
+}
+
+.status-metric strong {
+  margin-top: 0.4rem;
+  overflow-wrap: anywhere;
+}
+
+.progress-sm {
+  height: 0.65rem;
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.75rem;
+}
+
+.workflow-step {
+  min-height: 84px;
+  padding: 0.75rem;
+  border: 1px solid var(--vz-border-color);
+  border-radius: 6px;
+}
+
+.import-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  color: var(--vz-secondary-color);
+}
+
+.error-table {
+  max-height: 320px;
+  overflow: auto;
+}

@@ -1,0 +1,78 @@
+@if (digitalization) {
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.scientificDatabasesSection.indexing' | transloco }}</h5>
+  <div class="row mb-3 description-custom">
+    <app-questionnaire-description-item [label]="'page.institution.questionnaire.scientificDatabasesSection.indexingDatabases' | transloco">
+      @if (digitalization.externalRepositories !== undefined && !journalNameService.isEmptyValue(digitalization.externalRepositories.general)) {
+        @for (item of digitalization.externalRepositories.general; track item) {
+          <div>{{ item.name }}</div>
+        }
+
+      } @else {
+        -
+      }
+    </app-questionnaire-description-item>
+    <!--
+    <app-questionnaire-description-item [label]="'page.institution.questionnaire.scientificDatabasesSection.otherDatabases' | transloco">
+      @if (digitalization.externalRepositories !== undefined && !journalNameService.isEmptyValue(digitalization.externalRepositories.others)) {
+        @for (item of digitalization.externalRepositories.others; track item) {
+          <div>{{ item }}</div>
+        }
+      } @else {
+        -
+      }
+    </app-questionnaire-description-item>
+    -->
+  </div>
+  <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.scientificDatabasesSection.indicators' | transloco }}</h5>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <table class="table table-bordered table-header-custom">
+        <thead>
+        <tr>
+          <th scope="col">{{ 'page.institution.questionnaire.scientificDatabasesSection.indicator' | transloco }}</th>
+          <th scope="col" style="width: 12%">SJR</th>
+          <th scope="col" style="width: 12%">Total Cites</th>
+          <th scope="col" style="width: 12%">SNIP</th>
+          <th scope="col" style="width: 12%">CiteScore</th>
+          <th scope="col" style="width: 12%">JIF</th>
+          <th scope="col" style="width: 12%">Article Influence Score</th>
+          <th scope="col" style="width: 12%">CNCI</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (journalNameService.isEmptyValue(digitalization.scientificQuality)) {
+
+          <tr>
+            <td colspan="8">-</td>
+          </tr>
+
+        } @else {
+          <tr>
+            <td>{{ getYearM2() }}</td>
+            <td>{{ journalNameService.formatNumber3decimal(digitalization.scientificQuality?.indicatorSJR?.previous) }}</td>
+            <td>{{ journalNameService.formatNumber(digitalization.scientificQuality?.indicatorTC?.previous) }}</td>
+            <td>{{ journalNameService.formatNumber3decimal(digitalization.scientificQuality?.indicatorSNIP?.previous) }}</td>
+            <td>{{ journalNameService.formatNumber1decimal(digitalization.scientificQuality?.indicatorCS?.previous) }}</td>
+            <td>{{ journalNameService.formatNumber1decimal(digitalization.scientificQuality?.indicatorIF?.previous) }}</td>
+            <td>{{ journalNameService.formatNumber3decimal(digitalization.scientificQuality?.indicatorAI?.previous) }}</td>
+            <td>{{ journalNameService.formatNumber2decimal(digitalization.scientificQuality?.indicatorCNCI?.previous) }}</td>
+          </tr>
+          <tr>
+            <td>{{ getYearM1() }}</td>
+            <td>{{ journalNameService.formatNumber3decimal(digitalization.scientificQuality?.indicatorSJR?.current) }}</td>
+            <td>{{ journalNameService.formatNumber(digitalization.scientificQuality?.indicatorTC?.current) }}</td>
+            <td>{{ journalNameService.formatNumber3decimal(digitalization.scientificQuality?.indicatorSNIP?.current) }}</td>
+            <td>{{ journalNameService.formatNumber1decimal(digitalization.scientificQuality?.indicatorCS?.current) }}</td>
+            <td>{{ journalNameService.formatNumber1decimal(digitalization.scientificQuality?.indicatorIF?.current) }}</td>
+            <td>{{ journalNameService.formatNumber3decimal(digitalization.scientificQuality?.indicatorAI?.current) }}</td>
+            <td>{{ journalNameService.formatNumber2decimal(digitalization.scientificQuality?.indicatorCNCI?.current) }}</td>
+          </tr>
+
+        }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+}

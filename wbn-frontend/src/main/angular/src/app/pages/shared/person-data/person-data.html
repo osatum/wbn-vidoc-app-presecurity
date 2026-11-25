@@ -1,0 +1,13 @@
+@if (person){
+  <p>
+    @if (!journalNameService.isEmptyValue(person.title)) {
+      {{ person.title }}
+    }
+    @if (!journalNameService.isEmptyValue(person.fullName)) {
+      {{ person.fullName }}<br/>
+    }
+    @if (!journalNameService.isEmptyValue(person.department)) {
+      {{ person.department }}<br/>
+    }
+  </p>
+}

@@ -1,0 +1,33 @@
+<section class="row">
+
+  <div class="col-xl-12">
+    <div class="card  ">
+      <header class="card-header d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.user-list.title' | transloco }}</h4>
+        <div class="d-flex align-items-center gap-2">
+          <label class="text-muted text-nowrap" for="user-sort-by">
+            {{ 'page.system.user-list.sort' | transloco }}
+          </label>
+          <select
+            id="user-sort-by"
+            class="form-select"
+            [value]="sortBy()"
+            (change)="changeSortBy($event)"
+          >
+            @for (sortOption of sortOptions; track sortOption.value) {
+              <option [value]="sortOption.value">{{ sortOption.labelKey | transloco }}</option>
+            }
+          </select>
+        </div>
+      </header>
+      <div class="card-body">
+        <p class="text-muted m-0">{{ 'page.system.user-list.description' | transloco }}</p>
+      </div>
+      <app-user-lookup-list
+        [sortBy]="sortBy()"
+        (sortByChange)="sortBy.set($event)"
+      />
+    </div>
+
+  </div>
+</section>

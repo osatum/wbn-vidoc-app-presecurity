@@ -1,0 +1,153 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+.decision-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 67fr) minmax(0, 33fr);
+  grid-template-areas: 'identity reference' 'context reference';
+  /* Wysoka prawa kolumna nie może rozsuwać paneli po lewej stronie. */
+  grid-template-rows: min-content 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.decision-layout .card {
+  margin-bottom: 0;
+}
+.decision-section-toggle {
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  container-type: inline-size;
+}
+.decision-section-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--vz-heading-color);
+  font-size: 16px;
+  font-weight: 600;
+}
+.decision-section-preview {
+  flex: 0 1 auto;
+  max-width: 100%;
+  color: var(--vz-emphasis-color);
+  font-size: var(--vz-body-font-size, 1rem);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: end;
+  overflow-wrap: anywhere;
+}
+@container (max-width: 650px) {
+  .decision-section-preview {
+    order: 3;
+    flex-basis: 100%;
+    text-align: start;
+  }
+}
+.decision-identity {
+  grid-area: identity;
+}
+.decision-context {
+  grid-area: context;
+  min-width: 0;
+}
+.decision-year-picker {
+  min-width: 0;
+  max-width: 100%;
+}
+.decision-years {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0.25rem;
+}
+.decision-years .btn-group {
+  white-space: nowrap;
+}
+.decision-context .btn-outline-primary {
+  --vz-btn-color: var(--vz-link-color);
+  --vz-btn-border-color: var(--vz-link-color);
+}
+.decision-context .btn:focus-visible {
+  box-shadow: 0 0 0 0.2rem var(--vz-link-color);
+}
+.decision-reference {
+  grid-area: reference;
+  min-width: 0;
+}
+.decision-time {
+  grid-area: time;
+}
+.decision-costs {
+  grid-area: costs;
+}
+.decision-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: 'time time' 'costs costs' 'process process' 'international standards';
+  gap: 1rem;
+  align-items: start;
+}
+.decision-sections .accordion-item {
+  min-width: 0;
+  margin-top: 0;
+}
+.decision-process {
+  grid-area: process;
+}
+.decision-international {
+  grid-area: international;
+}
+.decision-standards {
+  grid-area: standards;
+}
+.decision-cover {
+  flex: 0 0 auto;
+  width: 150px;
+}
+.decision-heading,
+.decision-identification {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.decision-identification {
+  flex: 1 1 18rem;
+}
+.decision-identification dd {
+  color: var(--vz-emphasis-color);
+}
+.decision-description {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.decision-deposit-values {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--vz-emphasis-color);
+}
+.decision-limited {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: none;
+  grid-template-areas: 'identity' 'context';
+}
+@media (max-width: 991.98px) {
+  .decision-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: 'identity' 'reference' 'context';
+  }
+  .decision-sections {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'time' 'costs' 'process' 'international' 'standards';
+  }
+  .decision-limited {
+    grid-template-areas: 'identity' 'context';
+  }
+}
+@media (max-width: 575.98px) {
+  .decision-year-picker {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .decision-years {
+    max-width: 100%;
+  }
+}

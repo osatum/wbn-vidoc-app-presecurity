@@ -1,0 +1,51 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  h2:
+    console:
+      enabled: false
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/wbn}
+    driver-class-name: org.postgresql.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:wbn_app}
+    password: ${SPRING_DATASOURCE_PASSWORD:wbn_app}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: ${SPRING_FLYWAY_ENABLED:true}
+    baseline-on-migrate: false
+  sql:
+    init:
+      mode: never
+  elasticsearch:
+    uris: ${SPRING_ELASTICSEARCH_URIS:https://localhost:9200}
+    username: ${SPRING_ELASTICSEARCH_USERNAME:elastic}
+    password: Elatic#6PassWD
+    connection-timeout: 5s
+    socket-timeout: 30s
+    restclient:
+      ssl:
+        bundle: elasticsearch2
+  ssl:
+    bundle:
+      pem:
+        elasticsearch2:
+          truststore:
+            certificate: ${SPRING_ELASTICSEARCH_SSL_CERTIFICATE:file:D:/docker-data/wbn/elasticsearch/certs/ca/ca1.crt}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+app:
+  cover-source: ${APP_COVER_SOURCE:./.local/import/covers}
+  json-source: f:/_jml_export/
+  json-dictionary: f:/_jml_export_dictionary

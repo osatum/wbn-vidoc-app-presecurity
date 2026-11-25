@@ -1,0 +1,71 @@
+<footer class="custom-footer bg-dark py-4 position-relative">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mt-1">
+        <div class="mb-2">
+          <img src="assets/images/index-logo-white.png" height="46" width="200" />
+        </div>
+        <div>
+          <div class="mt-4">
+            <p>Index Copernicus Sp. z o.o.</p>
+            <p>
+              Ul. Kasprzaka 31A/184<br/>
+              01-234 Warszawa
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 ms-lg-auto">
+        <div class="row">
+
+          <div class="col-sm-4 mt-2">
+
+            <h5 class="text-white mb-0">{{ 'shared.footer.legalInfo' | transloco }}</h5>
+            <div class="text-muted mt-3">
+              <ul class="list-unstyled footer-list">
+                @if(isPl()){
+                  <li><a href="/assets/doc/2026_ICI-JML_Regulamin_PL.pdf">{{ 'shared.footer.terms' | transloco }}</a></li>
+                  <li><a href="/assets/doc/2026_ICI-JML_Polityka-prywatnosci_PL.pdf">{{ 'shared.footer.privacyPolicy' | transloco }}</a></li>
+                } @else {
+                  <li><a href="/assets/doc/2026_ICI-JML_Regulamin_EN.pdf">{{ 'shared.footer.terms' | transloco }}</a></li>
+                  <li><a href="/assets/doc/2026_ICI-JML_Polityka-prywatnosci_EN.pdf">{{ 'shared.footer.privacyPolicy' | transloco }}</a></li>
+                }
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4 mt-2">
+            <h5 class="text-white mb-0">ICI JML</h5>
+            <div class="text-muted mt-3">
+              <ul class="list-unstyled footer-list">
+                <li><a target="_blank" href="https://indexcopernicus.com/index.php/pl/metodologia-oceny">{{ 'shared.footer.assessmentMethodology' | transloco }}</a></li>
+                <li><a target="_blank" href="https://indexcopernicus.com/index.php/pl/procedura-indeksacji-363">{{ 'shared.footer.indexingProcedure' | transloco }}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4 mt-2">
+
+            <h5 class="text-white mb-0">{{ 'shared.footer.indexCopernicusApps' | transloco }}</h5>
+            <div class="text-muted mt-3">
+              <ul class="list-unstyled footer-list">
+                <li><a target="_blank" href="https://journals.indexcopernicus.com/search/form">{{ 'shared.footer.worldOfJournals' | transloco }}</a></li>
+                <li><a target="_blank" href="https://journals.indexcopernicus.com/contact/contact">{{ 'shared.footer.contact' | transloco }}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center text-sm-start align-items-center mt-2">
+      <div class="col-sm-6">
+        <p class="copy-rights mb-0">
+          {{year}} &copy; Index Copernicus
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <div class="text-sm-end mt-3 mt-sm-0"></div>
+      </div>
+    </div>
+  </div>
+</footer>

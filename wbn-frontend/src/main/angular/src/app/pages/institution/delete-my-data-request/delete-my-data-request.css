@@ -1,0 +1,8 @@
+.delete-my-data-card {
+  border-top: 3px solid var(--vz-danger);
+  overflow: hidden;
+}
+
+.delete-my-data-intro {
+  background: rgba(var(--vz-danger-rgb), 0.05);
+}

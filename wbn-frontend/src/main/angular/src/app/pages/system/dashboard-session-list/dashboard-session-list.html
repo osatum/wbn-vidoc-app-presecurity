@@ -1,0 +1,70 @@
+@if (isLoading()) {
+  <div>
+    <app-local-spinner
+      [height]="200"
+      [overlay]="false"
+      [text]="'page.system.dashboard-session-list.loading' | transloco"
+    ></app-local-spinner>
+  </div>
+}
+@if (!isLoading()) {
+  <section class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">{{ 'page.system.dashboard-session-list.title' | transloco }}</h4>
+        </div>
+
+        @if (isLoading()) {
+
+        } @else if (hasError()) {
+          <div class="card-body">
+            <app-aler-data [message]="'page.system.dashboard-session-list.load-error' | transloco"></app-aler-data>
+          </div>
+        } @else {
+          <div class="card-body pt-0">
+            @for (session of sessions(); track trackBySession($index, session); let index = $index) {
+              <div class="row border border-dashed border-start-0 border-end-0 pt-3" [class.bg-light-subtle]="index % 2 === 1">
+                <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+                  {{ actorTypeLabelKey(session.actorType) | transloco }}
+                </div>
+
+                <div class="col-xxl-4 col-sm-12 mb-0 mb-sm-3">
+                  @if (session.userEmail) {
+                    <h6>{{ session.userEmail }}</h6>
+                  }
+                  @if (session.institutionName) {
+                    <h6>({{ session.institutionName }})</h6>
+                  }
+                  <p class="text-muted mb-0">{{ institutionRoleLabelKey(session.institutionRole) | transloco }}</p>
+                </div>
+
+                <div class="col-xxl-2 col-sm-12 mb-0 mb-sm-3">
+                  {{ session.ipAddress || '-' }}
+                  <p class="text-muted mb-0">
+                    <span [title]="session.userAgent || ''">{{ session.browser || '-' }}</span>
+                  </p>
+                </div>
+
+                <div class="col-xxl-4 col-sm-12 mb-0 mb-sm-3 pe-4">
+                  <div class="d-flex justify-content-between gap-3">
+                    <span>{{ 'page.system.dashboard-session-list.event' | transloco }}:</span>
+                    <span>{{ session.startedAt ? (session.startedAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}</span>
+                  </div>
+                  <div class="d-flex justify-content-between gap-3">
+                    <span>{{ 'page.system.dashboard-session-list.received' | transloco }}:</span>
+                    <span>{{ session.createdAt ? (session.createdAt | date: 'yyyy-MM-dd HH:mm:ss') : '-' }}</span>
+                  </div>
+                </div>
+              </div>
+            } @empty {
+              <div class="row p-3 bg-light-subtle dashboard-session-empty">
+                <div class="col-12">{{ 'page.system.dashboard-session-list.empty' | transloco }}</div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+}

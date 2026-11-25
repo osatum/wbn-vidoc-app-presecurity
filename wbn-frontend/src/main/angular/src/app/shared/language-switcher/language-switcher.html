@@ -1,0 +1,15 @@
+<div class="btn-group material-shadow" ngbDropdown   *transloco="let t">
+
+  <button type="button" ngbDropdownToggle
+          class="btn btn-light btn-icon waves-effect user-profile-dropdown-button">
+
+    <span class="fi fi-{{normalizeCountry(getActiveLang())}}"></span>
+  </button>
+  <div ngbDropdownMenu class="user-profile-dropdown ">
+    @for (lang of (getAvailableLangs()); track trackByLang(lang); let i = $index) {
+      <button (click)="setLang(lang)"   ngbDropdownItem>
+        <span class="fi fi-{{normalizeCountry(lang)}}"></span>  {{ t('language.' + lang + '') }}
+      </button>
+    }
+  </div>
+</div>

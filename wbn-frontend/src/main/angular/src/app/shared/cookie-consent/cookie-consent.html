@@ -1,0 +1,14 @@
+<ng-template #cookieConsentContent>
+  <div class="offcanvas-body bg-dark text-body-tertiary d-flex align-items-center justify-content-center">
+    <p class="mb-0 me-2 text-body-secondary ">
+      {{ 'shared.cookieConsent.messagePrefix' | transloco }}
+      <a target="_blank" href="assets/doc/2026_ICI-JML_Polityka-prywatnosci_PL.pdf">
+        {{ 'shared.cookieConsent.privacyPolicy' | transloco }}
+      </a>
+      {{ 'shared.cookieConsent.messageSuffix' | transloco }}
+    </p>
+    <button type="button" class="btn btn-primary" (click)="accept()">
+      {{ 'shared.cookieConsent.accept' | transloco }}
+    </button>
+  </div>
+</ng-template>

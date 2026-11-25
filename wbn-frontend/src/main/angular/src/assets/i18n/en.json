@@ -1,0 +1,2239 @@
+{
+  "operatingProfile": {
+    "label": "System feature profile",
+    "inherit": "System default",
+    "default": "System default profile",
+    "effective": "Effective institution profile",
+    "unitSource": "institution setting",
+    "systemSource": "inherited from system",
+    "loading": "Loading profile configuration…",
+    "defaultError": "Could not load the system default profile.",
+    "contextError": "Could not determine the available search features. Please try again.",
+    "dictionaryError": "Some dictionaries could not be loaded. Refresh the page to try again.",
+    "searchViews": "Select search view",
+    "all": "All",
+    "profile": { "BASIC": "Basic", "ADVANCED": "Advanced", "BOTH": "Both search views" },
+    "search": { "BASIC": "Basic search", "ADVANCED": "Advanced search" }
+  },
+  "title": "Welcome",
+  "menuitems": {
+    "menu": {
+      "text": "Menu"
+    },
+    "dashboard": {
+      "text": "Dashboards"
+    },
+    "institutions": {
+      "text": "Institutions list"
+    },
+    "users": {
+      "text": "Users list"
+    },
+    "sessions": {
+      "text": "User sessions",
+      "active": "Active sessions",
+      "login-sessions": "Login sessions",
+      "account-activations": "Registration requests",
+      "password-reset-requests": "Password reset",
+      "user-data-deletion-requests": "Data deletion",
+      "email-messages": "Email mailings",
+      "navigation-audit-events": "Navigation statistics"
+    },
+    "email-templates": {
+      "text": "Email templates"
+    },
+    "email-type-configuration": {
+      "text": "Message types"
+    }
+  },
+  "language": {
+    "en": "English (En)",
+    "pl": "Polish (Pl)"
+  },
+  "page-meta": {
+    "home": {
+      "title": "Welcome to ICI Journal Master List",
+      "description": "Data access portal"
+    }
+  },
+  "layout": {
+    "session": {
+      "expires-in": "Session expires in",
+      "token-validity": "Token validity time",
+      "remaining-validity": "Session validity",
+      "inactivity": "Inactivity",
+      "refresh-in": "Token refresh in",
+      "more": "More",
+      "less": "Less"
+    }
+  },
+  "page": {
+    "home": {
+      "access": {
+        "processing": "Processing data...",
+        "activeTitle": "System access is active",
+        "activeDescription": "We have detected your credentials. You can proceed and start using the system.",
+        "goToSystem": "Go to the system",
+        "institutionImageAlt": "Institution",
+        "login": "Log in",
+        "register": "Register",
+        "checkInstitutionTitle": "Check whether your institution has access",
+        "checkInstitutionDescription": "Search for your university or research institution to find out whether you can access the resources of the Virtual Library of Science (WBN) through it.",
+        "checkInstitution": "Check access",
+        "registerInstitutionTitle": "Register your institution for a free WBN licence",
+        "registerInstitutionDescription": "If your institution does not yet have access, register it for a free licence that provides access to the resources of the Virtual Library of Science.",
+        "registerInstitution": "Register Institution",
+        "authorizationRequiredTitle": "Authorization required",
+        "authorizationRequiredDescription": "Your IP address was not recognized as authorized for automatic access. If you have a personal account, you can log in to the system."
+      },
+      "registration": {
+        "title": "User registration",
+        "description": "Create an account at the selected scientific institution",
+        "processing": "Processing data...",
+        "go-to-login": "Go to login",
+        "success": "The registration form has been accepted. Check your email and confirm your account using the activation link.",
+        "institution": "Scientific institution",
+        "choose-institution": "Select a scientific institution",
+        "selected-institution-prefix": "You are registering an account at:",
+        "selected-institution-fallback": "selected institution",
+        "first-name": "First name",
+        "last-name": "Last name",
+        "email": "Email",
+        "orcid": "ORCID",
+        "password": "Password",
+        "submit": "Register account",
+        "back-home": "Back to home page",
+        "invalid-institution-id": "Invalid institution ID.",
+        "select-institution-before-submit": "Select an institution before submitting the form.",
+        "no-institutions": "Institutions available for registration are currently unavailable.",
+        "load-institutions-error": "Failed to load the list of institutions.",
+        "check-availability-error": "Failed to check registration availability.",
+        "email-already-used": "The email address is already associated with a user account.",
+        "submit-error-with-status": "Failed to submit the registration form. Error code: {{status}}.",
+        "submit-error": "Failed to submit the registration form.",
+        "terms": {
+          "prefix": "I have read the",
+          "terms-link": "Terms of Use",
+          "middle": "and",
+          "privacy-policy-link": "Privacy Policy",
+          "suffix": "of ICI Journals Master List and accept their provisions."
+        },
+        "personal-data": {
+          "prefix": "I acknowledge that my personal data will be processed by Index Copernicus Sp. z o.o. for the purpose of creating and managing a user account, using the functionalities of the ICI Journals Master List system, and providing services electronically in accordance with the",
+          "middle": "and"
+        },
+        "availability": {
+          "institution-not-found": "Institution not found.",
+          "institution-inactive": "The institution is inactive.",
+          "registration-disabled": "Registration at this institution is disabled.",
+          "ip-not-allowed": "Registration at this institution is not available from your IP address.",
+          "available": "Registration is available.",
+          "unavailable": "Registration at this institution is unavailable."
+        },
+        "validation": {
+          "first-name": {
+            "required": "First name is required.",
+            "maxlength": "First name is too long."
+          },
+          "last-name": {
+            "required": "Last name is required.",
+            "maxlength": "Last name is too long."
+          },
+          "email": {
+            "required": "Email is required.",
+            "email": "Provide a valid email address.",
+            "maxlength": "Email is too long."
+          },
+          "orcid": {
+            "pattern": "Provide an ORCID in the 0000-0000-0000-0000 format.",
+            "maxlength": "ORCID is too long."
+          },
+          "password": {
+            "required": "Password is required.",
+            "minlength": "Password must be at least 8 characters long.",
+            "maxlength": "Password is too long."
+          },
+          "terms": {
+            "required": "Acceptance of the Terms of Use and Privacy Policy is required."
+          },
+          "personal-data": {
+            "required": "Confirmation of the personal data processing information is required."
+          }
+        }
+      },
+      "registration-activation": {
+        "title": "Account activation",
+        "loading": "Activating account...",
+        "back-home": "Back to home page",
+        "go-to-login": "Go to login",
+        "missing-token": "Activation token is missing.",
+        "activation-error": "Account activation failed. The activation link is invalid.",
+        "activation-token-already-used": "This activation link has already been used. The account has not been activated.",
+        "status": {
+          "account-activated": {
+            "title": "Account activated",
+            "message": "You can log in to the system."
+          },
+          "waiting-for-confirmation": {
+            "title": "Account awaiting confirmation",
+            "message": "The email address has been confirmed. Login will be available after the account is approved by an administrator."
+          },
+          "activation-link-expired-new-link-sent": {
+            "title": "Activation link expired",
+            "message": "The activation link expired. The account has not been activated. We have sent a new activation link to the account's email address."
+          },
+          "default": {
+            "message": "The activation link has been processed."
+          }
+        }
+      }
+    },
+    "account": {
+      "change-password": {
+        "title": "Change password",
+        "description": "Enter your current password and a new password. After saving, all other active sessions will be terminated, and the current session will remain active.",
+        "system": {
+          "title": "System operator password change",
+          "description": "The administrative view is used to change the system operator account password. After saving, all other active sessions of the operator will be terminated.",
+          "context": "System operator",
+          "submit": "Change operator password"
+        },
+        "institution": {
+          "title": "Institution user password change",
+          "description": "The form allows setting a new password for the user. After saving, all other active sessions will be terminated.",
+          "context": "Scientific institution",
+          "submit": "Change password"
+        },
+        "current-password": "Current password",
+        "current-password-placeholder": "Enter current password.",
+        "password": "New password",
+        "password-placeholder": "Enter new password.",
+        "password-help": "The password must be at least 8 characters long.",
+        "password-repeat": "Repeat new password",
+        "password-repeat-placeholder": "Repeat new password.",
+        "current-password-error": "The provided user password does not match the current password.",
+        "save-error": "Failed to change the password.",
+        "save-success": "Password has been successfully changed.",
+        "validation": {
+          "current-password": {
+            "required": "Current password is required.",
+            "minlength": "Current password must be at least 8 characters long.",
+            "maxlength": "Current password is too long.",
+            "invalid": "The provided user password does not match the current password."
+          },
+          "password": {
+            "required": "New password is required.",
+            "minlength": "New password must be at least 8 characters long.",
+            "maxlength": "New password is too long."
+          },
+          "password-repeat": {
+            "required": "Repeating the new password is required.",
+            "minlength": "The password must be at least 8 characters long.",
+            "maxlength": "The password is too long.",
+            "match": "Passwords must match."
+          }
+        }
+      },
+      "change-basic-data": {
+        "title": "Change user data",
+        "description": "Update the first name, last name, or ORCID ID assigned to your account.",
+        "context": "Scientific institution",
+        "loading": "Fetching user data...",
+        "load-error": "Failed to fetch user data.",
+        "first-name": "First name",
+        "first-name-placeholder": "Enter first name",
+        "last-name": "Last name",
+        "last-name-placeholder": "Enter last name",
+        "orcid": "ORCID",
+        "orcid-placeholder": "0000-0000-0000-000X",
+        "orcid-help": "ORCID is optional. Use the format 0000-0000-0000-000X.",
+        "submit": "Save data",
+        "save-error": "Failed to save user data.",
+        "save-success": "User data has been changed.",
+        "validation": {
+          "first-name": {
+            "required": "First name is required.",
+            "maxlength": "First name cannot exceed 128 characters."
+          },
+          "last-name": {
+            "required": "Last name is required.",
+            "maxlength": "Last name cannot exceed 128 characters."
+          },
+          "orcid": {
+            "maxlength": "ORCID is too long.",
+            "pattern": "ORCID must follow the format 0000-0000-0000-000X."
+          }
+        }
+      }
+    },
+    "system": {
+      "common": {
+        "filter": "Filter",
+        "clear": "Clear",
+        "details": "Details",
+        "back": "Back",
+        "edit": "Edit",
+        "save": "Save",
+        "saving": "Saving...",
+        "cancel": "Cancel",
+        "activate": "Activate",
+        "deactivate": "Deactivate",
+        "state-change-success": "Status has been changed.",
+        "state-change-error": "Failed to change status.",
+        "yes": "Yes",
+        "no": "No",
+        "state": "Status",
+        "orcid": "ORCID",
+        "audit": "Audit information",
+        "created": "Created",
+        "created-at": "Creation date",
+        "created-by": "Created by",
+        "edited": "Edited",
+        "edited-at": "Edit date",
+        "edited-by": "Edited by",
+        "entity-state": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "loading-data": "Loading data...",
+        "loading-list": "Loading list elements...",
+        "pending": "Pending"
+      },
+      "institution-list": {
+        "title": "Institutions in the system",
+        "description": "This view presents a list of institutions registered in the system along with information about assigned users authorized to use the platform.",
+        "add-institution": "Add institution",
+        "load-error": "Failed to fetch the list of institutions.",
+        "name-placeholder": "Enter institution name",
+        "all-types": "All",
+        "institution-type": {
+          "system-operator": "System operator",
+          "research-unit": "Scientific institution"
+        },
+        "entity-state": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "institution-details": {
+        "fallback-title": "Institution details",
+        "description": "This view presents institution data, assigned users, and system activity to support platform usage monitoring and access management.",
+        "load-error": "Failed to fetch institution details.",
+        "basic-data": "Basic data",
+        "name": "Name",
+        "type": "Type",
+        "auth-mode-label": "Access mode",
+        "registration": "Registration",
+        "allow-other-ip": "Registration from outside IP",
+        "allow-other-email-domain": "Registration from other domains",
+        "auto-activation": "Automatic account activation",
+        "contact-data": "Contact data",
+        "institution-description": "Description",
+        "no-description": "No description.",
+        "ip-rules": "IP rules",
+        "value": "Value",
+        "range": "Range",
+        "priority": "Priority",
+        "no-ip-rules": "No IP rules defined.",
+        "email-domains": "Email domains",
+        "domain": "Domain",
+        "no-email-domains": "No domains defined.",
+        "related-title": "Additional information related to the institution",
+        "users-tab": "List of users associated with the institution",
+        "add-user": "Add user",
+        "users-description": "List of users associated with the institution with filtering and pagination.",
+        "users-empty": "No users associated with the institution.",
+        "users-load-error": "Failed to fetch users associated with the institution.",
+        "sessions-tab": "List of sessions associated with the institution",
+        "sessions-description": "List of sessions associated with the institution with filtering and pagination.",
+        "sessions-empty": "No logins found for this institution.",
+        "auth-mode": {
+          "not-required": "Login not required",
+          "required": "Login required"
+        },
+        "invalid-id": "Invalid institution ID.",
+        "delete-institution": {
+          "button": "Delete institution",
+          "modal-title": "Permanently delete institution",
+          "warning": "This operation cannot be undone.",
+          "impact": "The institution, its relationships, logs, activity, and data of users not associated with another institution will be deleted.",
+          "confirmation-instruction": "Please copy the code displayed below into the field and confirm. The code contains 8 random letters and digits.",
+          "code-label": "Confirmation code",
+          "code-placeholder": "Enter code",
+          "code-mismatch": "The entered code must match the code displayed above.",
+          "cancel": "Cancel",
+          "confirm": "Permanently delete",
+          "preparation-error": "Failed to prepare the institution deletion confirmation.",
+          "confirmation-invalid": "The confirmation code is invalid. Open the dialog again and try once more.",
+          "confirmation-expired": "The confirmation code has expired or was already used. Open the dialog again to generate a new code.",
+          "not-allowed": "This institution cannot currently be deleted.",
+          "success": "The institution and related data were deleted.",
+          "error": "Failed to delete the institution."
+        }
+      },
+      "institution-edit": {
+        "invalid-institution-id": "Invalid institution ID."
+      },
+      "select-institution": {
+        "type": "Institution type",
+        "role": "Role",
+        "login": "Log in"
+      },
+      "user-create": {
+        "title": "Add user form",
+        "description": "The form allows creating a user account, assigning it to an institution, and granting appropriate roles and permissions in the system.",
+        "loading-institution": "Loading institution data...",
+        "institution-load-error": "Failed to fetch institution data.",
+        "institution": "Institution",
+        "assigned-role": "Role of the new association",
+        "existing-user-title": "A user with the specified email already exists",
+        "already-assigned-role-title": "The user is already assigned to the selected role",
+        "already-assigned-role-message": "The user is already assigned to the selected institution in the chosen role. A new user will not be created; please change the user's role.",
+        "confirm-institution-assignment-title": "Confirmation of institution assignment",
+        "confirm-institution-assignment-message": "A user with the specified email already exists and is assigned to the selected institution in a different role. Do you confirm assigning the existing user to the selected role?",
+        "confirm-existing-user-title": "Confirmation of assigning an existing user",
+        "confirm-existing-user-message": "The user is assigned to other institutions.",
+        "no-memberships": "The user does not have any institution assignments yet.",
+        "email": "Email",
+        "email-placeholder": "Enter user's email address",
+        "email-help": "Provide a valid email address. This field is required and can have a maximum of 128 characters.",
+        "password": "Password",
+        "password-placeholder": "Set a password for the user",
+        "password-help": "Password is required, must be at least 8 characters long, and cannot exceed 128 characters.",
+        "first-name": "First name",
+        "first-name-placeholder": "Enter user's first name",
+        "first-name-help": "First name is required and can have a maximum of 128 characters.",
+        "last-name": "Last name",
+        "orcid": "ORCID",
+        "orcid-placeholder": "0000-0000-0000-000X",
+        "role": "Role",
+        "role-help": "Select the user's role in this institution.",
+        "orcid-help": "ORCID is optional. Provide the identifier in the format 0000-0000-0000-000X.",
+        "last-name-placeholder": "Enter user's last name",
+        "last-name-help": "Last name is required and can have a maximum of 128 characters.",
+        "attach": "Attach",
+        "attaching": "Attaching...",
+        "confirm-assignment": "Confirm assignment",
+        "change-data": "Change data",
+        "invalid-institution-id": "Invalid institution ID.",
+        "save-error": "Failed to add the user.",
+        "validation": {
+          "email": {
+            "required": "Email is required.",
+            "email": "Provide a valid email address.",
+            "maxlength": "Email cannot exceed 128 characters."
+          },
+          "first-name": {
+            "required": "First name is required.",
+            "maxlength": "First name cannot exceed 128 characters."
+          },
+          "last-name": {
+            "required": "Last name is required.",
+            "maxlength": "Last name cannot exceed 128 characters."
+          },
+          "orcid": {
+            "maxlength": "ORCID is too long.",
+            "pattern": "ORCID must follow the format 0000-0000-0000-000X."
+          },
+          "role": {
+            "required": "Role is required."
+          },
+          "password": {
+            "required": "Password is required.",
+            "minlength": "Password must be at least 8 characters long.",
+            "maxlength": "Password cannot exceed 128 characters."
+          }
+        },
+        "save-success-attach": "The user has been assigned to the institution.",
+        "save-success-create": "The user has been added."
+      },
+      "user-list": {
+        "title": "Service users database",
+        "description": "The page displays a list of system users with search and record management functionalities. Pagination facilitates browsing larger numbers of users.",
+        "sort": "Sorting",
+        "sortOptions": {
+          "nameAsc": "Last name ascending",
+          "nameDesc": "Last name descending",
+          "emailAsc": "Email ascending",
+          "emailDesc": "Email descending"
+        }
+      },
+      "user-details": {
+        "fallback-title": "User details",
+        "description": "This view presents user data, their assigned institution, roles, account status, and activity history to support system access management.",
+        "load-error": "Failed to fetch user details.",
+        "basic-data": "Basic data",
+        "email": "Email",
+        "full-name": "First and last name",
+        "global-roles": "Global roles",
+        "memberships": "Associated scientific institutions",
+        "institution": "Institution",
+        "institution-type": "Institution type",
+        "role": "Role",
+        "no-memberships": "No scientific institutions defined.",
+        "related-title": "Additional information associated with the user",
+        "sessions-tab": "List of sessions associated with the user",
+        "sessions-description": "List of sessions associated with the user with filtering and pagination.",
+        "sessions-empty": "No logins found for this user.",
+        "change-password": "Change password",
+        "delete-account": "Delete account",
+        "delete-modal-title": "Deleting user account",
+        "delete-modal-message": "This operation will permanently delete the user account as well as associated sessions, tokens, and registration data. This action cannot be undone.",
+        "delete-modal-user": "User",
+        "delete-confirm": "Delete account",
+        "delete-success": "The user account has been deleted.",
+        "delete-error": "Failed to delete the user account.",
+        "invalid-id": "Invalid user ID."
+      },
+      "user-lookup-list": {
+        "title": "Users",
+        "description": "List of users with filtering and pagination.",
+        "empty": "No users found for the selected criteria.",
+        "load-error": "Failed to fetch the list of users.",
+        "email-placeholder": "Enter user's email",
+        "name-placeholder": "Enter user's name"
+      },
+      "user-state-change": {
+        "deactivated-with-memberships": "The user status has been changed to inactive along with all their associations.",
+        "activated-with-membership": "The user status has been changed to active along with their association."
+      },
+      "user-basic-data-edit": {
+        "title": "Edit basic user data",
+        "description": "The form allows updating the user's first name, last name, and ORCID identifier.",
+        "loading": "Fetching user data...",
+        "load-error": "Failed to fetch user data.",
+        "invalid-user-id": "Invalid user ID.",
+        "save-error": "Failed to save basic user data.",
+        "save-success": "Basic user data has been changed.",
+        "validation": {
+          "first-name": {
+            "required": "First name is required.",
+            "maxlength": "First name cannot exceed 128 characters."
+          },
+          "last-name": {
+            "required": "Last name is required.",
+            "maxlength": "Last name cannot exceed 128 characters."
+          },
+          "orcid": {
+            "maxlength": "ORCID is too long.",
+            "pattern": "ORCID must follow the format 0000-0000-0000-0000."
+          }
+        }
+      },
+      "user-password-edit": {
+        "title": "Change user password",
+        "description": "The form allows setting a new password for the user.",
+        "loading": "Fetching user data...",
+        "load-error": "Failed to fetch user data.",
+        "invalid-user-id": "Invalid user ID.",
+        "password": "Password",
+        "password-placeholder": "Enter new password",
+        "password-help": "Password is required, must be at least 8 characters long, and cannot exceed 128 characters.",
+        "password-repeat": "Repeat password",
+        "password-repeat-placeholder": "Repeat new password",
+        "password-repeat-help": "The repeated password must be identical to the new password.",
+        "save-error": "Failed to change the user's password.",
+        "save-success": "User password has been changed.",
+        "validation": {
+          "password": {
+            "required": "Password is required.",
+            "minlength": "Password must be at least 8 characters long.",
+            "maxlength": "Password cannot exceed 128 characters."
+          },
+          "password-repeat": {
+            "required": "Repeating the password is required.",
+            "minlength": "Repeating the password must be at least 8 characters long.",
+            "maxlength": "Repeating the password cannot exceed 128 characters.",
+            "match": "Passwords must match."
+          }
+        }
+      },
+      "user-activation": {
+        "title": "User activation",
+        "description": "Select the user's assignments to active institutions that should be activated.",
+        "loading": "Fetching activation form data...",
+        "load-error": "Failed to fetch activation form data.",
+        "missing-data": "Missing data needed to display the activation form. Go back to the user list and retry the activation operation.",
+        "inactive-institution": "The activated user is assigned to an inactive institution. Activation is not possible.",
+        "membership-selection-title": "Select assignments to activate",
+        "membership-selection-description": "The user has multiple assignments to different institutions. Select the assignments to active entities that should be activated.",
+        "activate-selected": "Activate selected"
+      },
+      "institution-activation": {
+        "title": "Scientific institution activation",
+        "description": "Select the users whose assignments to the activated institution should be reactivated.",
+        "loading": "Fetching institution activation form data...",
+        "load-error": "Failed to fetch institution activation form data.",
+        "missing-data": "Missing data needed to display the institution activation form.",
+        "membership-selection-title": "Select user assignments to activate",
+        "membership-selection-description": "After activating the selected assignments, inactive users associated with these assignments will also be activated.",
+        "select-all": "Select all",
+        "clear-selection": "Deselect all",
+        "activate-selected": "Activate selected",
+        "user-state": "User activity"
+      },
+      "institution-membership-list": {
+        "empty": "No users assigned to the institution found for the selected criteria.",
+        "load-error": "Failed to fetch the list of assigned users.",
+        "email-placeholder": "Enter user's email",
+        "name-placeholder": "Enter user's first or last name",
+        "user-state": "User activity",
+        "confirm-membership": "Confirm account",
+        "state-change": {
+          "membership-deactivated": "Deactivation of the user's assignment to the institution has been completed.",
+          "membership-deactivated-user-deactivated": "Deactivation of the user's assignment to the institution has been completed, and the user status has also been changed to inactive.",
+          "membership-activated": "The status of the user's assignment has been changed to active.",
+          "membership-activated-user-activated": "The status of the user's assignment has been changed to active along with the user's status.",
+          "membership-confirmed": "The user's account has been confirmed. The user can now log in."
+        }
+      },
+      "active-session": {
+        "title": "Active sessions monitoring",
+        "description": "The view presents active user sessions in real-time. Information about current logins supports identifying suspicious activity and managing access to the system.",
+        "empty": "No active sessions found for the selected criteria."
+      },
+      "account-activation-log": {
+        "title": "User registration requests",
+        "description": "List of events related to processing user registration requests: account activation, waiting for confirmation, expired link, and token processing errors.",
+        "empty": "No registration requests found for the selected criteria."
+      },
+      "account-activation-log-list": {
+        "empty": "No registration requests found for the selected criteria.",
+        "load-error": "Failed to fetch the list of registration requests.",
+        "name-placeholder": "User or institution",
+        "email-placeholder": "User email",
+        "ip-address-placeholder": "IP address",
+        "user-agent-placeholder": "User agent",
+        "status-placeholder": "Status",
+        "attempted-from": "Event date from",
+        "attempted-to": "Event date to",
+        "membership": "Assignment",
+        "error": "Processing error",
+        "no-error": "No error",
+        "status": {
+          "registration-submitted": "Registration form received",
+          "success-auto-activated": "Automatically activated",
+          "success-waiting-for-confirmation": "Waiting for confirmation",
+          "failed-token-not-found": "Token does not exist",
+          "failed-token-expired": "Token expired",
+          "failed-token-already-used": "Token already used",
+          "failed-membership-not-found": "Missing assignment",
+          "failed-user-not-found": "Missing user",
+          "new-token-generated": "New token generated"
+        }
+      },
+      "password-reset-request": {
+        "title": "Password reset requests",
+        "description": "List of password reset requests containing token status, request date, IP address, device info, and the associated user account.",
+        "empty": "No password reset requests found for the selected criteria."
+      },
+      "password-reset-request-list": {
+        "empty": "No password reset requests found for the selected criteria.",
+        "load-error": "Failed to fetch the list of password reset requests.",
+        "name-placeholder": "User",
+        "email-placeholder": "User email",
+        "ip-address-placeholder": "IP address",
+        "user-agent-placeholder": "User agent",
+        "status-placeholder": "Status",
+        "requested-from": "Request date from",
+        "requested-to": "Request date to",
+        "expires-at": "Valid until",
+        "completed-at": "Completed",
+        "email-log": "Mail",
+        "error": "Error",
+        "no-error": "No error",
+        "status": {
+          "email-queued": "Mail in queue",
+          "link-clicked": "Link clicked",
+          "completed": "Password changed",
+          "expired": "Token expired",
+          "invalidated": "Invalidated",
+          "user-not-found": "Account missing",
+          "user-not-active": "Account inactive",
+          "rate-limited": "Request limit reached",
+          "failed": "Error"
+        }
+      },
+      "user-data-deletion-request": {
+        "title": "Data deletion requests",
+        "description": "List of data deletion requests containing token status, request date, IP address, device info, as well as the associated account and institutions.",
+        "empty": "No data deletion requests found for the selected criteria."
+      },
+      "user-data-deletion-request-list": {
+        "empty": "No data deletion requests found for the selected criteria.",
+        "load-error": "Failed to fetch the list of data deletion requests.",
+        "name-placeholder": "User",
+        "email-placeholder": "User email",
+        "institution-placeholder": "Institution",
+        "ip-address-placeholder": "IP address",
+        "user-agent-placeholder": "User agent",
+        "status-placeholder": "Status",
+        "requested-from": "Request date from",
+        "requested-to": "Request date to",
+        "expires-at": "Valid until",
+        "completed-at": "Completed",
+        "email-log": "Mail",
+        "error": "Error",
+        "no-error": "No error",
+        "status": {
+          "email-queued": "Mail in queue",
+          "link-clicked": "Link clicked",
+          "completed": "Data deleted",
+          "expired": "Token expired",
+          "invalidated": "Invalidated",
+          "rejected": "Rejected",
+          "failed": "Error"
+        }
+      },
+      "email-message-log": {
+        "title": "Email delivery log",
+        "description": "List of email messages registered by the system along with delivery status, message type, recipient, number of attempts, and sending errors.",
+        "empty": "No email messages found for the selected criteria."
+      },
+      "email-message-log-list": {
+        "empty": "No email mailings found for the selected criteria.",
+        "load-error": "Failed to fetch the list of email mailings.",
+        "name-placeholder": "User or institution",
+        "email-placeholder": "User email",
+        "recipient-placeholder": "Recipient",
+        "email-type-placeholder": "Message type",
+        "status-placeholder": "Status",
+        "created-from": "Creation date from",
+        "created-to": "Creation date to",
+        "attempt-count": "Attempts",
+        "sent-at": "Sent",
+        "resend": "Resend",
+        "resending": "Resending...",
+        "resend-queued": "Message resending has been requested.",
+        "resend-success": "Message resending has been requested.",
+        "resend-error": "Failed to request message resending.",
+        "email-type": {
+          "account-activation-link": "Activation link",
+          "account-activated": "Account active",
+          "account-waiting-for-confirmation": "Waiting for confirmation",
+          "activation-link-regenerated": "New activation link",
+          "password-reset-link": "Password reset link",
+          "user-data-deletion-confirmation": "Data deletion confirmation"
+        },
+        "status": {
+          "pending": "Pending",
+          "processing": "Sending",
+          "sent": "Sent",
+          "failed": "Error",
+          "retrying": "Retrying",
+          "cancelled": "Cancelled"
+        }
+      },
+      "navigation-audit-reports": {
+        "title": "Reports",
+        "description": "XLS/XLSX export for the selected calendar days in the server's report timezone (Europe/Warsaw by default). The list filters below do not affect this report. Visits are measured from the introduction of the new mechanism; their duration ends at the last recorded activity. Service entries include recorded events, including anonymous entries, rather than a count of visits or unique people.",
+        "date-from": "Date from",
+        "date-to": "Date to",
+        "type": "Report type",
+        "visits": "Login statistics (visits)",
+        "page-views": "Page view statistics",
+        "file-downloads": "XLS/XLSX download statistics",
+        "service-entries": "Service entries (XLS)",
+        "generate": "Generate report",
+        "generating": "Generating…",
+        "required-error": "Enter both valid dates and select a report type.",
+        "date-range-error": "The end date cannot precede the start date.",
+        "invalid-request": "Invalid date range or report limit exceeded. Select a shorter date range.",
+        "access-error": "You do not have permission to download the report or your session has expired.",
+        "generate-error": "Could not generate the report. Please try again.",
+        "download-error": "Could not start the file download.",
+        "completed": "Report download started."
+      },
+      "navigation-audit-event": {
+        "title": "Navigation statistics",
+        "description": "List of user navigation events on the site, covering journal view entries, page readiness, API call results, questionnaire tab clicks, and file downloads.",
+        "empty": "No navigation events found for the selected criteria."
+      },
+      "navigation-audit-visit-list": {
+        "title": "Visits",
+        "description": "Visits are separate from login sessions. A new visit starts after at least 30 minutes of inactivity. Duration covers the interval from the start to the last recorded activity. An open visit does not mean the user is online.",
+        "date-from": "Visit start from",
+        "date-to": "Visit start to",
+        "institution": "Institution",
+        "user": "User",
+        "status": "Status",
+        "end-reason": "End reason",
+        "all": "All",
+        "open": "Open",
+        "closed": "Closed",
+        "refresh": "Refresh",
+        "started-at": "Visit start",
+        "last-activity-at": "Last activity",
+        "duration": "Duration (hours:min.:sec.)",
+        "ended-at": "End",
+        "time-zone": "Time zone",
+        "empty": "No visits found for the selected criteria.",
+        "load-error": "Visits could not be loaded. Retry using Refresh.",
+        "validation-error": "Check dates, date order and filter lengths (maximum 200 characters).",
+        "institution-access": "Institutional access",
+        "anonymized-user": "Anonymized user",
+        "reason": {
+          "INACTIVITY": "Inactivity",
+          "LOGOUT": "Logout",
+          "EXPIRED": "Session expired",
+          "REVOKED": "Session revoked",
+          "ANONYMIZED": "Anonymization"
+        }
+      },
+      "navigation-audit-event-list": {
+        "applied-criteria": "Applied criteria and P1 operation result",
+        "retry": "Retry",
+        "empty": "No navigation events found for the selected criteria.",
+        "load-error": "Failed to fetch the list of navigation events.",
+        "occurred-from": "Event date from",
+        "occurred-to": "Event date to",
+        "institution-placeholder": "Institution or ID",
+        "user-placeholder": "User, email, or ID",
+        "page-placeholder": "Page",
+        "event-type-placeholder": "Event type",
+        "file": "File",
+        "action": {
+          "questionnaire-report-download": "Questionnaire report download",
+          "questionnaire-report-bulk-download": "Bulk questionnaire report download"
+        },
+        "journal-id-placeholder": "Journal ID",
+        "duration": "Duration",
+        "status-code": "HTTP",
+        "success": "Success",
+        "failure": "Error",
+        "unknown-result": "No result",
+        "route": "Route",
+        "resource": "Resource",
+        "session": "Session",
+        "view": "View",
+        "event-type": {
+          "service-entry": "Service entry",
+          "public-page-view": "Public entry",
+          "page-heartbeat": "Active view time",
+          "page-leave": "Page leave",
+          "page-visible": "Tab visible",
+          "page-hidden": "Tab hidden",
+          "journal-search": "P1 — Search",
+          "journal-filters-clear": "P1 — Clear filters",
+          "journal-search-result": "P1 — request result (not a new search)",
+          "journal-search-empty": "P1 — no results",
+          "journal-issues-click": "P1 — Journal issues and contents opened",
+          "journal-card-open": "P1 — open journal card",
+          "page-view": "Page entry",
+          "page-ready": "Page ready",
+          "api-result": "API result",
+          "file-download": "File download",
+          "questionnaire-shown": "Questionnaire shown",
+          "tab-click": "Tab click"
+        },
+        "page": {
+          "public-home": "Home page",
+          "public-registration": "General registration",
+          "public-registration-institution": "Registration in institution",
+          "public-denied": "Access denied",
+          "auth-login": "Login",
+          "auth-password-reset": "Password reset",
+          "auth-select-institutions": "Institution selection",
+          "auth-select-membership": "Role selection",
+          "system-admin-dashboard": "System operator dashboard",
+          "institution-admin-dashboard": "Institution admin dashboard",
+          "institution-user-dashboard": "Institution user dashboard",
+          "journals-list": "Journals list",
+          "journal-details": "Journal details"
+        }
+      },
+      "email-template-list": {
+        "title": "Email templates",
+        "description": "List of global email templates used by the system during registration and account activation.",
+        "refresh": "Refresh",
+        "loading": "Loading email templates...",
+        "load-error": "Failed to fetch email templates.",
+        "empty": "No email templates defined.",
+        "no-selection": "Select an email template to edit.",
+        "unknown-type": "Unknown message type",
+        "name": "Name",
+        "language": "Language",
+        "subject": "Subject",
+        "html-body": "HTML body",
+        "text-body": "Text body",
+        "save-success": "Email template has been saved.",
+        "save-error": "Failed to save the email template.",
+        "validation": {
+          "name": {
+            "required": "Name is required.",
+            "maxlength": "Name cannot exceed 128 characters."
+          },
+          "language": {
+            "required": "Language is required.",
+            "maxlength": "Language cannot exceed 16 characters."
+          },
+          "subject": {
+            "required": "Subject is required.",
+            "maxlength": "Subject cannot exceed 256 characters."
+          },
+          "html-body": {
+            "required": "HTML body is required."
+          },
+          "state": {
+            "required": "Status is required."
+          }
+        }
+      },
+      "email-template-details": {
+        "title": "Email template details",
+        "description": "This view presents the email template configuration and its appearance after rendering the HTML content.",
+        "loading": "Loading email template...",
+        "load-error": "Failed to fetch the email template.",
+        "template-type": "Message type",
+        "html-preview": "Message preview",
+        "text-body": "Text body",
+        "no-text-body": "No text body."
+      },
+      "email-template-edit": {
+        "title": "Edit email template",
+        "description": "The form allows modifying the global email template used by the system.",
+        "loading": "Loading email template...",
+        "load-error": "Failed to fetch the email template for editing.",
+        "reset": "Restore"
+      },
+      "email-type-configuration": {
+        "title": "Message types configuration",
+        "description": "The view displays the message types supported by the system and the active global template assigned to each type.",
+        "loading": "Loading message types configuration...",
+        "load-error": "Failed to fetch message types configuration.",
+        "languages": "Languages",
+        "templates": "Templates",
+        "no-active-template": "No active template",
+        "inactive-template-count": "Inactive templates",
+        "no-template": "No assigned template",
+        "default-fallback": "The system will use the default application content.",
+        "status": {
+          "configured": "Configured",
+          "inactive": "Inactive",
+          "missing": "Missing template"
+        }
+      },
+      "login-session": {
+        "title": "Login sessions log",
+        "description": "List of user login sessions containing information about login time, IP address, device, session status, and the assigned user.",
+        "empty": "No login sessions found for the selected criteria."
+      },
+      "login-session-list": {
+        "empty": "No logins found for the selected criteria.",
+        "load-error": "Failed to fetch the list of logins.",
+        "name-placeholder": "Email or institution",
+        "ip-address-placeholder": "IP address",
+        "actor-type-placeholder": "Select user type",
+        "status-placeholder": "Status",
+        "end-reason-placeholder": "Termination",
+        "started-at": "Start",
+        "last-seen-at": "Last seen",
+        "ended-at": "End",
+        "actor-type": {
+          "user": "User",
+          "institution": "Institution"
+        },
+        "status": {
+          "active": "Active",
+          "logged-out": "Logged out",
+          "expired": "Expired",
+          "revoked": "Revoked"
+        },
+        "end-reason": {
+          "logout": "Logout",
+          "expired": "Expiration",
+          "revoked": "Revocation"
+        },
+        "institution-role": {
+          "admin": "Institution administrator",
+          "user": "Institution user",
+          "viewer": "Institution observer",
+          "pending": "Awaiting activation",
+          "to-confirm": "Awaiting confirmation"
+        }
+      },
+      "dashboard-cardinality": {
+        "loading": "loading counters...",
+        "load-error": "Failed to fetch dashboard counters.",
+        "metrics": {
+          "institutions-total": "Total institutions",
+          "research-units": "Scientific institutions",
+          "users-total": "Total users",
+          "memberships": "User-institution associations",
+          "active-sessions": "Active audit sessions",
+          "sessions-today": "Logins today",
+          "sessions-last-7-days": "Logins from the last 7 days",
+          "users-multiple-institutions": "Users in multiple institutions"
+        },
+        "captions": {
+          "details": "View details",
+          "events": "View events",
+          "last-15-minutes": "Last 15 minutes"
+        }
+      },
+      "dashboard-navigation-audit-kpi": {
+        "loading": "Loading navigation KPIs...",
+        "load-error": "Failed to fetch navigation KPIs.",
+        "metrics": {
+          "users": "Navigation: users",
+          "institutions": "Navigation: institutions",
+          "sessions": "Navigation: sessions",
+          "events": "Navigation: events"
+        },
+        "captions": {
+          "events": "View events"
+        }
+      },
+      "dashboard-charts": {
+        "loading": "Loading charts...",
+        "load-error": "Failed to fetch dashboard chart data.",
+        "daily-logins-title": "Logins from Navigation Audit in the last 7 days",
+        "top-institutions-title": "Top 10 institutions by logins from Navigation Audit",
+        "logins-series": "Logins",
+        "no-data": "No data",
+        "login-count": "{{count}} logins",
+        "institution-fallback": "Institution"
+      },
+      "dashboard-session-list": {
+        "loading": "Loading 10 recent logins",
+        "title": "10 recent logins from Navigation Audit",
+        "load-error": "Failed to fetch recent logins from navigation audit.",
+        "empty": "No logins from navigation audit.",
+        "event": "Event",
+        "received": "Received",
+        "actor-type": {
+          "user": "User",
+          "institution": "Institution"
+        }
+      },
+      "institution-form": {
+        "title": {
+          "create": "New institution",
+          "edit": "Edit institution"
+        },
+        "description": "The form allows updating institution data and managing assigned IP zones and email domains used for platform access control.",
+        "loading": "Loading data...",
+        "load-error": "Failed to fetch institution data.",
+        "save-error": "Failed to save the institution.",
+        "save-success-create": "Institution has been added.",
+        "save-success-update": "Institution has been updated.",
+        "pending-draft-error": "Confirm or cancel the edited element before saving the institution.",
+        "basic-data": "Basic data",
+        "name": "Name",
+        "name-placeholder": "Enter institution name",
+        "name-help": "Provide the full name of the institution. This field is required and can have a maximum of 255 characters.",
+        "type": "Institution type",
+        "access-mode": "Access mode",
+        "contact-data": "Contact data",
+        "contact-data-placeholder": "Provide contact data for the institution",
+        "contact-data-help": "You can provide an address, phone number, contact email, or other organizational data. Maximum 4000 characters.",
+        "description-label": "Description",
+        "description-placeholder": "Briefly describe the institution",
+        "description-help": "Add a short description of the institution if needed. Maximum 4000 characters.",
+        "allow-registration": "Registration enabled",
+        "allow-other-ip": "Registration from outside defined IPs",
+        "allow-other-email-domain": "Registration from other email domains",
+        "auto-activate-new-accounts": "Automatic activation of new accounts",
+        "ip-rules": "IP rules",
+        "ip-rules-help": "IP rules restrict access to the institution to the specified addresses. IPv4 supports a single address, range, CIDR and wildcard. IPv6 supports a single address and CIDR, e.g., 2001:db8:1234::/48. The priority cannot be negative.",
+        "rule-type": "Type",
+        "rule-value": "Value",
+        "priority": "Priority",
+        "add-rule": "Add rule",
+        "rule-placeholder": "Enter a rule value, e.g., 192.168.1.10 or 2001:db8:1234::/48",
+        "priority-placeholder": "Enter priority",
+        "no-ip-rules": "No IP rules defined.",
+        "email-domains": "Email domains",
+        "email-domains-help": "Add email domains belonging to the institution, e.g., example.edu.pl. The domain is required, must be valid, and can have a maximum of 255 characters.",
+        "domain": "Domain",
+        "add-domain": "Add domain",
+        "domain-placeholder": "Enter institution domain, e.g., example.edu.pl",
+        "no-email-domains": "No email domains defined.",
+        "options": {
+          "system-operator": "System operator",
+          "research-unit": "Scientific institution",
+          "auth-required": "Login required",
+          "auth-not-required": "Login not required",
+          "single-ip": "Single IP",
+          "range": "Range",
+          "cidr": "CIDR",
+          "wildcard": "Wildcard"
+        },
+        "validation": {
+          "name": {
+            "required": "Name is required.",
+            "maxlength": "Name cannot exceed 255 characters."
+          },
+          "institutionType": {
+            "required": "Institution type is required."
+          },
+          "authMode": {
+            "required": "Access type is required."
+          },
+          "contactData": {
+            "maxlength": "Contact data cannot exceed 4000 characters."
+          },
+          "description": {
+            "maxlength": "Description cannot exceed 4000 characters."
+          },
+          "ipRule": {
+            "required": "Rule value is required.",
+            "maxlength": "Rule value cannot exceed 255 characters.",
+            "format": "Rule format does not match the selected type."
+          },
+          "priority": {
+            "required": "Priority is required.",
+            "min": "Priority must be a non-negative number."
+          },
+          "domain": {
+            "required": "Domain is required.",
+            "pattern": "Domain must be valid.",
+            "maxlength": "Domain cannot exceed 255 characters."
+          }
+        }
+      },
+      "system-tools": {
+        "title": "Import data from file",
+        "status": "Status",
+        "current-item": "Current item",
+        "load-error": "Failed to fetch import status.",
+        "start-error": "Failed to start import.",
+        "start": "Start",
+        "end": "End",
+        "errors": "Errors",
+        "journals": "Journals",
+        "run-import": "Run import",
+        "run-questionnaire-report": "Generate XLSX report",
+        "questionnaire-report-job": "Separate 2024 questionnaire report job",
+        "report-start-error": "The report generation job could not be started.",
+        "states": {
+          "running": "In progress",
+          "completed": "Completed",
+          "failed": "Error",
+          "idle": "Not started"
+        },
+        "stages": {
+          "preparing": "Preparation",
+          "delete-dictionaries": "Delete dictionaries",
+          "delete-journals": "Delete journals",
+          "dictionaries": "Loading dictionaries",
+          "index": "Recreating indexes",
+          "journals": "Loading journals",
+          "not-indexed-2024": "Reasons for non-indexing in 2024",
+          "not-indexed-2025": "Reasons for non-indexing in 2025",
+          "databases-indexed-2024": "Indexing databases update 2024",
+          "mnisw-2024": "MNiSW 2024 scores import",
+          "wos-categories-2024": "WoS categories 2024 update",
+          "wos-2022": "WoS 2022 update",
+          "wos-2023": "WoS 2023 update",
+          "scopus-categories-2024": "Scopus categories 2024 update",
+          "scopus-2022": "Scopus 2022 update",
+          "scopus-2023": "Scopus 2023 update",
+          "link-to-review-2024": "Review procedure links import 2024",
+          "kind-2024": "Journal kinds import 2024",
+          "info-review-2024": "Double-blind review procedures import 2024",
+          "cooperation-2024": "Cooperation metrics import 2024",
+          "stability-2024": "Publication stability import for 2024 questionnaires",
+          "languages-2024": "Publication languages import for 2024 questionnaires",
+          "reviewers-2024": "Reviewers import for 2024 questionnaires",
+          "directors-2024": "Scientific council members import for 2024 questionnaires",
+          "editorial-staff-2024": "Editorial staff import for 2024 questionnaires",
+          "editorial-2024": "Editorial office import for 2024 questionnaires",
+          "publisher-2024": "Publisher import for 2024 questionnaires",
+          "update-journals-from-current-questionnaire": "Update journals from current questionnaires",
+          "delete-p2-analytics": "Deleting previous P2 benchmarks",
+          "build-p2-analytics": "Generating P2 benchmarks",
+          "questionnaire-report-2024": "Generating 2024 questionnaire reports",
+          "none": "No stage"
+        },
+        "stage": "Stage",
+        "update": "Update",
+        "dictionaries": "Dictionaries",
+        "file": "File",
+        "message": "Message"
+      },
+      "email-template": {
+        "type": {
+          "account-activation-link": "Account activation link",
+          "account-activated": "Account activated",
+          "account-waiting-for-confirmation": "Account awaiting confirmation",
+          "activation-link-regenerated": "Regenerated activation link",
+          "password-reset-link": "Password reset link",
+          "user-data-deletion-confirmation": "User data deletion confirmation"
+        }
+      }
+    },
+    "auth": {
+      "login": {
+        "title": "Log in to the system",
+        "institutionContext": "You are logging in within:",
+        "email": "Email",
+        "emailPlaceholder": "Enter email address",
+        "password": "Password",
+        "passwordPlaceholder": "Enter password",
+        "forgotPassword": "Forgot password?",
+        "submit": "Log in",
+        "backHome": "Go to home page",
+        "invalidCredentials": "Invalid email or password.",
+        "failed": "Login failed.",
+        "validation": {
+          "emailRequired": "Email is required.",
+          "emailInvalid": "Provide a valid email address.",
+          "passwordRequired": "Password is required."
+        }
+      },
+      "select": {
+        "type": "Institution type",
+        "role": "Role",
+        "login": "Log in"
+      },
+      "passwordResetRequest": {
+        "title": "Password reset",
+        "description": "Provide the email address of the account you want to set a new password for.",
+        "success": "The system has accepted the request. If the account is active, a password reset link will be sent by email.",
+        "goToLogin": "Go to login",
+        "backToLogin": "Back to login",
+        "email": "Email",
+        "send": "Send password reset link",
+        "failed": "Failed to accept the password reset request.",
+        "validation": {
+          "emailRequired": "Email is required.",
+          "emailInvalid": "Provide a valid email address.",
+          "emailMaxlength": "The provided email is too long."
+        }
+      },
+      "passwordResetConfirm": {
+        "title": "Set new password",
+        "description": "Enter a new password and confirm the change.",
+        "checking": "Checking link...",
+        "success": "Password has been changed. For security reasons, active user sessions have been logged out.",
+        "newPassword": "New password",
+        "repeatPassword": "Repeat new password",
+        "submit": "Change password",
+        "newRequest": "Submit a new password reset request",
+        "invalid": "The password reset link is invalid.",
+        "expired": "The password reset link has expired. Please submit a new reset request.",
+        "used": "This password reset link has already been used.",
+        "failed": "Failed to process the password reset.",
+        "validation": {
+          "passwordRequired": "Password is required.",
+          "passwordMinlength": "Password must be at least 8 characters long.",
+          "passwordMaxlength": "Password is too long.",
+          "passwordRepeatRequired": "Repeating the password is required.",
+          "passwordRepeatMaxlength": "Password is too long.",
+          "passwordMismatch": "Passwords must match."
+        }
+      },
+      "userDataDeletionConfirm": {
+        "title": "Confirmation of data deletion",
+        "description": "Confirm account deletion and data anonymization operations.",
+        "checking": "Checking link...",
+        "success": "The account has been deleted, and data in the system logs has been anonymized.",
+        "warning": "Upon confirmation, the account will be deleted and associated data will be anonymized. This action cannot be undone.",
+        "confirm": "Confirm data deletion",
+        "invalid": "The data deletion link is invalid.",
+        "expired": "The data deletion link has expired. Please log in and try deleting data again.",
+        "used": "This data deletion link has already been used.",
+        "failed": "Failed to process data deletion."
+      }
+    },
+    "institution": {
+      "deleteMyData": {
+        "title": "Delete my data",
+        "description": "Enter your account login/email. After confirmation, the system will send a data deletion confirmation link.",
+        "success": "The system has accepted the request. A link to confirm data deletion will be sent to the account's email address.",
+        "dashboard": "Go to dashboard",
+        "email": "Login/email",
+        "emailPlaceholder": "Enter account email address",
+        "sending": "Sending...",
+        "send": "Send confirmation link",
+        "invalidAccount": "Invalid account.",
+        "failed": "Failed to accept the data deletion request.",
+        "validation": {
+          "emailRequired": "Email is required.",
+          "emailInvalid": "Provide a valid email address.",
+          "emailMaxlength": "The email address is too long."
+        }
+      },
+      "journalList": {
+        "surveyYear": "ICV year",
+        "searchYearsError": "Unable to load the available search years.",
+        "title": "Find a journal for your publication",
+        "description": "Find the right journal for your publication. Use the filters to search for journals based on their scientific scope, publication time, costs, and editorial standards.",
+        "downloadQuestionnaireReport": "Download XLSX report",
+        "downloadQuestionnaireReportError": "The XLSX report could not be downloaded.",
+        "loadError": "Failed to download the list of scientific journals.",
+        "retrySearch": "Try again",
+        "viewCard": "View journal",
+        "viewCardFor": "View card: {{title}}",
+        "resultsCount": "Results: {{count}}",
+        "mniswResultLabel": "MNiSW",
+        "pointsUnit": "pts",
+        "feesLabel": "Fees",
+        "poland": "Poland",
+        "defaultNotice": "Polish journals are displayed by default. To browse all JML journals, remove the «Poland» filter — the results will refresh automatically.",
+        "loading": "Loading journals...",
+        "journalTitle": "Journal title",
+        "issn": "ISSN",
+        "publisher": "Publisher",
+        "country": "Country",
+        "language": "Language",
+        "searchCountries": "Search countries",
+        "searchLanguages": "Search languages",
+        "noCountriesFound": "No countries found.",
+        "noLanguagesFound": "No languages found.",
+        "loadingCountries": "Loading countries...",
+        "countriesLoadError": "Failed to download countries.",
+        "loadingLanguages": "Loading languages...",
+        "languagesLoadError": "Failed to download languages.",
+        "disciplines": "JML disciplines",
+        "mainFilters": "Main filters",
+        "filtersLabel": "Filters",
+        "applyFilters": "Apply filters",
+        "unappliedChanges": "Unapplied changes",
+        "filtersApplied": "Filters applied",
+        "cancelFilters": "Close without applying changes",
+        "resultsLabel": "Journal search results",
+        "advancedFilters": "Advanced filters",
+        "processingTimesGroup": "Processing time",
+        "cooperationGroup": "International cooperation",
+        "search": "Search",
+        "clearFilters": "Clear filters",
+        "unrestricted": "Unrestricted",
+        "mniswPointsRange": "MNiSW points",
+        "searchDisciplines": "Search disciplines",
+        "noDisciplinesFound": "No disciplines found.",
+        "loadingDisciplines": "Loading disciplines...",
+        "disciplinesLoadError": "Failed to download disciplines.",
+        "indexedJournals": "Indexed journals",
+        "notIndexedJournals": "Non-indexed journals",
+        "notIndexedJournalsTooltip": "Journals that did not meet the indexation criteria",
+        "notEvaluatedJournals": "Non-evaluated journals",
+        "notEvaluatedJournalsTooltip": "Journals not submitted for evaluation",
+        "icvRange": "ICV rating",
+        "removeSelection": "Remove selection",
+        "indexationGroup": "Indexing",
+        "feeGroup": "Publication fees",
+        "feeExplanation": "Enter limits in PLN. Conversion uses the latest available NBP average exchange rates, updated daily. Results show original amounts and currencies, without adding fees together.",
+        "otherFeesFreeOnly": "No other fees",
+        "noFee": "No fee",
+        "noFees": "No fees",
+        "feePresent": "Apply",
+        "feeLimitPln": "Maximum",
+        "feeValidationError": "Enter a non-negative PLN limit without precision loss or select no fee for that category, not both conditions together.",
+        "chips": {
+          "title": "Applied filters",
+          "remove": "Remove filter {{filter}} and refresh results",
+          "pendingChanges": "Criteria changed.",
+          "noFee": "No fee",
+          "range": "{{minimum}}–{{maximum}}",
+          "minimum": "≥ {{minimum}}",
+          "maximum": "≤ {{maximum}}",
+          "units": { "days": "days", "percent": "%", "pln": "PLN" }
+        },
+        "pagination": {
+          "label": "Search result pages",
+          "summary": "Page {{page}} of {{pages}}. Results: {{total}}.",
+          "pageSize": "Records per page:",
+          "previous": "Previous page",
+          "next": "Next page",
+          "page": "Page {{page}}",
+          "jump": "Go to page",
+          "go": "Go"
+        },
+        "publicationTime": "Average publication time",
+        "daysUnit": "days",
+        "feeLabels": {
+          "OTHER": "Other fees",
+          "OPEN_ACCESS": "Open access fee",
+          "PUBLICATION": "Publication fee",
+          "RAPID_REVIEW": "Rapid review",
+          "SUBMISSION": "Submission fee"
+        },
+        "feeFilterLabels": {
+          "SUBMISSION": "Manuscript submission",
+          "PUBLICATION": "Article publication",
+          "OPEN_ACCESS": "Open Access publication",
+          "RAPID_REVIEW": "Rapid review"
+        },
+        "publicationProcessGroup": "Publication process",
+        "editorialStandardsGroup": "Editorial standards",
+        "repositories": "Indexing databases",
+        "searchValues": "Search values",
+        "loadingRepositories": "Loading databases…",
+        "repositoriesError": "Could not load databases. Selected values have been preserved.",
+        "retryRepositories": "Retry loading databases",
+        "firstIssueYear": "First issue year",
+        "frequency": "Publication frequency",
+        "reviewModels": "Review model",
+        "reviewModelLabels": {
+          "DOUBLE_BLIND_REVIEW": "Double blind review",
+          "SINGLE_BLIND_REVIEW": "Single blind review",
+          "OPEN_PEER_REVIEW": "Open peer review"
+        },
+        "aopOnly": "Ahead of print / early birds",
+        "doiOnly": "Assigns DOI identifiers to articles",
+        "editorialSystemOnly": "Uses an electronic manuscript management and publishing system",
+        "newsletterOnly": "Sends newsletters",
+        "socialMediaOnly": "Uses social media",
+        "antiPlagiarismOnly": "Uses an anti-plagiarism system",
+        "licenses": "Creative Commons licenses applied to articles",
+        "accessModels": "Access model",
+        "accessModelOa": "Open Access (OA)",
+        "accessModelHybrid": "Hybrid",
+        "accessModelClosed": "Closed (subscription)",
+        "nonFeeValidationError": "Check the selected values and year range. Years must be non-negative whole numbers and the minimum must not exceed the maximum.",
+        "mniswFilters": "MNiSW points",
+        "mniswOnly": "Only journals on the MNiSW list",
+        "mniswDisciplines": "MNiSW disciplines",
+        "loadingMniswDisciplines": "Loading MNiSW disciplines…",
+        "mniswDisciplinesLoadError": "MNiSW disciplines could not be loaded.",
+        "reloadMniswDisciplines": "Retry loading MNiSW disciplines",
+        "mniswUnrestricted": "No restriction",
+        "mniswUnavailablePoint": "not in the current point classes",
+        "retrySearchMetadata": "Try again",
+        "loadingSearchCounts": "Updating filter counts…",
+        "searchCountsError": "Filter counts could not be updated. Search results remain available.",
+        "searchCountsExplanation": "Counts reflect the other filters. Values within a group can overlap and should not be added together.",
+        "loadingSearchMetadata": "Loading filter data…",
+        "searchMetadataError": "Could not load the available filter values.",
+        "mniswRangeError": "Choose bounds from the current MNiSW point classes. The minimum must not exceed the maximum.",
+        "surveyFilters": "Processing times and percentages",
+        "reviewDays": "Review time (days)",
+        "initialAssessmentDays": "Initial assessment time (days)",
+        "publicationDays": "Publication time (days)",
+        "rejectionRate": "Rejection rate (%)",
+        "authorForeignAffiliationPercentage": "Authors with foreign affiliation (%)",
+        "reviewerForeignAffiliationPercentage": "Reviewers with foreign affiliation (%)",
+        "invalidSurveyRanges": "Enter non-negative whole-day limits and percentages from 0 to 100. The minimum must not exceed the maximum.",
+        "icvRangeError": "Enter ICV values of at least 1, with at most two decimal places.",
+        "icvRangeOrderError": "The minimum ICV must not exceed the maximum.",
+        "icvPointsRange": "ICV rating",
+        "minimumLabel": "Min:",
+        "maximumLabel": "Max:",
+        "sort": "Sorting",
+        "empty": "No journals found for the selected criteria.",
+        "publisherLabel": "Publisher:",
+        "countryLabel": "Country:",
+        "languagesLabel": "Languages:",
+        "mniswLabel": "MNiSW:",
+        "outsideMniswList": "Not included in the ministerial list",
+        "depositedPublications": "Uploaded publications",
+        "fullText": "Full text",
+        "abstract": "Abstract",
+        "keywords": "Key words",
+        "references": "References",
+        "notIndexedTooltip": "The journal did not meet the indexation criteria",
+        "notEvaluatedTooltip": "The journal was not submitted for evaluation",
+        "sortOptions": {
+          "titleAsc": "Title ascending",
+          "titleDesc": "Title descending",
+          "icvDesc": "ICV descending",
+          "icvAsc": "ICV ascending",
+          "mniswDesc": "MNiSW points descending",
+          "mniswAsc": "MNiSW points ascending",
+          "publicationDaysAsc": "Average publication time ascending",
+          "publicationDaysDesc": "Average publication time descending"
+        }
+      },
+      "journalDetails": {
+        "missingQuestionnaire": "No questionnaire for {{year}}. The journal's catalogue data is shown below.",
+        "availableQuestionnaires": "Available questionnaires from other years:",
+        "loading": "Journal loading...",
+        "loadError": "Failed to fetch journal details.",
+        "invalidId": "Invalid journal ID.",
+        "fallbackTitle": "Not specified",
+        "englishTitle": "English title",
+        "website": "www",
+        "publisher": "Publisher",
+        "country": "Country",
+        "languages": "Languages",
+        "depositedPublications": "Uploaded publications",
+        "fullText": "Full text",
+        "abstract": "Abstract",
+        "keywords": "Keywords",
+        "references": "References",
+        "descriptionTab": "Journal description",
+        "detailsTab": "Details",
+        "scientificProfileTab": "Scientific profile",
+        "editorialTab": "Editorial board",
+        "publisherTab": "Publisher",
+        "originalTitle": "Original title",
+        "shortTitle": "Short title",
+        "originCountry": "Journal country of origin",
+        "journalKind": "Journal character",
+        "printedVersion": "Printed version",
+        "electronicVersion": "Electronic version",
+        "fullContentAccess": "Full text access",
+        "mainCategory": "Main category/scientific profile",
+        "otherCategories": "Other categories",
+        "list": "List",
+        "editorInChief": "Editor-in-chief",
+        "deputyEditorInChief": "Deputy editor-in-chief",
+        "editorialSecretary": "Editorial secretary",
+        "editorialAddress": "Editorial address",
+        "affiliatedAt": "Affiliated with",
+        "currentNotEvaluated": "Not submitted for evaluation in the ICI Journals Master List in {{year}}",
+        "currentNotIndexed": "Not indexed in the ICI Journals Master List in {{year}}",
+        "currentIndexed": "Indexed in the ICI Journals Master List {{year}}",
+        "year": "Year",
+        "icvValue": "ICV rating",
+        "notIndexedLegend": "N/I - the journal did not meet the indexation criteria",
+        "notEvaluatedLegend": "N/E - the journal was not submitted for evaluation"
+      },
+      "questionnaireCharts": {
+        "loadError": "Failed to load the journal analytics data.",
+        "common": {
+          "noData": "No data"
+        },
+        "tabs": {
+          "chart": "Chart",
+          "table": "Table data"
+        },
+        "table": {
+          "series": "Series",
+          "year": "Year",
+          "value": "Value"
+        },
+        "publication": {
+          "title": "Number of scientific publications",
+          "articleScientificAmount": "Number of scientific articles",
+          "articleManuscriptReceived": "Number of manuscripts received"
+        },
+        "author": {
+          "title": "Number of unique authors",
+          "series": "Number of unique authors"
+        },
+        "reviewer": {
+          "title": "Share of foreign reviewers",
+          "series": "Share of foreign reviewers"
+        },
+        "reviewersMap": {
+          "title": "Countries of origin of the reviewers listed in the questionnaire",
+          "tooltipLabel": "Reviewers"
+        }
+      },
+      "questionnaire": {
+        "title": "Journal questionnaire",
+        "titleWithYear": "Journal questionnaire for {{year}}",
+        "descriptionText": "Detailed questionnaire data for the selected year.",
+        "surveyYear": "Survey year:",
+        "availableStatus": "Questionnaire available",
+        "unavailableStatus": "No questionnaire data",
+        "hiddenStatus": "Questionnaire is not displayed",
+        "emptyTitle": "No questionnaire data for {{year}}",
+        "emptyDescription": "No journal questionnaire data is available for the selected year.",
+        "showYear": "View questionnaire {{year}}",
+        "showQuestionnaire": "Show questionnaire",
+        "retry": "Try again",
+        "reportError": "Failed to download the questionnaire report.",
+        "detailedData": "Detailed questionnaire data",
+        "loading": "Fetching questionnaire data...",
+        "loadingShort": "Loading questionnaire...",
+        "loadError": "Failed to fetch journal questionnaire.",
+        "empty": "No current questionnaire found for this journal.",
+        "noSurveyData": "The questionnaire contains no survey data.",
+        "year": "Year",
+        "completeness": "Completeness",
+        "metadata": "Survey metadata",
+        "journal": "Journal",
+        "supplementaryData": "Additional information",
+        "publishingVersions": "Publishing versions",
+        "stability": "Stability",
+        "standards": "Standards",
+        "reviewStandards": "Review standards",
+        "forAuthors": "For authors",
+        "digitalization": "Digitalization",
+        "scientificDatabases": "Scientific databases",
+        "cooperation": "Cooperation",
+        "editorial": "Editorial board",
+        "publisher": "Publisher",
+        "description": "Description",
+        "value": "Value",
+        "element": "Element {{index}}",
+        "labels": {
+          "evaluationYear": "Evaluation year",
+          "timestamp": "Submission date",
+          "title": "Title",
+          "titleOriginal": "Original title",
+          "titleEnglish": "English title",
+          "titleShort": "Short title",
+          "issn": "ISSN",
+          "eissn": "e-ISSN",
+          "pissn": "p-ISSN",
+          "doi": "DOI",
+          "website": "Website",
+          "publisher": "Publisher",
+          "country": "Country",
+          "languages": "Languages",
+          "email": "Email",
+          "phone": "Phone",
+          "firstName": "First name",
+          "lastName": "Last name",
+          "fullName": "First and last name",
+          "year": "Year",
+          "value": "Value",
+          "content": "Content"
+        },
+        "tabs": {
+          "publishingVersions": "Publishing versions",
+          "stability": "Stability",
+          "reviewStandards": "Review standards",
+          "forAuthors": "For authors",
+          "digitalization": "Digitalization",
+          "scientificDatabases": "Scientific databases",
+          "cooperation": "Cooperation",
+          "supplementaryData": "Additional information"
+        },
+        "publishing": {
+          "onlineVersion": "Online version of the scientific journal",
+          "onlineFormats": "Online publication formats",
+          "allIssuesAvailableAt": "All issues from {{year}} available at",
+          "onlineInformation": "Information found in the online version of the journal",
+          "electronicMetadata": "Metadata attached to scientific articles published in {{year}}",
+          "aheadOfPrint": "Publishing in \"ahead of print\" / \"early birds\" mode in {{year}}",
+          "aopArticlesCount": "Number of articles published in \"ahead of print\" / \"early birds\" mode in {{year}}",
+          "printedVersion": "Printed version of the scientific journal",
+          "coverInformation": "Information found on the cover of all issues from {{year}}",
+          "circulation": "Circulation",
+          "printedMetadata": "Metadata attached to scientific articles published in {{year}}",
+          "policy": "Publishing policy of the scientific journal",
+          "versionsPolicy": "Policy regarding the publication of two versions of the scientific journal",
+          "electronicVersionsPercentage": "Percentage share of scientific articles available in full text online out of the total number of scientific articles published by the journal in {{year}}"
+        },
+        "stabilitySection": {
+          "publicationsByYear": "Number of publications by year",
+          "publicationCount": "Number of publications",
+          "scientificArticleCount": "Number of scientific articles",
+          "receivedManuscripts": "Number of received scientific manuscripts",
+          "rejectedManuscripts": "Number of rejected scientific manuscripts",
+          "publishedIssues": "Number of published issues",
+          "frequency": "Publishing frequency",
+          "otherInformation": "Other information",
+          "articlesInLanguage": "Number of articles in: {{language}}",
+          "englishTitleAndAbstract": "Articles with English title and abstract",
+          "combinedIssue": "Combined issue in a given year",
+          "publishingDelay": "Publishing delay exceeding 6 months in a given year"
+        },
+        "standardsSection": {
+          "reviewProcedure": "Review procedure",
+          "reviewModel": "Review model",
+          "internationalPolicies": "Adopted international publishing policies",
+          "appliedReviewStandards": "Review standards applied by the journal",
+          "doubleBlind": "double blind reviews",
+          "singleBlind": "single blind reviews",
+          "openPeer": "open peer (open reviews)",
+          "reviewersListPublished": "the list of reviewers is published at least once a year",
+          "minTwoReviewers": "a minimum of two independent reviewers are appointed for each scientific article",
+          "publicReviewForm": "the review form is made publicly available",
+          "publicCriteria": "qualification or rejection criteria for scientific articles are made publicly available",
+          "reviewerConflictStatement": "the journal requires reviewers to submit a declaration of no conflict of interest",
+          "writtenReview": "reviewers are required to prepare a review with a descriptive summary, containing a clear recommendation regarding the further editorial process"
+        },
+        "authors": {
+          "guidelines": "Guidelines for authors",
+          "instruction": "Instructions for authors",
+          "instructionContains": "Instructions contain",
+          "aiUsageInstructions": "guidelines on the permitted scope of AI tool use",
+          "aiUsageScope": "indication of the scope of AI tool use in preparing the article",
+          "articleStructure": "guidelines on article structure",
+          "literatureInstruction": "guidelines on reference preparation",
+          "requiredStatements": "Required statements",
+          "originalKind": "original character of the scientific article",
+          "authorContribution": "indication of individual co-authors' contributions to the creation of the scientific article",
+          "financeSource": "indication of funding sources for the research presented in the article or for the article's creation",
+          "orcidRequired": "ORCID number required",
+          "citationStyles": "Bibliographic styles in the journal",
+          "manuscriptProcessingTime": "Manuscript processing time",
+          "type": "Type",
+          "averageDays": "Average time - number of days",
+          "initialAssessment": "Initial assessment",
+          "review": "Review",
+          "publication": "Publication",
+          "onlineProcessingTime": "Online information about processing time",
+          "notProvided": "Not provided",
+          "publicationFees": "Publication fees",
+          "feeSelection": {
+            "RESOLVED": "For an author from Poland",
+            "UNRESOLVED": "Variant for an author from Poland is unresolved",
+            "INCOMPLETE": "Incomplete fee selection data",
+            "INVALID": "Fee selection requires clarification",
+            "LEGACY": "Selection information is unavailable in legacy data",
+            "source": {
+              "JOURNAL_OVERRIDE": "Administrator override",
+              "JOURNAL_COUNTRY": "Selection based on journal country"
+            }
+          },
+          "feeType": "Fee type",
+          "minAmount": "Minimum amount",
+          "maxAmount": "Maximum amount",
+          "currency": "Currency",
+          "onlinePublicationFees": "Online information about publication fees",
+          "feeGroups": {
+            "submission": "submission fee - manuscript submission",
+            "publication": "publication fee - article publication",
+            "openAccess": "Open Access publication",
+            "apc": "other APC - other processing fees",
+            "rapidReview": "rapid review - paid fast-track publication path"
+          }
+        },
+        "digitalizationSection": {
+          "website": "Scientific journal website",
+          "wwwAddress": "URL address",
+          "websiteLanguages": "Website languages",
+          "websiteInformation": "Information on the website",
+          "journalTitle": "journal title",
+          "scientificCouncil": "list of Scientific Council members",
+          "editorialData": "editorial board data",
+          "antiAbusePolicy": "anti-abuse policy",
+          "doiPrefix": "Journal DOI/publisher prefix",
+          "doiInYear": "DOI in {{year}}",
+          "tools": "Tools and systems",
+          "toolSystemLicense": "Tool/system/license",
+          "creativeCommons": "Creative Commons - licenses adopted by the journal",
+          "preservation": "Digital preservation - systems where articles are archived",
+          "socialMedia": "Social media - the journal maintains profiles on",
+          "publishingTools": "Publishing-editing system used by the editorial board",
+          "citationTools": "Bibliographic data management - tools used",
+          "antiPlagiarism": "The journal uses an anti-plagiarism system to verify manuscript originality",
+          "statistics": "The journal collects statistics regarding article views or downloads",
+          "newsletters": "Communication via newsletters"
+        },
+        "scientificDatabasesSection": {
+          "indexing": "Journal indexation in scientific databases",
+          "indexingDatabases": "Indexing databases",
+          "otherDatabases": "Other databases",
+          "indicators": "Journal metrics in Scopus and Web of Science databases",
+          "indicator": "Metric"
+        },
+        "cooperationSection": {
+          "title": "Authors, Reviewers, Members of the Scientific Council",
+          "role": "Role",
+          "uniqueResearchers": "Number of unique researchers",
+          "externalResearchersShare": "Share of external researchers (%)",
+          "foreignResearchersShare": "Share of foreign researchers (%)",
+          "authors": "Authors",
+          "reviewers": "Reviewers",
+          "directors": "Members of the Scientific Council",
+          "reviewersInYear": "Reviewers cooperating with the journal in {{year}}",
+          "directorsInYear": "Members of the journal's Scientific Council in {{year}}",
+          "fullName": "First and last name",
+          "affiliation": "Affiliation",
+          "country": "Country",
+          "email": "Email"
+        },
+        "supplementary": {
+          "journalHistory": "Journal - history",
+          "firstIssueYear": "Year of first issue",
+          "continuedYear": "The journal has operated continuously since",
+          "titleHistory": "Title - history",
+          "title": "Title",
+          "active": "Current",
+          "type": "Type",
+          "yearFrom": "Year from",
+          "yearTo": "Year to",
+          "issnHistory": "ISSN - history"
+        }
+      }
+    }
+  },
+  "common": {
+    "depositedPublicationsNewTab": "Deposited publications — Issues and contents (opens in a new tab)",
+    "yes": "Yes",
+    "no": "No",
+    "nd": "No data",
+    "back": "Back",
+    "cancel": "Cancel",
+    "clear": "Clear",
+    "filter": "Filter",
+    "details": "Details",
+    "loading": "Loading...",
+    "get-report": "Download report",
+    "serverError": "A server error occurred ({{status}}). Please try again later.",
+    "connectionError": "Cannot connect to the server. Check your connection and try again."
+  },
+  "shared": {
+    "cookieConsent": {
+      "messagePrefix": "Please note that we use \"cookies\" in accordance with the",
+      "privacyPolicy": "privacy policy",
+      "messageSuffix": "of the portal.",
+      "accept": "I accept"
+    },
+    "header": {
+      "languageVersion": "Select language version",
+      "fullscreen": "Full screen",
+      "darkMode": "Dark mode",
+      "lightMode": "Light mode",
+      "hello": "Welcome {{name}}!",
+      "changeContext": "Switch context",
+      "changeData": "Change data",
+      "changePassword": "Change password",
+      "deleteMyData": "Delete my data",
+      "logout": "Log out",
+      "register": "Register",
+      "login": "Log in"
+    },
+    "footer": {
+      "legalInfo": "Legal information",
+      "terms": "Terms of use",
+      "privacyPolicy": "Privacy policy",
+      "assessmentMethodology": "Evaluation methodology",
+      "indexingProcedure": "Indexation procedure",
+      "indexCopernicusApps": "Index Copernicus services",
+      "worldOfJournals": "ICI World of Journals",
+      "contact": "Contact"
+    },
+    "denied": {
+      "title": "Forbidden",
+      "heading": "You do not have access to this page.",
+      "description": "Check that you are logged in to the correct account, or return to the home page.",
+      "backHome": "Go to home page"
+    }
+  },
+  "journal": {
+    "dictionary": {
+      "common": {
+        "scan": "Scan",
+        "other": "Other",
+        "otherPlural": "Other",
+        "none": "None",
+        "year": "Year",
+        "volume": "Volume",
+        "number": "Number/Issue",
+        "month": "Month",
+        "other-plural": "Other"
+      },
+      "current-reason-not-indexing": {
+        "dec01": "The journal did not provide the required review documents for verification.",
+        "dec02": "The journal did not provide the required issues for verification.",
+        "dec03": "The journal was not operating during the year under evaluation.",
+        "dec04": "The journal did not meet the initial indexation criteria - no active website.",
+        "dec05": "The journal did not meet the initial indexation criteria - no published review procedure.",
+        "dec06": "The journal did not meet the initial indexation criteria - the required minimum number of scientific articles was not published during the year under evaluation.",
+        "dec07": "The journal did not meet the initial indexation criteria - the journal was not operating for the entire year under evaluation.",
+        "dec08": "The journal displays false bibliometric indicators on its website.",
+        "dec09": "False information was provided in the evaluation questionnaire (Scientific databases).",
+        "dec10": "False information was provided in the evaluation questionnaire (Digitalization).",
+        "dec11": "False information was provided in the evaluation questionnaire (Cooperation).",
+        "dec12": "False information was provided in the evaluation questionnaire (Publishing versions)."
+      },
+      "kind": {
+        "scientific": "Scientific journal",
+        "other": "Non-scientific journal",
+        "popularScience": "Popular science journal",
+        "popular-science": "Popular science journal"
+      },
+      "title": {
+        "citation": "Citation title",
+        "original": "Original title",
+        "english": "English title",
+        "short": "Short title"
+      },
+      "paidType": {
+        "freeArticles": "All articles are available free of charge",
+        "allArticlesPaid": "All articles are available for a fee",
+        "paidArticles": "Selected articles are available free of charge"
+      },
+      "issnType": {
+        "print": "Printed ISSN",
+        "electronic": "Electronic ISSN"
+      },
+      "publishing": {
+        "versionInformation": {
+          "volumeNumberIssueMonth": "Volume, number, issue and month"
+        },
+        "policy": {
+          "extendedElectronicVersions": "The electronic version is extended",
+          "sameArticles": "Same articles in both versions",
+          "sameArticlesAndOthers": "Same articles and other materials",
+          "printedMoreThanElectronic": "The printed version contains more articles than the electronic one",
+          "electronicMoreThanPrinted": "The electronic version contains more articles than the printed one",
+          "extended-electronic-versions": "The electronic version is extended",
+          "same-articles": "Same articles in both versions",
+          "same-articles-and-others": "Same articles and other materials",
+          "printed-more-than-electronic": "The printed version contains more articles than the electronic one",
+          "electronic-more-than-printed": "The electronic version contains more articles than the printed one"
+        },
+        "version-information": {
+          "volume-number-issue-month": "Volume, number, issue and month"
+        }
+      },
+      "articleMetadata": {
+        "nationalKeywords": "Keywords in the original language",
+        "englishKeywords": "Keywords in English",
+        "authorAffiliation": "Author affiliation",
+        "sendDate": "Date of article submission to the editorial board",
+        "acceptedDate": "Date of article acceptance by the editorial board",
+        "authorStatement": "Author's statement on funding sources for research presented in the scientific article or for the creation of the scientific article",
+        "sendDateShort": "Submission date",
+        "acceptedDateShort": "Acceptance date",
+        "authorStatementShort": "Author statement"
+      },
+      "month": {
+        "decYearBefore": "December of the previous year",
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December",
+        "janNextYear": "January of the following year",
+        "dec-year-before": "December of the previous year",
+        "jan-next-year": "January of the following year"
+      },
+      "frequency": {
+        "biweekly": "Biweekly",
+        "bimonthly": "Bimonthly",
+        "semiannual": "Semiannual",
+        "irregular": "Irregular",
+        "weekly": "Weekly",
+        "quarterly": "Quarterly",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "continuous": "Continuous update",
+        "threeTimesYear": "3 issues per year",
+        "three-times-year": "3 issues per year"
+      },
+      "standards": {
+        "authorInstructions": {
+          "articleStructure": "Instructions regarding article structure",
+          "literatureInstruction": "Instructions regarding reference preparation",
+          "noInstruction": "No instructions"
+        },
+        "statements": {
+          "conflict": "Conflict of interest",
+          "financeSource": "Indication of funding sources for research presented in the article or for the creation of the article",
+          "authorContribution": "Indication of individual co-authors' contributions to the creation of the scientific article",
+          "originalKind": "Original nature of the scientific article",
+          "finance-source": "Indication of funding sources for research presented in the article or for the creation of the article",
+          "author-contribution": "Indication of individual co-authors' contributions to the creation of the scientific article",
+          "original-kind": "Original nature of the scientific article",
+          "ai-usage-scope": "Statement on the scope of AI tool use in preparing the article"
+        },
+        "reviewRules": {
+          "publishedReviewersList": "The list of reviewers is published at least once a year",
+          "min2Reviewers": "A minimum of two independent reviewers are appointed for each scientific article",
+          "reviewerStatement": "The journal requires reviewers to submit a declaration of no conflict of interest",
+          "prepareReview": "Reviewers are required to prepare a review with a descriptive summary, containing a clear recommendation regarding the further editorial process",
+          "publicForm": "The review form is made publicly available",
+          "publicCriteria": "Qualification or rejection criteria for scientific articles are made publicly available"
+        },
+        "author-instructions": {
+          "article-structure": "Instructions regarding article structure",
+          "literature-instruction": "Instructions regarding reference preparation",
+          "no-instruction": "No instructions",
+          "ai-usage-instructions": "Instructions specifying the permitted scope of AI use"
+        },
+        "review-rules": {
+          "published-reviewers-list": "The list of reviewers is published at least once a year",
+          "min-2-reviewers": "A minimum of two independent reviewers are appointed for each scientific article",
+          "reviewer-statement": "The journal requires reviewers to submit a declaration of no conflict of interest",
+          "prepare-review": "Reviewers are required to prepare a review with a descriptive summary, containing a clear recommendation regarding the further editorial process",
+          "public-form": "The review form is made publicly available",
+          "public-criteria": "Qualification or rejection criteria for scientific articles are made publicly available"
+        }
+      },
+      "authorsFee": {
+        "noFee": "No fee",
+        "oneFee": "One fee",
+        "countrySpecificFee": "Fee dependent on country",
+        "variousFee": "Various fees"
+      },
+      "digitalization": {
+        "editorialTools": {
+          "antiPlagiarismSystem": "Anti-plagiarism system",
+          "editorialSystem": "Editorial system",
+          "manuscriptSystem": "Manuscript management system",
+          "exportTools": "Export tools",
+          "statistics": "Statistics",
+          "newsletters": "Newsletters"
+        },
+        "articleLicense": {
+          "authorPreference": "According to author's preference"
+        },
+        "doiType": {
+          "all": "All articles",
+          "part": "Selected articles"
+        },
+        "editorial-tools": {
+          "anti-plagiarism-system": "Anti-plagiarism system",
+          "editorial-system": "Editorial system",
+          "manuscript-system": "Manuscript management system",
+          "export-tools": "Export tools"
+        },
+        "article-license": {
+          "author-preference": "According to author's preference"
+        },
+        "doi-type": {
+          "all": "All articles",
+          "part": "Selected articles"
+        },
+        "publishing-tools": {
+          "amsys": "Article Management System",
+          "dru": "Drupal",
+          "jmsys": "e-Journal Management System",
+          "emana": "Editorial Manager",
+          "edsys": "Editorial System",
+          "ejour": "eJournals",
+          "elsev": "Elsevier",
+          "ici": "ICI Publishers Panel",
+          "jooml": "Joomla",
+          "jousys": "Journals System",
+          "lodel": "LODEL",
+          "ojs": "Open Journal System (OJS)",
+          "wordpress": "WordPress"
+        }
+      },
+      "paid-type": {
+        "free-articles": "Access to all scientific articles is free of charge",
+        "all-articles-paid": "Access to all scientific articles is paid",
+        "paid-articles": "Access to selected scientific articles is free of charge"
+      },
+      "issn-type": {
+        "print": "Printed ISSN",
+        "electronic": "Electronic ISSN"
+      },
+      "article-metadata": {
+        "publication-date": "Article publication date",
+        "conflict-of-interest": "Conflict of interest information",
+        "sharing-policy": "Sharing policy",
+        "national-keywords": "Keywords in the original language",
+        "english-keywords": "Keywords in English",
+        "author-affiliation": "Author affiliation",
+        "send-date": "Date of article submission to the editorial board",
+        "accepted-date": "Date of article acceptance by the editorial board",
+        "author-statement": "Author's statement on funding sources for research presented in the scientific article or for the creation of the scientific article",
+        "send-date-short": "Submission date",
+        "accepted-date-short": "Acceptance date",
+        "author-statement-short": "Author statement"
+      },
+      "authors-fee": {
+        "no-fee": "No fee",
+        "one-fee": "Same fee",
+        "country-specific-fee": "Various fees depending on the country",
+        "various-fee": "Various fees",
+        "detail-description": {
+          "for-all": "For all authors",
+          "internal-authors": "For internal authors",
+          "external-authors": "For external authors"
+        }
+      }
+    }
+  },
+  "decisionCard": {
+    "audit": {
+      "eventType": "Decision card action (P2)",
+      "context": "Decision card context",
+      "description": "Expand journal description",
+      "open": "Card opened",
+      "history": "ICV history expanded",
+      "indexing": "Indexing list expanded",
+      "wos": "WoS categories expanded",
+      "scopus": "Scopus categories expanded",
+      "fullData": "Full JML data opened",
+      "time": "Time section expanded",
+      "costs": "Costs section expanded",
+      "standards": "Standards section expanded",
+      "process": "Process section expanded",
+      "international": "Internationalisation section expanded",
+      "website": "Journal website opened",
+      "issues": "Journal issues and contents opened"
+    },
+    "open": "Decision card",
+    "benchmarkDiscipline": "Benchmarks calculated against {{discipline}} (ICI JML)",
+    "title": "Publication decision card",
+    "navigation": "Decision card navigation",
+    "back": "Back to results",
+    "fullData": "Full JML data",
+    "issues": "Issues and contents",
+    "issuesNewTab": "Issues and contents — opens in a new tab",
+    "issuesUnavailable": "Issues and contents — link is currently unavailable",
+    "yearLabel": "Data year:",
+    "englishTitle": "English title",
+    "publisher": "Publisher",
+    "country": "Country",
+    "languages": "Languages",
+    "less": "Show less",
+    "publications": "Deposited publications",
+    "moreAboutJournal": "More about the journal",
+    "preview": {
+      "review": "Review {{duration}}",
+      "typical": "typically {{duration}}",
+      "oneFeeCategory": "One fee category",
+      "feeCategories": "{{count}} fee categories",
+      "fiveFeeCategories": "5 fee categories",
+      "rejection": "{{value}} rejection rate"
+    },
+    "summary": {
+      "mnisw": "MNiSW points",
+        "process": "Publication process",
+      "fees": "Author fees",
+      "feeCategories": {
+        "SUBMISSION": "Submission fee",
+        "PUBLICATION": "Publication fee (APC)",
+        "OPEN_ACCESS": "Open access fee",
+        "RAPID_REVIEW": "Rapid review fee",
+        "OTHER": "Other fees"
+      },
+      "domesticAuthors": "Domestic authors",
+      "foreignAuthors": "Foreign authors",
+      "noFees": "No fees",
+      "incompleteFees": "Some fees could not be determined.",
+      "typicalTime": "Typical in the group: {{duration}}"
+    },
+    "fullText": "Full text",
+    "abstracts": "Abstracts",
+    "keywords": "Keywords",
+    "references": "References",
+    "reference": "MNiSW, ICV, indexing and scientific profile",
+    "icv": "ICV indicator",
+    "icvComparison": {
+      "lower": "Lower ICV: {{percent}} of journals",
+      "equal": "Identical ICV: {{percent}}",
+      "allEqual": "ICV identical to 100% of journals in the comparison group"
+    },
+    "time": {
+      "initialAssessment": "Average initial assessment time",
+      "review": "Average review time",
+      "publication": "Average publication time",
+      "days": "{{value}} days",
+      "day": "{{value}} day",
+      "typical": "Typical time in the group:",
+      "chart": {
+        "below": "Journal time: {{value}} days — below the typical group range: {{range}} days",
+        "within": "Journal time: {{value}} days — within the typical group range: {{range}} days",
+        "above": "Journal time: {{value}} days — above the typical group range: {{range}} days"
+      }
+    },
+    "yes": "Yes",
+    "no": "No",
+    "process": {
+      "since": "Published since",
+      "frequency": "Publication frequency",
+      "rejection": "Rejection rate",
+      "regularity": "Publication regularity",
+      "continuous": "{{first}} (continuously)",
+      "restarted": "{{first}} (continuously since {{continued}})",
+      "firstOnly": "{{first}} (continuous publication year not provided)",
+      "continuedOnly": "Continuously since {{continued}} (first issue year not provided)",
+      "typicalRejection": "(typical rate in the group: {{value}})",
+      "delayed": "Delays > 6 months",
+      "regular": "No delays exceeding 6 months"
+    },
+    "international": {
+      "authors": "Authors with foreign affiliation",
+      "reviewers": "Reviewers with foreign affiliation",
+      "scientificCouncil": "Scientific Council with foreign affiliation",
+      "median": "Median in the group: {{value}}",
+      "chart": "Own share: {{own}}; group median: {{median}}; scale 0–100%"
+    },
+    "standards": {
+      "labels": {
+        "antiPlagiarism": "Anti-plagiarism system",
+        "publicCriteria": "Public disclosure of criteria for accepting or rejecting articles",
+        "editorialSystem": "Electronic publishing and editorial system",
+        "reviewing": "Peer review model",
+        "access": "Access model",
+        "licence": "Creative Commons licences",
+        "socialMedia": "Social media"
+      },
+      "declaration": {
+        "INDICATED": "Yes — use declared",
+        "NONE": "Declared: none of the above",
+        "NOT_INDICATED": "This tool was not indicated"
+      },
+      "publicIndicated": "Yes — public disclosure declared",
+      "publicNotIndicated": "Public disclosure of criteria was not indicated",
+      "noDeclaration": "No declaration",
+      "invalid": "Invalid declaration",
+      "noSelection": "No selection",
+      "noneSelected": "None of the above",
+      "shareMissing": "share not provided",
+      "shareInvalid": "invalid share",
+      "invalidReview": "Inconsistent peer review declarations",
+      "models": {
+        "DOUBLE_BLIND_REVIEW": "Double blind",
+        "SINGLE_BLIND_REVIEW": "Single blind",
+        "OPEN_PEER_REVIEW": "Open peer review"
+      },
+      "access": {
+        "FREE_ARTICLES": "Free access to all scientific articles",
+        "ALL_ARTICLES_PAID": "Paid access to all scientific articles",
+        "PAID_ARTICLES": "Partially paid access — selected articles are paid, the others are free"
+      },
+      "conditions": {
+        "date": "Depends on publication date",
+        "article": "Depends on the specific article",
+        "language": "Depends on the language version",
+        "other": "Other condition: {{value}}"
+      },
+      "conditionsMissing": "Access conditions not provided",
+      "conditionsInvalid": "Invalid access conditions",
+      "noCC": "Does not publish under Creative Commons licences",
+      "authorPreference": "Publishing under CC according to the author's preference",
+      "noSocial": "Does not use social media",
+      "channelsMissing": "Uses social media — channels not provided",
+      "otherSocial": "Other: {{value}}"
+    },
+    "fees": {
+      "categories": {
+        "SUBMISSION": "Submission fee",
+        "PUBLICATION": "Publication fee",
+        "OPEN_ACCESS": "Open access fee",
+        "RAPID_REVIEW": "Rapid review",
+        "OTHER": "Other APC"
+      },
+      "values": {
+        "noFee": "None",
+        "present": "Present",
+        "unavailable": "The fee cannot be determined",
+        "multipleCurrencies": "Different rates and currencies",
+        "domestic": "Domestic",
+        "foreign": "Foreign"
+      },
+      "explanation": "Percentage of journals charging this fee in the comparison group.",
+      "comparison": "{{percent}} of other journals charge this fee"
+    },
+    "indexing": "Indexing",
+    "scientificProfile": "Scientific profile",
+    "mnisw": "MNiSW points {{year}}",
+    "points": "{{points}} pts",
+    "unlisted": "Not listed",
+    "mniswDisciplines": "MNiSW disciplines",
+    "history": "ICV history",
+    "mainGroup": "JML scientific profile / reference group",
+    "mainDiscipline": "JML scientific profile",
+    "noData": "No data",
+    "partialData": "Incomplete data",
+    "moreCount": "+{{count}} more",
+    "categories": {
+      "wos": "Web of Science categories",
+      "scopus": "Scopus categories"
+    },
+    "loadError": "The decision card could not be loaded.",
+    "retry": "Try again",
+    "sections": {
+      "time": "Publication time",
+      "costs": "Author fees",
+      "process": "Publication process",
+      "international": "Internationalisation",
+      "standards": "Editorial standards"
+    },
+    "status": {
+      "DATA_UPDATING": "Data for {{year}} is being updated. Annual decision card data is temporarily unavailable.",
+      "DATA_NOT_READY": "Annual decision card data for {{year}} has not yet been prepared for publication.",
+      "MISSING_SURVEY": "No questionnaire for {{year}}.",
+      "NOT_EVALUATED": "No published questionnaire evaluation for {{year}}.",
+      "NOT_INDEXED": "The journal is not indexed in {{year}}. Annual card data is unavailable.",
+      "UNAVAILABLE": "The data for {{year}} cannot be determined unambiguously."
+    }
+  }
+}

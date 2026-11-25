@@ -1,0 +1,152 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  task:
+    execution:
+      mode: force
+  messages:
+    basename: i18n/survey-report
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  datasource:
+    url: jdbc:h2:mem:jmlwmb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+  flyway:
+    enabled: ${SPRING_FLYWAY_ENABLED:false}
+    locations: classpath:db/migration
+  mail:
+    host: ${SPRING_MAIL_HOST:localhost}
+    port: ${SPRING_MAIL_PORT:25}
+    username: ${SPRING_MAIL_USERNAME:}
+    password: ${SPRING_MAIL_PASSWORD:}
+    properties:
+      mail:
+        host: ${APP_MAIL_MESSAGE_ID_DOMAIN:localhost}
+        smtp:
+          localhost: ${APP_MAIL_MESSAGE_ID_DOMAIN:localhost}
+          auth: ${SPRING_MAIL_SMTP_AUTH:false}
+          starttls:
+            enable: ${SPRING_MAIL_SMTP_STARTTLS_ENABLE:false}
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+  default-produces-media-type: application/json
+app:
+  operating-profile:
+    default: ${APP_OPERATING_PROFILE_DEFAULT:BOTH}
+  decision-card:
+    enabled: ${APP_DECISION_CARD_ENABLED:true}
+    benchmarks-visible: ${APP_DECISION_CARD_BENCHMARKS_VISIBLE:true}
+  journal:
+    issues-url-template: ${APP_JOURNAL_ISSUES_URL_TEMPLATE:https://journals.indexcopernicus.com/search/journal/issue?issueId=all&journalId={journalId}}
+  exchange-rates:
+    enabled: ${APP_EXCHANGE_RATES_ENABLED:true}
+    initial-delay: ${APP_EXCHANGE_RATES_INITIAL_DELAY:10s}
+    base-url: ${APP_EXCHANGE_RATES_BASE_URL:https://api.nbp.pl/api/}
+    cron: ${APP_EXCHANGE_RATES_CRON:0 15 15 * * *}
+    connect-timeout: ${APP_EXCHANGE_RATES_CONNECT_TIMEOUT:5s}
+    read-timeout: ${APP_EXCHANGE_RATES_READ_TIMEOUT:10s}
+    max-attempts: ${APP_EXCHANGE_RATES_MAX_ATTEMPTS:3}
+  web:
+    # Lista adresow zaufanych reverse proxy. Naglowki X-Forwarded-* sa ignorowane dla innych nadawcow.
+    trusted-proxies: ${APP_WEB_TRUSTED_PROXIES:}
+  questionnaire:
+    detailed-section-enabled: ${APP_QUESTIONNAIRE_DETAILED_SECTION_ENABLED:false}
+  cover-path: http://localhost:8080/images/cover
+  cover-source: /docker-data/wbn/images/wbn-cover
+  json-source: /docker-data/wbn/wbn-json
+  json-dictionary: /docker-data/wbn/wbn-dictionary
+  wos-2022-path: /docker-data/wbn/updatesets/wos2022.xlsx
+  wos-2023-path: /docker-data/wbn/updatesets/wos2023.xlsx
+  scopus-2022-path: /docker-data/wbn/updatesets/scopus2022.xlsx
+  scopus-2023-path: /docker-data/wbn/updatesets/scopus2023.xlsx
+  wos-category-2024-path: /docker-data/wbn/updatesets/category-wos-2024.xlsx
+  scopus-category-2024-path: /docker-data/wbn/updatesets/category-scopus-2024.xlsx
+  not-indexed-2024: /docker-data/wbn/updatesets/not-indexed-2024.xlsx
+  not-indexed-2025: /docker-data/wbn/updatesets/not-indexed-2025.xlsx
+  database-indexed-2024: /docker-data/wbn/updatesets/databases-indexed-2024.xlsx
+  mnisw-2024: /docker-data/wbn/updatesets/mnisw-2024-import.xls
+  link-to-review-2024: /docker-data/wbn/updatesets/link_to_review_procedure-2024.xlsx
+  kind-2024: /docker-data/wbn/updatesets/kind-2024.xlsx
+  info-review-2024: /docker-data/wbn/updatesets/info_review_procedure-2024.xlsx
+  cooperation-2024: /docker-data/wbn/updatesets/2024-cooperation.xlsx
+  stability-2024: /docker-data/wbn/updatesets/2024-stability.xlsx
+  languages-2024: /docker-data/wbn/updatesets/2024-languages.xlsx
+  reviewers-2024: /docker-data/wbn/updatesets/2024_reviewers.xlsx
+  directors-2024: /docker-data/wbn/updatesets/2024_directors.xlsx
+  editorial-staff-2024: /docker-data/wbn/updatesets/2024-editorial-staff.xlsx
+  editorial-2024: /docker-data/wbn/updatesets/2024_editorial-address.xlsx
+  publisher-2024: /docker-data/wbn/updatesets/2024_publisher.xlsx
+  outpux-questionaris-xls: /docker-data/wbn/todownload/questionaris-2024-xls-pl.xlsx
+  outpux-questionaris-xls-en: /docker-data/wbn/todownload/questionaris-2024-xls-en.xlsx
+  registration:
+    activation-token-validity-days: ${APP_REGISTRATION_ACTIVATION_TOKEN_VALIDITY_DAYS:7}
+    activation-url-template: ${APP_REGISTRATION_ACTIVATION_URL_TEMPLATE:http://localhost:4201/registration/activation/{token}}
+  password-reset:
+    token-validity-minutes: ${APP_PASSWORD_RESET_TOKEN_VALIDITY_MINUTES:60}
+    url-template: ${APP_PASSWORD_RESET_URL_TEMPLATE:http://localhost:4201/auth/password-reset/confirm/{token}}
+    rate-limit-window-minutes: ${APP_PASSWORD_RESET_RATE_LIMIT_WINDOW_MINUTES:15}
+    rate-limit-max-requests: ${APP_PASSWORD_RESET_RATE_LIMIT_MAX_REQUESTS:3}
+  user-data-deletion:
+    url-template: ${APP_USER_DATA_DELETION_URL_TEMPLATE:http://localhost:4201/auth/delete-my-data/confirm/{token}}
+  institution-deletion:
+    confirmation-validity-minutes: ${APP_INSTITUTION_DELETION_CONFIRMATION_VALIDITY_MINUTES:5}
+  survey-report:
+    templates:
+      2024:
+        pl: template/questionaris-2024-xls-pl.xlsx
+        en: template/questionaris-2024-xls-en.xlsx
+  navigation-audit:
+    enabled: ${APP_NAVIGATION_AUDIT_ENABLED:true}
+    journal-search-retention:
+      enabled: ${APP_NAVIGATION_AUDIT_JOURNAL_SEARCH_RETENTION_ENABLED:true}
+      days: ${APP_NAVIGATION_AUDIT_JOURNAL_SEARCH_RETENTION_DAYS:365}
+      batch-size: ${APP_NAVIGATION_AUDIT_JOURNAL_SEARCH_RETENTION_BATCH_SIZE:5000}
+      cron: ${APP_NAVIGATION_AUDIT_JOURNAL_SEARCH_RETENTION_CRON:0 30 * * * *}
+    visits:
+      idle-minutes: ${APP_NAVIGATION_AUDIT_VISITS_IDLE_MINUTES:30}
+      scan-delay-ms: ${APP_NAVIGATION_AUDIT_VISITS_SCAN_DELAY_MS:60000}
+    reports:
+      zone: ${APP_NAVIGATION_AUDIT_REPORTS_ZONE:Europe/Warsaw}
+      max-days: ${APP_NAVIGATION_AUDIT_REPORTS_MAX_DAYS:366}
+      max-rows: ${APP_NAVIGATION_AUDIT_REPORTS_MAX_ROWS:100000}
+  migration:
+    p2-benchmark-years: ${APP_MIGRATION_P2_BENCHMARK_YEARS:2024}
+    journal-events:
+      parallelism: ${APP_MIGRATION_JOURNAL_EVENT_PARALLELISM:4}
+      queue-capacity: ${APP_MIGRATION_JOURNAL_EVENT_QUEUE_CAPACITY:100}
+      await-timeout: ${APP_MIGRATION_JOURNAL_EVENT_AWAIT_TIMEOUT:10m}
+  mail:
+    enabled: ${APP_MAIL_ENABLED:false}
+    from: ${APP_MAIL_FROM:no-reply@localhost}
+    template-language: ${APP_MAIL_TEMPLATE_LANGUAGE:pl}
+    retry:
+      enabled: ${APP_MAIL_RETRY_ENABLED:true}
+      max-attempts: ${APP_MAIL_RETRY_MAX_ATTEMPTS:3}
+      delay-ms: ${APP_MAIL_RETRY_DELAY_MS:0}
+  cors:
+    allowed-origins: "${APP_CORS_ALLOWED_ORIGINS:http://localhost:4200,http://localhost:4201,http://127.0.0.1:4200,http://127.0.0.1:4201}"
+  security:
+    cookie:
+      # prod: true (cookie tylko po HTTPS)
+      secure: ${APP_COOKIE_SECURE:false}
+      # jeśli frontend/backend na różnych originach w prod, rozważ: None (wtedy secure musi być true)
+      same-site: ${APP_COOKIE_SAMESITE:Lax}
+    jwt:
+      issuer: "spring-angular-security"
+      access-ttl-minutes: 10
+      refresh-ttl-days: 14
+      pre-auth-ttl-minutes: 5
+      secret: ${APP_JWT_SECRET:}
+    sessions:
+      last-seen-throttle-seconds: ${APP_SECURITY_SESSIONS_LAST_SEEN_THROTTLE_SECONDS:60}
+
+

@@ -1,0 +1,47 @@
+<dl class="mb-0">
+  <div class="decision-field" data-process-field="since">
+    <dt>{{ 'decisionCard.process.since' | transloco }}</dt>
+    <dd>{{ since() }}</dd>
+  </div>
+  <div class="decision-field" data-process-field="frequency">
+    <dt>{{ 'decisionCard.process.frequency' | transloco }}</dt>
+    <dd>{{ frequency() }}</dd>
+  </div>
+  <div class="decision-field" data-process-field="aheadOfPrint">
+    <dt>Ahead of print / early birds</dt>
+    <dd>
+      {{
+        (aheadOfPrint() == null
+          ? 'decisionCard.noData'
+          : aheadOfPrint()
+            ? 'decisionCard.yes'
+            : 'decisionCard.no'
+        ) | transloco
+      }}
+    </dd>
+  </div>
+  <div class="decision-field" data-process-field="rejection">
+    <dt>{{ 'decisionCard.process.rejection' | transloco }}</dt>
+    <dd>
+      {{ rejection() ?? ('decisionCard.noData' | transloco) }}
+      @if (typicalRejection(); as typical) {
+        <span class="small" data-testid="decision-rejection-benchmark">{{
+          'decisionCard.process.typicalRejection' | transloco: { value: typical }
+        }}</span>
+      }
+    </dd>
+  </div>
+  <div class="decision-field" data-process-field="regularity">
+    <dt>{{ 'decisionCard.process.regularity' | transloco }}</dt>
+    <dd>
+      {{
+        (publishingBreak() == null
+          ? 'decisionCard.noData'
+          : publishingBreak()
+            ? 'decisionCard.process.delayed'
+            : 'decisionCard.process.regular'
+        ) | transloco
+      }}
+    </dd>
+  </div>
+</dl>

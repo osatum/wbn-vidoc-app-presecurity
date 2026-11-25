@@ -1,0 +1,146 @@
+<div class="row mt-3 mb-2">
+  <div class="col-12">
+    <h5 class="header-item-custom">{{ 'page.institution.questionnaire.supplementary.journalHistory' | transloco }}</h5>
+  </div>
+</div>
+
+<div class="row mb-3 description-custom">
+  <app-questionnaire-description-item [label]="'page.institution.questionnaire.supplementary.firstIssueYear' | transloco">
+    {{ journalNameService.formatText(stability?.firstIssueYear) }}
+  </app-questionnaire-description-item>
+  <app-questionnaire-description-item [label]="'page.institution.questionnaire.supplementary.continuedYear' | transloco">
+    {{ journalNameService.formatText(stability?.continuedYear) }}
+  </app-questionnaire-description-item>
+</div>
+<div class="row mb-3">
+  <div class="col-12">
+
+    <h5 class="header-item-custom mb-4">{{ 'page.institution.questionnaire.supplementary.titleHistory' | transloco }}</h5>
+    @if (journal !== undefined) {
+      @if (journal.titles !== undefined) {
+        <div class="border rounded overflow-hidden">
+          <div class="row g-0 bg-light header-custom d-none d-md-flex">
+            <div class="col-md-3 p-2 border-end">
+              {{ 'page.institution.questionnaire.supplementary.title' | transloco }}
+            </div>
+            <div class="col-md-2 p-2 border-end">
+              {{ 'page.institution.questionnaire.supplementary.active' | transloco }}
+            </div>
+            <div class="col-md-3 p-2 border-end">
+              {{ 'page.institution.questionnaire.supplementary.type' | transloco }}
+            </div>
+            <div class="col-md-2 p-2 border-end">
+              {{ 'page.institution.questionnaire.supplementary.yearFrom' | transloco }}
+            </div>
+            <div class="col-md-2 p-2">
+              {{ 'page.institution.questionnaire.supplementary.yearTo' | transloco }}
+            </div>
+          </div>
+
+          @for (item of journal.titles; track $index; let index = $index) {
+            <div class="row g-0 border-top"  [class.bg-light-subtle]="index % 2 === 1">
+              <div class="col-12 col-md-3 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.title' | transloco }}:
+                </span>
+                {{ journalNameService.formatText(item.title) }}
+              </div>
+              <div class="col-12 col-md-2 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.active' | transloco }}:
+                </span>
+                {{ journalNameService.formatBoolean(item.active) }}
+              </div>
+              <div class="col-12 col-md-3 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.type' | transloco }}:
+                </span>
+                {{ journalNameService.getJournalDictionaryItem(item.titleType) || '-' }}
+              </div>
+              <div class="col-12 col-md-2 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.yearFrom' | transloco }}:
+                </span>
+                {{ journalNameService.formatText(item.yearFrom) }}
+              </div>
+              <div class="col-12 col-md-2 value-custom p-2">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.yearTo' | transloco }}:
+                </span>
+                {{ journalNameService.formatText(item.yearTo) }}
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+
+  </div>
+
+</div>
+<div class="row mb-4">
+  <div class="col-12">
+
+
+    <h5 class="header-item-custom mb-3">{{ 'page.institution.questionnaire.supplementary.issnHistory' | transloco }}</h5>
+    @if (journal?.issns; as issns) {
+      @if (issns.length > 0) {
+
+        <div class="border rounded overflow-hidden">
+          <div class="row g-0 bg-light header-custom d-none d-md-flex">
+            <div class="col-md-3 p-2 border-end">
+              ISSN
+            </div>
+            <div class="col-md-2 p-2 border-end">
+              {{ 'page.institution.questionnaire.supplementary.active' | transloco }}
+            </div>
+            <div class="col-md-3 p-2 border-end">
+              {{ 'page.institution.questionnaire.supplementary.type' | transloco }}
+            </div>
+            <div class="col-md-2 p-2 border-end">
+              {{ 'page.institution.questionnaire.supplementary.yearFrom' | transloco }}
+            </div>
+            <div class="col-md-2 p-2">
+              {{ 'page.institution.questionnaire.supplementary.yearTo' | transloco }}
+            </div>
+          </div>
+
+          @for (item of issns; track $index; let index = $index) {
+            <div class="row g-0 bg-light-subtle border-top"  [class.bg-light-subtle]="index % 2 === 1">
+              <div class="col-12 col-md-3 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  ISSN:
+                </span>
+                {{ item.issn || '-' }}
+              </div>
+              <div class="col-12 col-md-2 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.active' | transloco }}:
+                </span>
+                {{ journalNameService.formatBoolean(item.active) }}
+              </div>
+              <div class="col-12 col-md-3 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.type' | transloco }}:
+                </span>
+                {{ journalNameService.getJournalDictionaryItem(item.type)}}
+              </div>
+              <div class="col-12 col-md-2 p-2 value-custom border-end">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.yearFrom' | transloco }}:
+                </span>
+                {{ journalNameService.formatText(item.yearFrom) }}
+              </div>
+              <div class="col-12 col-md-2 value-custom p-2">
+                <span class="d-md-none header-custom me-1">
+                  {{ 'page.institution.questionnaire.supplementary.yearTo' | transloco }}:
+                </span>
+                {{ journalNameService.formatText(item.yearTo) }}
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+</div>

@@ -1,0 +1,282 @@
+@if (loading()) {
+  <app-local-spinner
+    [height]="200"
+    [overlay]="false"
+    [text]="'page.institution.journalDetails.loading' | transloco"
+  ></app-local-spinner>
+}
+
+@if (hasError()) {
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <app-aler-data [message]="errorMessage()"></app-aler-data>
+      </div>
+    </div>
+  </div>
+}
+
+@if (!loading() && !hasError()) {
+  <section class="row">
+    <div class="col-12 col-xl-4 mb-3">
+      <div class="card h-100">
+
+        <div class="card-header border-bottom-0 mb-0 pb-0">
+          <h4 class="card-title mb-0 header-item-custom fs-4">{{ 'page.institution.questionnaireCharts.publication.title' | transloco }}</h4>
+        </div>
+        <div class="card-body">
+          <ul
+            ngbNav
+            #Chart01="ngbNav"
+            [activeId]="1"
+            class="nav nav-pills arrow-navtabs nav-primary bg-light mb-3"
+          >
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>
+                <span class="d-sm-block">{{ 'page.institution.questionnaireCharts.tabs.chart' | transloco }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabChart01"></ng-template>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink>
+                <span class="d-sm-block">{{ 'page.institution.questionnaireCharts.tabs.table' | transloco }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabData01"></ng-template>
+              </ng-template>
+            </li>
+          </ul>
+
+          <ng-template #TabChart01>
+            <apx-chart
+              [series]="publicationChart().series"
+              [chart]="publicationChart().chart"
+              [colors]="publicationChart().colors"
+              [dataLabels]="publicationChart().dataLabels"
+              [grid]="publicationChart().grid"
+              [legend]="publicationChart().legend"
+              [markers]="publicationChart().markers"
+              [noData]="publicationChart().noData"
+              [stroke]="publicationChart().stroke"
+              [tooltip]="publicationChart().tooltip"
+              [xaxis]="publicationChart().xaxis"
+              [yaxis]="publicationChart().yaxis"
+              dir="ltr"
+            ></apx-chart>
+          </ng-template>
+
+          <ng-template #TabData01>
+            @if (publicationYears().length) {
+              <div class="table-responsive">
+                <table class="table table-striped align-middle table-nowrap mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">{{ 'page.institution.questionnaireCharts.table.year' | transloco }}</th>
+                      @for (year of publicationYears(); track year) {
+                        <th scope="col" class="text-end">{{ year }}</th>
+                      }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (row of publicationRows(); track row.label) {
+                      <tr>
+                        <td scope="row" class="text-wrap">{{ row.label }}</td>
+                        @for (value of row.values; track $index) {
+                          <td class="text-end">{{ formatValue(value) }}</td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            } @else {
+              <div class="text-muted">{{ 'page.institution.questionnaireCharts.common.noData' | transloco }}</div>
+            }
+          </ng-template>
+
+          <div class="tab-content text-muted">
+            <div [ngbNavOutlet]="Chart01"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-4 mb-3">
+      <div class="card h-100">
+        <div class="card-header border-bottom-0 mb-0 pb-0">
+          <h4 class="card-title mb-0 header-item-custom fs-4"> {{ 'page.institution.questionnaireCharts.author.title' | transloco }}</h4>
+        </div>
+        <div class="card-body">
+          <ul
+            ngbNav
+            #Chart02="ngbNav"
+            [activeId]="1"
+            class="nav nav-pills arrow-navtabs nav-primary bg-light mb-3"
+          >
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>
+                <span class="d-sm-block">{{ 'page.institution.questionnaireCharts.tabs.chart' | transloco }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabChart02"></ng-template>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink>
+                <span class="d-sm-block">{{ 'page.institution.questionnaireCharts.tabs.table' | transloco }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabData02"></ng-template>
+              </ng-template>
+            </li>
+          </ul>
+
+          <ng-template #TabChart02>
+            <apx-chart
+              [series]="authorChart().series"
+              [chart]="authorChart().chart"
+              [colors]="authorChart().colors"
+              [dataLabels]="authorChart().dataLabels"
+              [grid]="authorChart().grid"
+              [legend]="authorChart().legend"
+              [markers]="authorChart().markers"
+              [noData]="authorChart().noData"
+              [stroke]="authorChart().stroke"
+              [tooltip]="authorChart().tooltip"
+              [xaxis]="authorChart().xaxis"
+              [yaxis]="authorChart().yaxis"
+              dir="ltr"
+            ></apx-chart>
+          </ng-template>
+
+          <ng-template #TabData02>
+            @if (authorRows().length) {
+              <div class="table-responsive">
+                <table class="table table-striped align-middle table-nowrap mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">{{ 'page.institution.questionnaireCharts.table.year' | transloco }}</th>
+                      <th scope="col" class="text-end">{{ 'page.institution.questionnaireCharts.table.value' | transloco }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (row of authorRows(); track row.year) {
+                      <tr>
+                        <td scope="row" class="text-wrap">{{ row.year }}</td>
+                        <td class="text-end">{{ formatValue(row.value) }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            } @else {
+              <div class="text-muted">{{ 'page.institution.questionnaireCharts.common.noData' | transloco }}</div>
+            }
+          </ng-template>
+
+          <div class="tab-content text-muted">
+            <div [ngbNavOutlet]="Chart02"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-4 mb-3">
+      <div class="card h-100">
+        <div class="card-header border-bottom-0 mb-0 pb-0">
+          <h4 class="card-title mb-0 header-item-custom fs-4"> {{ 'page.institution.questionnaireCharts.reviewer.title' | transloco }}</h4>
+        </div>
+        <div class="card-body">
+          <ul
+            ngbNav
+            #Chart03="ngbNav"
+            [activeId]="1"
+            class="nav nav-pills arrow-navtabs nav-primary bg-light mb-3"
+          >
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>
+                <span class="d-sm-block">{{ 'page.institution.questionnaireCharts.tabs.chart' | transloco }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabChart03"></ng-template>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink>
+                <span class="d-sm-block">{{ 'page.institution.questionnaireCharts.tabs.table' | transloco }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabData03"></ng-template>
+              </ng-template>
+            </li>
+          </ul>
+
+          <ng-template #TabChart03>
+            <apx-chart
+              [series]="reviewerChart().series"
+              [chart]="reviewerChart().chart"
+              [colors]="reviewerChart().colors"
+              [dataLabels]="reviewerChart().dataLabels"
+              [grid]="reviewerChart().grid"
+              [legend]="reviewerChart().legend"
+              [markers]="reviewerChart().markers"
+              [noData]="reviewerChart().noData"
+              [stroke]="reviewerChart().stroke"
+              [tooltip]="reviewerChart().tooltip"
+              [xaxis]="reviewerChart().xaxis"
+              [yaxis]="reviewerChart().yaxis"
+              dir="ltr"
+            ></apx-chart>
+          </ng-template>
+
+          <ng-template #TabData03>
+            @if (reviewerRows().length) {
+              <div class="table-responsive">
+                <table class="table table-striped align-middle table-nowrap mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">{{ 'page.institution.questionnaireCharts.table.year' | transloco }}</th>
+                      <th scope="col" class="text-end">{{ 'page.institution.questionnaireCharts.table.value' | transloco }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (row of reviewerRows(); track row.year) {
+                      <tr>
+                        <td scope="row" class="text-wrap">{{ row.year }}</td>
+                        <td class="text-end">{{ formatValue(row.value) }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            } @else {
+              <div class="text-muted">{{ 'page.institution.questionnaireCharts.common.noData' | transloco }}</div>
+            }
+          </ng-template>
+
+          <div class="tab-content text-muted">
+            <div [ngbNavOutlet]="Chart03"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    @if (hasReviewerCountryData()) {
+      <div class="col-12 mb-3">
+        <div class="card h-100">
+          <div class="card-header border-bottom-0 mb-0 pb-0">
+            {{ 'page.institution.questionnaireCharts.reviewersMap.title' | transloco }}
+          </div>
+          <div class="card-body">
+            <div
+              #reviewersMap
+              class="reviewers-country-map"
+              [attr.aria-label]="'page.institution.questionnaireCharts.reviewersMap.title' | transloco"
+            ></div>
+          </div>
+        </div>
+      </div>
+    }
+  </section>
+}

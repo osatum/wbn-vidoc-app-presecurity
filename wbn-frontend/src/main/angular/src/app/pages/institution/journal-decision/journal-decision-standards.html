@@ -1,0 +1,62 @@
+<dl class="mb-0">
+  @for (item of declarations(); track item.key) {
+    <div class="decision-field" [attr.data-standard-field]="item.key">
+      <dt>{{ 'decisionCard.standards.labels.' + item.key | transloco }}</dt>
+      <dd>{{ item.text }}</dd>
+    </div>
+  }
+  <div class="decision-field" data-standard-field="reviewing">
+    <dt>{{ 'decisionCard.standards.labels.reviewing' | transloco }}</dt>
+    <dd>
+      <ul class="list-unstyled mb-0">
+        @for (model of reviewing().models; track model.code) {
+          <li>{{ model.name }} ({{ model.share }})</li>
+        }
+      </ul>
+      @if (reviewing().none) {
+        <p class="mb-0">{{ 'decisionCard.standards.noneSelected' | transloco }}</p>
+      }
+      @if (reviewing().invalid) {
+        <p class="mb-0">{{ 'decisionCard.standards.invalidReview' | transloco }}</p>
+      } @else if (!reviewing().models.length && !reviewing().none) {
+        {{ 'decisionCard.standards.noSelection' | transloco }}
+      }
+    </dd>
+  </div>
+  <div class="decision-field" data-standard-field="access">
+    <dt>{{ 'decisionCard.standards.labels.access' | transloco }}</dt>
+    <dd>
+      {{ access().label }}
+      <ul class="list-unstyled mb-0">
+        @for (condition of access().conditions; track condition) {
+          <li>{{ condition }}</li>
+        }
+      </ul>
+      @if (access().conditionNote; as note) {
+        <p class="small mb-0">{{ 'decisionCard.standards.' + note | transloco }}</p>
+      }
+    </dd>
+  </div>
+  <div class="decision-field" data-standard-field="licence">
+    <dt>{{ 'decisionCard.standards.labels.licence' | transloco }}</dt>
+    <dd>{{ licence() }}</dd>
+  </div>
+  <div class="decision-field" data-standard-field="socialMedia">
+    <dt>{{ 'decisionCard.standards.labels.socialMedia' | transloco }}</dt>
+    <dd>
+      @if (social().text; as text) {
+        {{ text }}
+      }
+      <div class="social-channels">
+        @for (channel of social().channels; track channel.key) {
+          <span role="img" [attr.aria-label]="channel.name"
+            ><i [class]="channel.icon" aria-hidden="true"></i
+          ></span>
+        }
+      </div>
+      @if (social().other; as other) {
+        <span>{{ 'decisionCard.standards.otherSocial' | transloco: { value: other } }}</span>
+      }
+    </dd>
+  </div>
+</dl>

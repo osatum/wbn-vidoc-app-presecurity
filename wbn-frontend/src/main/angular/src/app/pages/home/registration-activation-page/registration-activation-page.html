@@ -1,0 +1,33 @@
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card">
+          <div class="card-body p-4 p-md-5 text-center">
+            <h4 class="text-primary mb-4">{{ 'page.home.registration-activation.title' | transloco }}</h4>
+
+            @if (loading()) {
+              <app-local-spinner [overlay]="false" [text]="'page.home.registration-activation.loading' | transloco"></app-local-spinner>
+            } @else if (errorMessage()) {
+              <div class="alert alert-danger text-start" role="alert">
+                {{ errorMessage() }}
+              </div>
+              <a routerLink="/" class="btn btn-primary">{{ 'page.home.registration-activation.back-home' | transloco }}</a>
+            } @else if (result()) {
+              <div class="alert text-start" [ngClass]="alertClass()" role="alert">
+                <h5 class="alert-heading">{{ titleKey() | transloco }}</h5>
+                <p class="mb-0">{{ messageKey() | transloco }}</p>
+              </div>
+
+              @if (showLoginLink()) {
+                <a routerLink="/auth/login" class="btn btn-primary">{{ 'page.home.registration-activation.go-to-login' | transloco }}</a>
+              } @else {
+                <a routerLink="/" class="btn btn-primary">{{ 'page.home.registration-activation.back-home' | transloco }}</a>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

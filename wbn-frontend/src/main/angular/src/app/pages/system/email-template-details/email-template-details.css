@@ -1,0 +1,22 @@
+.template-preview {
+  min-height: 8rem;
+  padding: 1rem;
+  background: var(--vz-light);
+  border: 1px dashed var(--vz-border-color);
+  border-radius: 0.25rem;
+}
+
+.template-preview-body,
+.text-break {
+  overflow-wrap: anywhere;
+}
+
+.template-text-body {
+  min-height: 6rem;
+  margin: 0;
+  padding: 1rem;
+  white-space: pre-wrap;
+  background: var(--vz-light);
+  border: 1px dashed var(--vz-border-color);
+  border-radius: 0.25rem;
+}

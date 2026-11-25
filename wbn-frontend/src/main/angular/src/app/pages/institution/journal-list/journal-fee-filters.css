@@ -1,0 +1,35 @@
+.journal-fee-filter {
+  min-width: 0;
+  margin-bottom: 1.75rem;
+}
+
+.journal-fee-title {
+  margin-bottom: 0.75rem;
+  font-size: var(--vz-body-font-size);
+}
+
+.journal-fee-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  grid-template-rows: auto auto;
+  gap: 0.375rem 0.75rem;
+}
+
+.journal-fee-free,
+.journal-fee-limit {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  min-width: 0;
+  margin: 0;
+}
+
+.journal-fee-controls .form-label {
+  margin: 0;
+}
+
+.journal-fee-free .form-check-input {
+  align-self: center;
+  justify-self: center;
+  margin: 0;
+}
